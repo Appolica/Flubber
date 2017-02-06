@@ -99,20 +99,6 @@ public class Flubber {
 
     @NonNull
     private static ObjectAnimator getShake(@NonNull AnimationBody animationBody) {
-
-        /*
-        let animation = CAKeyframeAnimation()
-                animation.keyPath = "position.x"
-                animation.values = [0, 30*force, -30*force, 30*force, 0]
-                animation.keyTimes = [0, 0.2, 0.4, 0.6, 0.8, 1]
-                animation.timingFunction = getTimingFunction(curve: curve)
-                animation.duration = CFTimeInterval(duration)
-                animation.isAdditive = true
-                animation.repeatCount = repeatCount
-                animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
-                layer.add(animation, forKey: "shake")
-         */
-
         final float dX = DimensionUtils.dp2px(30);
         final float force = animationBody.getForce();
 
@@ -166,48 +152,38 @@ public class Flubber {
 
     @NonNull
     public static Animator getFlipX(@NonNull AnimationBody animationBody) {
-        // TODO: 04.02.17 implement
-        /*
-        rotate = 0
-                scaleX = 1
-                scaleY = 1
-                var perspective = CATransform3DIdentity
-                perspective.m34 = -1.0 / layer.frame.size.width/2
+        final View view = animationBody.getView();
 
-                let animation = CABasicAnimation()
-                animation.keyPath = "transform"
-                animation.fromValue = NSValue(caTransform3D: CATransform3DMakeRotation(0, 0, 0, 0))
-                animation.toValue = NSValue(caTransform3D:
-                    CATransform3DConcat(perspective, CATransform3DMakeRotation(CGFloat(M_PI), 0, 1, 0)))
-                animation.duration = CFTimeInterval(duration)
-                animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
-                animation.timingFunction = getTimingFunction(curve: curve)
-                layer.add(animation, forKey: "3d")
-         */
+        final float startRotation = view.getRotationX();
+        final float endRotation = startRotation + 180f;
 
-        return null;
+        final PropertyValuesHolder rotationPVH =
+                PropertyValuesHolder.ofFloat(View.ROTATION_X, startRotation, endRotation);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, rotationPVH);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
     }
 
     @NonNull
     public static Animator getFlipY(@NonNull AnimationBody animationBody) {
-        // TODO: 04.02.17 implement
-        /*
-        var perspective = CATransform3DIdentity
-                perspective.m34 = -1.0 / layer.frame.size.width/2
+        final View view = animationBody.getView();
 
-                let animation = CABasicAnimation()
-                animation.keyPath = "transform"
-                animation.fromValue = NSValue(caTransform3D:
-                    CATransform3DMakeRotation(0, 0, 0, 0))
-                animation.toValue = NSValue(caTransform3D:
-                    CATransform3DConcat(perspective,CATransform3DMakeRotation(CGFloat(M_PI), 1, 0, 0)))
-                animation.duration = CFTimeInterval(duration)
-                animation.beginTime = CACurrentMediaTime() + CFTimeInterval(delay)
-                animation.timingFunction = getTimingFunction(curve: curve)
-                layer.add(animation, forKey: "3d")
-         */
+        final float startRotation = view.getRotationY();
+        final float endRotation = startRotation + 180f;
 
-        return null;
+        final PropertyValuesHolder rotationPVH =
+                PropertyValuesHolder.ofFloat(View.ROTATION_Y, startRotation, endRotation);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, rotationPVH);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
     }
 
     public static ObjectAnimator getMorph(@NonNull final AnimationBody animationBody) {
@@ -225,7 +201,7 @@ public class Flubber {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), scaleXPVH, scaleYPVH);
 
-        animation.setInterpolator(animation.getInterpolator());
+        animation.setInterpolator(animationBody.getInterpolator());
 
         return animation;
     }
@@ -246,7 +222,7 @@ public class Flubber {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), scaleXPVH, scaleYPVH);
 
-        animation.setInterpolator(animation.getInterpolator());
+        animation.setInterpolator(animationBody.getInterpolator());
 
         return animation;
     }
@@ -260,7 +236,7 @@ public class Flubber {
         animation.setRepeatCount(3);
         animation.setRepeatMode(ValueAnimator.REVERSE);
 
-        animation.setInterpolator(animation.getInterpolator());
+        animation.setInterpolator(animationBody.getInterpolator());
 
         return animation;
     }
@@ -284,7 +260,7 @@ public class Flubber {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), pvhRotation);
 
-        animation.setInterpolator(animation.getInterpolator());
+        animation.setInterpolator(animationBody.getInterpolator());
 
         return animation;
     }

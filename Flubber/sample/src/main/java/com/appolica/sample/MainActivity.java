@@ -8,6 +8,8 @@ import com.appolica.flubber.Flubber;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int SECOND = 1000;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,9 +21,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Flubber.with(view)
-                        .animation(Flubber.AnimationPreset.WOBBLE)
-                        .interpolator(Flubber.Curve.EASE_IN)
-                        .duration(1000)
+                        .animation(Flubber.AnimationPreset.FLIP_X)
+                        .interpolator(Flubber.Curve.SPRING)
+                        .duration(SECOND)
                         .create()
                         .start();
             }
