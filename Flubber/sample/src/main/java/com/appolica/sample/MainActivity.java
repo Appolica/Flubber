@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Flubber.with(view)
-                        .animation(Flubber.AnimationPreset.FLIP_X)
+                        .animation(Flubber.AnimationPreset.ZOOM_IN)
                         .interpolator(Flubber.Curve.SPRING)
                         .duration(SECOND)
                         .create()

@@ -8,6 +8,7 @@ import android.animation.PropertyValuesHolder;
 import android.animation.ValueAnimator;
 import android.support.annotation.NonNull;
 import android.support.v4.view.animation.PathInterpolatorCompat;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
@@ -69,11 +70,11 @@ public class Flubber {
             case FADE_IN_UP:
                 break;
             case ZOOM_IN:
-                break;
+                return getZoomIn(animationBody);
             case ZOOM_OUT:
-                break;
+                return getZoomOut(animationBody);
             case FALL:
-                break;
+                return getFall(animationBody);
             case SHAKE:
                 return getShake(animationBody);
             case POP:
@@ -95,6 +96,72 @@ public class Flubber {
         }
 
         return null;
+    }
+
+    @NonNull
+    public static ObjectAnimator getZoomIn(AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float scale = 2 * animationBody.getForce();
+
+        final PropertyValuesHolder alphaPVH = PropertyValuesHolder.ofFloat(View.ALPHA, 0f, 1f);
+        final PropertyValuesHolder scaleXPVH = PropertyValuesHolder.ofFloat(View.SCALE_X, scale, 1f);
+        final PropertyValuesHolder scaleYPVH = PropertyValuesHolder.ofFloat(View.SCALE_Y, scale, 1f);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, alphaPVH, scaleXPVH, scaleYPVH);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
+    }
+
+    @NonNull
+    public static ObjectAnimator getZoomOut(AnimationBody animationBody) {
+
+        final View view = animationBody.getView();
+
+        final float scale = 2 * animationBody.getForce();
+
+        final PropertyValuesHolder alphaPVH = PropertyValuesHolder.ofFloat(View.ALPHA, 1f, 0f);
+        final PropertyValuesHolder scaleXPVH = PropertyValuesHolder.ofFloat(View.SCALE_X, 1f, scale);
+        final PropertyValuesHolder scaleYPVH = PropertyValuesHolder.ofFloat(View.SCALE_Y, 1f, scale);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, alphaPVH, scaleXPVH, scaleYPVH);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
+    }
+
+    @NonNull
+    public static AnimatorSet getFall(AnimationBody animationBody) {
+        final AnimatorSet animatorSet = new AnimatorSet();
+
+        final View view = animationBody.getView();
+        final DisplayMetrics displayMetrics = DimensionUtils.getDisplayMetrics(view.getContext());
+
+        final int startY = 0;
+        final float endY = (displayMetrics.heightPixels - view.getY()) * animationBody.getForce();
+
+        final ObjectAnimator translateAnimation =
+                ObjectAnimator.ofFloat(view, View.TRANSLATION_Y.getName(), startY, endY);
+
+        translateAnimation.setInterpolator(animationBody.getInterpolator());
+
+
+        final float startRotation = view.getRotation();
+        final float endRotation = (float) Math.toDegrees(15 * (Math.PI / 180));
+
+        final ObjectAnimator rotateAnimation =
+                ObjectAnimator.ofFloat(view, View.ROTATION, startRotation, endRotation);
+
+        animatorSet
+                .play(translateAnimation)
+                .with(rotateAnimation);
+
+        return animatorSet;
     }
 
     @NonNull

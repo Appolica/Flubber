@@ -1,6 +1,10 @@
 package com.appolica.flubber.utils;
 
+import android.content.Context;
 import android.content.res.Resources;
+import android.util.DisplayMetrics;
+import android.view.Display;
+import android.view.WindowManager;
 
 public class DimensionUtils {
 
@@ -14,5 +18,15 @@ public class DimensionUtils {
 
     private static float getDensity() {
         return Resources.getSystem().getDisplayMetrics().density;
+    }
+
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        final DisplayMetrics displayMetrics = new DisplayMetrics();
+        final WindowManager wm =
+                (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        final Display display = wm.getDefaultDisplay();
+        display.getMetrics(displayMetrics);
+
+        return displayMetrics;
     }
 }
