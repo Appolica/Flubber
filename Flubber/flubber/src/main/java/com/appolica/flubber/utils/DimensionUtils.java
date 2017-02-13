@@ -16,7 +16,7 @@ public class DimensionUtils {
         return px / getDensity();
     }
 
-    private static float getDensity() {
+    public static float getDensity() {
         return Resources.getSystem().getDisplayMetrics().density;
     }
 

@@ -18,7 +18,7 @@ public class AnimationBody {
     private float rotate;
     private float opacity = 1f;
 
-    private int repeatCount = 1;
+    private int repeatCount = 0;
     private long delay = 0L;
     private long duration = 700L;
     private boolean animateFrom;
@@ -195,7 +195,7 @@ public class AnimationBody {
         private float rotate;
         private float opacity = 1f;
 
-        private int repeatCount = 1;
+        private int repeatCount = 0;
         private long delay = 0L;
         private long duration = 700L;
         private boolean animateFrom;

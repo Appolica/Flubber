@@ -28,7 +28,7 @@ public class Flubber {
         return AnimationBody.Builder.getBuilder(view);
     }
 
-    public static Animator create(AnimationBody animationBody) {
+    public static Animator create(@NonNull final AnimationBody animationBody) {
         final Animator animation = Flubber.getAnimation(animationBody);
 
         animation.setDuration(animationBody.getDuration());
@@ -54,21 +54,21 @@ public class Flubber {
             case SQUEEZE_DOWN:
                 break;
             case SQUEEZE_UP:
-                break;
+                return getSqueezeUp(animationBody);
             case FADE_IN:
-                break;
+                return getFadeIn(animationBody);
             case FADE_OUT:
-                break;
+                return getFadeOut(animationBody);
             case FADE_OUT_IN:
-                break;
+                return getFadeOutIn(animationBody);
             case FADE_IN_LEFT:
-                break;
+                return getFadeInLeft(animationBody);
             case FADE_IN_RIGHT:
-                break;
+                return getFadeInRight(animationBody);
             case FADE_IN_DOWN:
-                break;
+                return getFadeInDown(animationBody);
             case FADE_IN_UP:
-                break;
+                return getFadeInUp(animationBody);
             case ZOOM_IN:
                 return getZoomIn(animationBody);
             case ZOOM_OUT:
@@ -99,7 +99,155 @@ public class Flubber {
     }
 
     @NonNull
-    public static ObjectAnimator getZoomIn(AnimationBody animationBody) {
+    public static ObjectAnimator getSqueezeUp(@NonNull final AnimationBody animationBody) {
+
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(300);
+        final float endY = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, startY, endY);
+
+        final float startScaleY = 3 * animationBody.getForce();
+        final float endScaleY = 1f;
+        final PropertyValuesHolder scalePVH =
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, startScaleY, endScaleY);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH, scalePVH);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
+    }
+
+    @NonNull
+    public static ObjectAnimator getFadeIn(@NonNull final AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final ObjectAnimator animation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
+    }
+
+    @NonNull
+    public static ObjectAnimator getFadeOut(@NonNull final AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final ObjectAnimator animation = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0f);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
+    }
+
+    @NonNull
+    public static ObjectAnimator getFadeOutIn(@NonNull final AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final ObjectAnimator animation = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0f);
+
+        animation.setRepeatCount(animationBody.getRepeatCount() * 2 + 1);
+        animation.setRepeatMode(ValueAnimator.REVERSE);
+
+        animation.setInterpolator(animationBody.getInterpolator());
+
+        return animation;
+    }
+
+    @NonNull
+    public static AnimatorSet getFadeInLeft(@NonNull final AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(300) * animationBody.getForce();
+        final float endY = 0;
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
+        alphaAnimation.setInterpolator(new LinearInterpolator());
+
+
+        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, startY, endY);
+
+        translateAnimation.setInterpolator(animationBody.getInterpolator());
+
+        animatorSet.play(translateAnimation)
+                .with(alphaAnimation);
+
+        return animatorSet;
+    }
+
+    @NonNull
+    public static AnimatorSet getFadeInRight(@NonNull final AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float startY = -DimensionUtils.dp2px(300) * animationBody.getForce();
+        final float endY = 0;
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
+        alphaAnimation.setInterpolator(new LinearInterpolator());
+
+        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, startY, endY);
+        translateAnimation.setInterpolator(animationBody.getInterpolator());
+
+        animatorSet.play(translateAnimation)
+                .with(alphaAnimation);
+
+        return animatorSet;
+    }
+
+    @NonNull
+    public static AnimatorSet getFadeInDown(@NonNull final AnimationBody animationBody) {
+        // TODO: 06.02.17 fix interpolation
+        final View view = animationBody.getView();
+
+        final float startY = -DimensionUtils.dp2px(300) * animationBody.getForce();
+        final float endY = 0;
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
+        alphaAnimation.setInterpolator(new LinearInterpolator());
+
+
+        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, startY, endY);
+
+        translateAnimation.setInterpolator(animationBody.getInterpolator());
+
+        animatorSet.play(translateAnimation)
+                .with(alphaAnimation);
+
+        return animatorSet;
+    }
+
+    @NonNull
+    public static AnimatorSet getFadeInUp(@NonNull final AnimationBody animationBody) {
+        // TODO: 06.02.17 fix interpolation
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(300) * animationBody.getForce();
+        final float endY = 0f;
+
+        final AnimatorSet animatorSet = new AnimatorSet();
+        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
+        alphaAnimation.setInterpolator(new LinearInterpolator());
+
+
+        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, startY, endY);
+
+        translateAnimation.setInterpolator(animationBody.getInterpolator());
+
+        animatorSet.play(translateAnimation)
+                .with(alphaAnimation);
+
+        return animatorSet;
+    }
+
+    @NonNull
+    public static ObjectAnimator getZoomIn(@NonNull final AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float scale = 2 * animationBody.getForce();
@@ -117,7 +265,7 @@ public class Flubber {
     }
 
     @NonNull
-    public static ObjectAnimator getZoomOut(AnimationBody animationBody) {
+    public static ObjectAnimator getZoomOut(@NonNull final AnimationBody animationBody) {
 
         final View view = animationBody.getView();
 
@@ -136,7 +284,7 @@ public class Flubber {
     }
 
     @NonNull
-    public static AnimatorSet getFall(AnimationBody animationBody) {
+    public static AnimatorSet getFall(@NonNull final AnimationBody animationBody) {
         final AnimatorSet animatorSet = new AnimatorSet();
 
         final View view = animationBody.getView();
