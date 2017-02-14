@@ -1,4 +1,4 @@
-package com.appolica.flubber.interpolator;
+package com.appolica.flubber.interpolator.providers;
 
 import android.view.animation.Interpolator;
 

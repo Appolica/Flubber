@@ -1,4 +1,4 @@
-package com.appolica.flubber.interpolator.bezier;
+package com.appolica.flubber.interpolator.providers.bezier;
 
 import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.view.animation.Interpolator;

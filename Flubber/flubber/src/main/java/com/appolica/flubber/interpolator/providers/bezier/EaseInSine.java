@@ -1,4 +1,4 @@
-package com.appolica.flubber.interpolator.bezier;
+package com.appolica.flubber.interpolator.providers.bezier;
 
 import android.support.v4.view.animation.PathInterpolatorCompat;
 import android.view.animation.Interpolator;
@@ -6,9 +6,9 @@ import android.view.animation.Interpolator;
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 
-public class EaseInBack implements Flubber.InterpolatorProvider {
+public class EaseInSine implements Flubber.InterpolatorProvider {
     @Override
     public Interpolator createInterpolatorFor(AnimationBody animationBody) {
-        return PathInterpolatorCompat.create(0.6f, -0.28f, 0.735f, 0.045f);
+        return PathInterpolatorCompat.create(0.47f, 0f, 0.745f, 0.715f);
     }
 }
