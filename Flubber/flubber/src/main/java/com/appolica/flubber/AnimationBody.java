@@ -2,7 +2,6 @@ package com.appolica.flubber;
 
 import android.animation.Animator;
 import android.view.View;
-import android.view.animation.Interpolator;
 
 public class AnimationBody {
     private boolean autoStart;
@@ -23,8 +22,8 @@ public class AnimationBody {
     private long duration = 700L;
     private boolean animateFrom;
 
-    private Flubber.AnimationPreset animation;
-    private Interpolator interpolator;
+    private Flubber.AnimationProvider animation;
+    private Flubber.InterpolatorProvider interpolator;
     private View view;
 
     public AnimationBody() {
@@ -154,19 +153,19 @@ public class AnimationBody {
         this.animateFrom = animateFrom;
     }
 
-    public Flubber.AnimationPreset getAnimation() {
+    public Flubber.AnimationProvider getAnimation() {
         return animation;
     }
 
-    public void setAnimation(Flubber.AnimationPreset animation) {
+    public void setAnimation(Flubber.AnimationProvider animation) {
         this.animation = animation;
     }
 
-    public Interpolator getInterpolator() {
+    public Flubber.InterpolatorProvider getInterpolator() {
         return interpolator;
     }
 
-    public void setInterpolator(Interpolator interpolator) {
+    public void setInterpolator(Flubber.InterpolatorProvider interpolator) {
         this.interpolator = interpolator;
     }
 
@@ -200,8 +199,8 @@ public class AnimationBody {
         private long duration = 700L;
         private boolean animateFrom;
 
-        private Flubber.AnimationPreset animation;
-        private Interpolator interpolator;
+        private Flubber.AnimationProvider animation;
+        private Flubber.InterpolatorProvider interpolatorProvider;
 
         private Builder(View view) {
             this.view = view;
@@ -291,13 +290,8 @@ public class AnimationBody {
             return this;
         }
 
-        public Builder interpolator(Flubber.Curve curve) {
-            this.interpolator = Flubber.getInterpolator(curve);
-            return this;
-        }
-
-        public Builder interpolator(Interpolator interpolator) {
-            this.interpolator = interpolator;
+        public Builder interpolator(Flubber.InterpolatorProvider interpolator) {
+            this.interpolatorProvider = interpolator;
             return this;
         }
 
@@ -323,7 +317,7 @@ public class AnimationBody {
             animationBody.setDuration(duration);
             animationBody.setAnimateFrom(animateFrom);
             animationBody.setAnimation(animation);
-            animationBody.setInterpolator(interpolator);
+            animationBody.setInterpolator(interpolatorProvider);
             animationBody.setView(view);
 
             return animationBody;
