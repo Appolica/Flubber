@@ -101,7 +101,7 @@ public class Flubber {
     private static Animator getSlideUp(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
-        final float startY = DimensionUtils.dp2px(-800);
+        final float startY = DimensionUtils.dp2px(800);
         final float endY = 0f;
 
         final PropertyValuesHolder translationPVH =
