@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                 Flubber.with(view)
                         .animation(Flubber.AnimationPreset.SLIDE_LEFT)
                         .duration(500)
-                        .damping(0.55f)
+//                        .damping(0.55f)
 //                        .velocity(1)
                         .create()
                         .start();

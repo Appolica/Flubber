@@ -98,7 +98,8 @@ public class Flubber {
         return null;
     }
 
-    private static ObjectAnimator getSlideLeft(AnimationBody animationBody) {
+    @NonNull
+    public static ObjectAnimator getSlideLeft(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(800);
@@ -115,7 +116,8 @@ public class Flubber {
         return animation;
     }
 
-    private static ObjectAnimator getSlideRight(AnimationBody animationBody) {
+    @NonNull
+    public static ObjectAnimator getSlideRight(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(-800);
@@ -132,7 +134,8 @@ public class Flubber {
         return animation;
     }
 
-    private static ObjectAnimator getSlideDown(AnimationBody animationBody) {
+    @NonNull
+    public static ObjectAnimator getSlideDown(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(-800);
@@ -149,7 +152,8 @@ public class Flubber {
         return animation;
     }
 
-    private static ObjectAnimator getSlideUp(AnimationBody animationBody) {
+    @NonNull
+    public static ObjectAnimator getSlideUp(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(800);
@@ -166,7 +170,8 @@ public class Flubber {
         return animation;
     }
 
-    private static ObjectAnimator getSqueezeLeft(AnimationBody animationBody) {
+    @NonNull
+    public static ObjectAnimator getSqueezeLeft(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startX = DimensionUtils.dp2px(800);
@@ -191,7 +196,8 @@ public class Flubber {
         return animation;
     }
 
-    private static ObjectAnimator getSqueezeRight(AnimationBody animationBody) {
+    @NonNull
+    public static ObjectAnimator getSqueezeRight(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startX = DimensionUtils.dp2px(-800);
