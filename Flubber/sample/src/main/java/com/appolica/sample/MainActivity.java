@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Flubber.with(view)
-                        .animation(Flubber.AnimationPreset.SLIDE_UP)
+                        .animation(Flubber.AnimationPreset.SLIDE_LEFT)
                         .duration(500)
                         .damping(0.55f)
 //                        .velocity(1)

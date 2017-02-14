@@ -40,11 +40,11 @@ public class Flubber {
     public static Animator getAnimation(@NonNull final AnimationBody animationBody) {
         switch (animationBody.getAnimation()) {
             case SLIDE_LEFT:
-                break;
+                return getSlideLeft(animationBody);
             case SLIDE_RIGHT:
-                break;
+                return getSlideRight(animationBody);
             case SLIDE_DOWN:
-                break;
+                return getSlideDown(animationBody);
             case SLIDE_UP:
                 return getSlideUp(animationBody);
             case SQUEEZE_LEFT:
@@ -98,7 +98,58 @@ public class Flubber {
         return null;
     }
 
-    private static Animator getSlideUp(AnimationBody animationBody) {
+    private static ObjectAnimator getSlideLeft(AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(800);
+        final float endY = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_X, startY, endY);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
+
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
+
+        return animation;
+    }
+
+    private static ObjectAnimator getSlideRight(AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(-800);
+        final float endY = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_X, startY, endY);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
+
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
+
+        return animation;
+    }
+
+    private static ObjectAnimator getSlideDown(AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(-800);
+        final float endY = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, startY, endY);
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
+
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
+
+        return animation;
+    }
+
+    private static ObjectAnimator getSlideUp(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(800);
