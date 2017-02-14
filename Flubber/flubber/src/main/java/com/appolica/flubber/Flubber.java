@@ -46,13 +46,13 @@ public class Flubber {
             case SLIDE_DOWN:
                 break;
             case SLIDE_UP:
-                break;
+                return getSlideUp(animationBody);
             case SQUEEZE_LEFT:
-                break;
+                return getSqueezeLeft(animationBody);
             case SQUEEZE_RIGHT:
-                break;
+                return getSqueezeRight(animationBody);
             case SQUEEZE_DOWN:
-                break;
+                return getSqueezeDown(animationBody);
             case SQUEEZE_UP:
                 return getSqueezeUp(animationBody);
             case FADE_IN:
@@ -98,26 +98,123 @@ public class Flubber {
         return null;
     }
 
-    @NonNull
-    public static ObjectAnimator getSqueezeUp(@NonNull final AnimationBody animationBody) {
-
+    private static Animator getSlideUp(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
-        final float startY = DimensionUtils.dp2px(300);
+        final float startY = DimensionUtils.dp2px(-800);
         final float endY = 0f;
 
         final PropertyValuesHolder translationPVH =
                 PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, startY, endY);
 
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
+
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
+
+        return animation;
+    }
+
+    private static ObjectAnimator getSqueezeLeft(AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float startX = DimensionUtils.dp2px(800);
+        final float endX = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_X, startX, endX);
+
+
         final float startScaleY = 3 * animationBody.getForce();
         final float endScaleY = 1f;
+
         final PropertyValuesHolder scalePVH =
-                PropertyValuesHolder.ofFloat(View.SCALE_Y, startScaleY, endScaleY);
+                PropertyValuesHolder.ofFloat(View.SCALE_X, startScaleY, endScaleY);
+
 
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(view, translationPVH, scalePVH);
 
-        animation.setInterpolator(animationBody.getInterpolator());
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
+
+        return animation;
+    }
+
+    private static ObjectAnimator getSqueezeRight(AnimationBody animationBody) {
+        final View view = animationBody.getView();
+
+        final float startX = DimensionUtils.dp2px(-800);
+        final float endX = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_X, startX, endX);
+
+
+        final float startScaleY = 3 * animationBody.getForce();
+        final float endScaleY = 1f;
+
+        final PropertyValuesHolder scalePVH =
+                PropertyValuesHolder.ofFloat(View.SCALE_X, startScaleY, endScaleY);
+
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH, scalePVH);
+
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
+
+        return animation;
+    }
+
+    @NonNull
+    public static ObjectAnimator getSqueezeDown(@NonNull final AnimationBody animationBody) {
+
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(-800);
+        final float endY = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, startY, endY);
+
+
+        final float startScaleY = 3 * animationBody.getForce();
+        final float endScaleY = 1f;
+
+        final PropertyValuesHolder scalePVH =
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, startScaleY, endScaleY);
+
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH, scalePVH);
+
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
+
+        return animation;
+    }
+
+    @NonNull
+    public static ObjectAnimator getSqueezeUp(@NonNull final AnimationBody animationBody) {
+
+        final View view = animationBody.getView();
+
+        final float startY = DimensionUtils.dp2px(800);
+        final float endY = 0f;
+
+        final PropertyValuesHolder translationPVH =
+                PropertyValuesHolder.ofFloat(View.TRANSLATION_Y, startY, endY);
+
+
+        final float startScaleY = 3 * animationBody.getForce();
+        final float endScaleY = 1f;
+
+        final PropertyValuesHolder scalePVH =
+                PropertyValuesHolder.ofFloat(View.SCALE_Y, startScaleY, endScaleY);
+
+
+        final ObjectAnimator animation =
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH, scalePVH);
+
+        animation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
 
         return animation;
     }
@@ -162,17 +259,17 @@ public class Flubber {
     public static AnimatorSet getFadeInLeft(@NonNull final AnimationBody animationBody) {
         final View view = animationBody.getView();
 
+        final AnimatorSet animatorSet = new AnimatorSet();
+
         final float startY = DimensionUtils.dp2px(300) * animationBody.getForce();
         final float endY = 0;
 
-        final AnimatorSet animatorSet = new AnimatorSet();
-        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
-        alphaAnimation.setInterpolator(new LinearInterpolator());
+        final ObjectAnimator alphaAnimation = getAlpha(view);
 
+        final ObjectAnimator translateAnimation =
+                ObjectAnimator.ofFloat(view, View.TRANSLATION_X, startY, endY);
 
-        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, startY, endY);
-
-        translateAnimation.setInterpolator(animationBody.getInterpolator());
+        translateAnimation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
 
         animatorSet.play(translateAnimation)
                 .with(alphaAnimation);
@@ -184,15 +281,17 @@ public class Flubber {
     public static AnimatorSet getFadeInRight(@NonNull final AnimationBody animationBody) {
         final View view = animationBody.getView();
 
+        final AnimatorSet animatorSet = new AnimatorSet();
+
         final float startY = -DimensionUtils.dp2px(300) * animationBody.getForce();
         final float endY = 0;
 
-        final AnimatorSet animatorSet = new AnimatorSet();
-        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
-        alphaAnimation.setInterpolator(new LinearInterpolator());
+        final ObjectAnimator alphaAnimation = getAlpha(view);
 
-        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_X, startY, endY);
-        translateAnimation.setInterpolator(animationBody.getInterpolator());
+        final ObjectAnimator translateAnimation =
+                ObjectAnimator.ofFloat(view, View.TRANSLATION_X, startY, endY);
+
+        translateAnimation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
 
         animatorSet.play(translateAnimation)
                 .with(alphaAnimation);
@@ -202,20 +301,19 @@ public class Flubber {
 
     @NonNull
     public static AnimatorSet getFadeInDown(@NonNull final AnimationBody animationBody) {
-        // TODO: 06.02.17 fix interpolation
         final View view = animationBody.getView();
+
+        final AnimatorSet animatorSet = new AnimatorSet();
 
         final float startY = -DimensionUtils.dp2px(300) * animationBody.getForce();
         final float endY = 0;
 
-        final AnimatorSet animatorSet = new AnimatorSet();
-        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
-        alphaAnimation.setInterpolator(new LinearInterpolator());
+        final ObjectAnimator alphaAnimation = getAlpha(view);
 
+        final ObjectAnimator translateAnimation =
+                ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, startY, endY);
 
-        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, startY, endY);
-
-        translateAnimation.setInterpolator(animationBody.getInterpolator());
+        translateAnimation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
 
         animatorSet.play(translateAnimation)
                 .with(alphaAnimation);
@@ -225,20 +323,19 @@ public class Flubber {
 
     @NonNull
     public static AnimatorSet getFadeInUp(@NonNull final AnimationBody animationBody) {
-        // TODO: 06.02.17 fix interpolation
         final View view = animationBody.getView();
+
+        final AnimatorSet animatorSet = new AnimatorSet();
 
         final float startY = DimensionUtils.dp2px(300) * animationBody.getForce();
         final float endY = 0f;
 
-        final AnimatorSet animatorSet = new AnimatorSet();
-        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
-        alphaAnimation.setInterpolator(new LinearInterpolator());
+        final ObjectAnimator alphaAnimation = getAlpha(view);
 
+        final ObjectAnimator translateAnimation =
+                ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, startY, endY);
 
-        final ObjectAnimator translateAnimation = ObjectAnimator.ofFloat(view, View.TRANSLATION_Y, startY, endY);
-
-        translateAnimation.setInterpolator(animationBody.getInterpolator());
+        translateAnimation.setInterpolator(getInterpolator(Curve.SPRING, animationBody));
 
         animatorSet.play(translateAnimation)
                 .with(alphaAnimation);
@@ -317,7 +414,7 @@ public class Flubber {
         final float dX = DimensionUtils.dp2px(30);
         final float force = animationBody.getForce();
 
-        float[] translationValues = {0f, dX * force, -dX * force, dX * force, 0f, 0f};
+        float[] translationValues = {0f, (dX * force), (-dX * force), (dX * force), 0f, 0f};
         final PropertyValuesHolder translationPVH =
                 PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X, getKeyFrames(FRACTIONS, translationValues));
 
@@ -332,7 +429,7 @@ public class Flubber {
     @NonNull
     public static ValueAnimator getPop(@NonNull final AnimationBody animationBody) {
         final float force = animationBody.getForce();
-        final float[] values = {0f, 0.2f * force, -0.2f * force, 0.2f * force, 0f, 0f};
+        final float[] values = {0f, (0.2f * force), (-0.2f * force), (0.2f * force), 0f, 0f};
 
         final PropertyValuesHolder scaleXPVH =
                 PropertyValuesHolder.ofKeyframe(SCALE, getKeyFrames(FRACTIONS, values));
@@ -496,6 +593,14 @@ public class Flubber {
     }
 
     @NonNull
+    public static ObjectAnimator getAlpha(View view) {
+        final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
+        alphaAnimation.setInterpolator(new LinearInterpolator());
+
+        return alphaAnimation;
+    }
+
+    @NonNull
     public static ValueAnimator getRotation(@NonNull AnimationBody animationBody) {
         final float force = animationBody.getForce();
 
@@ -526,71 +631,88 @@ public class Flubber {
         return keyframes;
     }
 
-    public static Interpolator getInterpolator(Curve curve) {
-        return getInterpolator(curve, 1f);
+    public static Interpolator getInterpolator(
+            @NonNull final Curve curve,
+            @NonNull final AnimationBody animationBody) {
+
+        return getInterpolator(
+                curve,
+                animationBody.getForce(),
+                animationBody.getDamping(),
+                animationBody.getVelocity());
     }
 
-    public static Interpolator getInterpolator(Curve curve, float force) {
+    public static Interpolator getInterpolator(@NonNull final Curve curve) {
+        return getInterpolator(curve, 1f, 0.7f, 0.7f);
+    }
+
+    public static Interpolator getInterpolator(
+            @NonNull final Curve curve,
+            final float force,
+            final float damping,
+            final float velocity) {
 
         switch (curve) {
-            case EASE_IN:
+            case BZR_EASE_IN:
                 return PathInterpolatorCompat.create(0.42f, 0.0f, 1.0f, 1.0f);
-            case EASE_OUT:
+            case BZR_EASE_OUT:
                 return PathInterpolatorCompat.create(0.0f, 0.0f, 0.58f, 1.0f);
-            case EASE_IN_OUT:
+            case BZR_EASE_IN_OUT:
                 return PathInterpolatorCompat.create(0.42f, 0.0f, 0.58f, 1.0f);
-            case LINEAR:
+            case BZR_LINEAR:
                 return PathInterpolatorCompat.create(0.0f, 0.0f, 1.0f, 1.0f);
-            case SPRING:
+            case BZR_SPRING:
                 return PathInterpolatorCompat.create(0.5f, 1.1f + force / 3, 1f, 1f);
-            case EASE_IN_SINE:
+            case BZR_EASE_IN_SINE:
                 return PathInterpolatorCompat.create(0.47f, 0f, 0.745f, 0.715f);
-            case EASE_OUT_SINE:
+            case BZR_EASE_OUT_SINE:
                 return PathInterpolatorCompat.create(0.39f, 0.575f, 0.565f, 1f);
-            case EASE_IN_OUT_SINE:
+            case BZR_EASE_IN_OUT_SINE:
                 return PathInterpolatorCompat.create(0.445f, 0.05f, 0.55f, 0.95f);
-            case EASE_IN_QUAD:
+            case BZR_EASE_IN_QUAD:
                 return PathInterpolatorCompat.create(0.55f, 0.085f, 0.68f, 0.53f);
-            case EASE_OUT_QUAD:
+            case BZR_EASE_OUT_QUAD:
                 return PathInterpolatorCompat.create(0.25f, 0.46f, 0.45f, 0.94f);
-            case EASE_IN_OUT_QUAD:
+            case BZR_EASE_IN_OUT_QUAD:
                 return PathInterpolatorCompat.create(0.455f, 0.03f, 0.515f, 0.955f);
-            case EASE_IN_CUBIC:
+            case BZR_EASE_IN_CUBIC:
                 return PathInterpolatorCompat.create(0.55f, 0.055f, 0.675f, 0.19f);
-            case EASE_OUT_CUBIC:
+            case BZR_EASE_OUT_CUBIC:
                 return PathInterpolatorCompat.create(0.215f, 0.61f, 0.355f, 1f);
-            case EASE_IN_OUT_CUBIC:
+            case BZR_EASE_IN_OUT_CUBIC:
                 return PathInterpolatorCompat.create(0.645f, 0.045f, 0.355f, 1f);
-            case EASE_IN_QUART:
+            case BZR_EASE_IN_QUART:
                 return PathInterpolatorCompat.create(0.895f, 0.03f, 0.685f, 0.22f);
-            case EASE_OUT_QUART:
+            case BZR_EASE_OUT_QUART:
                 return PathInterpolatorCompat.create(0.165f, 0.84f, 0.44f, 1f);
-            case EASE_IN_OUT_QUART:
+            case BZR_EASE_IN_OUT_QUART:
                 return PathInterpolatorCompat.create(0.77f, 0f, 0.175f, 1f);
-            case EASE_IN_QUINT:
+            case BZR_EASE_IN_QUINT:
                 return PathInterpolatorCompat.create(0.755f, 0.05f, 0.855f, 0.06f);
-            case EASE_OUT_QUINT:
+            case BZR_EASE_OUT_QUINT:
                 return PathInterpolatorCompat.create(0.23f, 1f, 0.32f, 1f);
-            case EASE_IN_OUT_QUINT:
+            case BZR_EASE_IN_OUT_QUINT:
                 return PathInterpolatorCompat.create(0.86f, 0f, 0.07f, 1f);
-            case EASE_IN_EXPO:
+            case BZR_EASE_IN_EXPO:
                 return PathInterpolatorCompat.create(0.95f, 0.05f, 0.795f, 0.035f);
-            case EASE_OUT_EXPO:
+            case BZR_EASE_OUT_EXPO:
                 return PathInterpolatorCompat.create(0.19f, 1f, 0.22f, 1f);
-            case EASE_IN_OUT_EXPO:
+            case BZR_EASE_IN_OUT_EXPO:
                 return PathInterpolatorCompat.create(1f, 0f, 0f, 1f);
-            case EASE_IN_CIRC:
+            case BZR_EASE_IN_CIRC:
                 return PathInterpolatorCompat.create(0.6f, 0.04f, 0.98f, 0.335f);
-            case EASE_OUT_CIRC:
+            case BZR_EASE_OUT_CIRC:
                 return PathInterpolatorCompat.create(0.075f, 0.82f, 0.165f, 1f);
-            case EASE_IN_OUT_CIRC:
+            case BZR_EASE_IN_OUT_CIRC:
                 return PathInterpolatorCompat.create(0.785f, 0.135f, 0.15f, 0.86f);
-            case EASE_IN_BACK:
+            case BZR_EASE_IN_BACK:
                 return PathInterpolatorCompat.create(0.6f, -0.28f, 0.735f, 0.045f);
-            case EASE_OUT_BACK:
+            case BZR_EASE_OUT_BACK:
                 return PathInterpolatorCompat.create(0.175f, 0.885f, 0.32f, 1.275f);
-            case EASE_IN_OUT_BACK:
+            case BZR_EASE_IN_OUT_BACK:
                 return PathInterpolatorCompat.create(0.68f, -0.55f, 0.265f, 1.55f);
+            case SPRING:
+                return new SpringInterpolator(damping, velocity);
             default:
                 return PathInterpolatorCompat.create(0.25f, 0.1f, 0.25f, 1.0f);
         }
@@ -627,35 +749,36 @@ public class Flubber {
     }
 
     public static enum Curve {
-        EASE_IN,
-        EASE_OUT,
-        EASE_IN_OUT,
-        LINEAR,
-        SPRING,
-        EASE_IN_SINE,
-        EASE_OUT_SINE,
-        EASE_IN_OUT_SINE,
-        EASE_IN_QUAD,
-        EASE_OUT_QUAD,
-        EASE_IN_OUT_QUAD,
-        EASE_IN_CUBIC,
-        EASE_OUT_CUBIC,
-        EASE_IN_OUT_CUBIC,
-        EASE_IN_QUART,
-        EASE_OUT_QUART,
-        EASE_IN_OUT_QUART,
-        EASE_IN_QUINT,
-        EASE_OUT_QUINT,
-        EASE_IN_OUT_QUINT,
-        EASE_IN_EXPO,
-        EASE_OUT_EXPO,
-        EASE_IN_OUT_EXPO,
-        EASE_IN_CIRC,
-        EASE_OUT_CIRC,
-        EASE_IN_OUT_CIRC,
-        EASE_IN_BACK,
-        EASE_OUT_BACK,
-        EASE_IN_OUT_BACK
+        BZR_EASE_IN,
+        BZR_EASE_OUT,
+        BZR_EASE_IN_OUT,
+        BZR_LINEAR,
+        BZR_SPRING,
+        BZR_EASE_IN_SINE,
+        BZR_EASE_OUT_SINE,
+        BZR_EASE_IN_OUT_SINE,
+        BZR_EASE_IN_QUAD,
+        BZR_EASE_OUT_QUAD,
+        BZR_EASE_IN_OUT_QUAD,
+        BZR_EASE_IN_CUBIC,
+        BZR_EASE_OUT_CUBIC,
+        BZR_EASE_IN_OUT_CUBIC,
+        BZR_EASE_IN_QUART,
+        BZR_EASE_OUT_QUART,
+        BZR_EASE_IN_OUT_QUART,
+        BZR_EASE_IN_QUINT,
+        BZR_EASE_OUT_QUINT,
+        BZR_EASE_IN_OUT_QUINT,
+        BZR_EASE_IN_EXPO,
+        BZR_EASE_OUT_EXPO,
+        BZR_EASE_IN_OUT_EXPO,
+        BZR_EASE_IN_CIRC,
+        BZR_EASE_OUT_CIRC,
+        BZR_EASE_IN_OUT_CIRC,
+        BZR_EASE_IN_BACK,
+        BZR_EASE_OUT_BACK,
+        BZR_EASE_IN_OUT_BACK,
+        SPRING
     }
 
 }

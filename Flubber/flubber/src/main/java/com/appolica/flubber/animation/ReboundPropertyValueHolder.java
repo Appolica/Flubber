@@ -3,12 +3,13 @@ package com.appolica.flubber.animation;
 import android.util.Property;
 import android.view.View;
 
+import com.facebook.rebound.SpringUtil;
+
 public class ReboundPropertyValueHolder {
 
     private Property<View, Float> property;
     private float startValue;
     private float endValue;
-    private float dValue;
 
     private float animatedValue;
 
@@ -17,7 +18,6 @@ public class ReboundPropertyValueHolder {
         this.startValue = startValue;
         this.endValue = endValue;
 
-        dValue = endValue - startValue;
         animatedValue = startValue;
     }
 
@@ -26,7 +26,7 @@ public class ReboundPropertyValueHolder {
     }
 
     void calculateValue(float reboundValue) {
-        animatedValue = startValue + dValue * (reboundValue);
+        animatedValue = (float) SpringUtil.mapValueFromRangeToRange(reboundValue, 0, 1, startValue, endValue);
     }
 
     public Property<View, Float> getProperty() {

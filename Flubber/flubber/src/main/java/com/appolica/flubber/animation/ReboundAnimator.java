@@ -37,6 +37,7 @@ public class ReboundAnimator
 
     private boolean loggingTime = false;
     private long startTime;
+    private long startDelay;
 
     public static ReboundAnimator ofPropertyValueHolder(
             @NonNull final Spring spring,
@@ -67,6 +68,7 @@ public class ReboundAnimator
     public void start() {
         if (loggingTime) {
             startTime = new Date().getTime();
+            Log.d(TAG, String.format("Starting animation at: %d ms", startTime));
         }
 
         spring.setCurrentValue(0);
@@ -80,6 +82,7 @@ public class ReboundAnimator
 
     @Override
     public void setStartDelay(final long startDelay) {
+        this.startDelay = startDelay;
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -90,7 +93,7 @@ public class ReboundAnimator
 
     @Override
     public long getStartDelay() {
-        return 0;
+        return startDelay;
     }
 
     public float getAnimatedValue(String propertyName) {
@@ -112,9 +115,15 @@ public class ReboundAnimator
 
     @Override
     public void onPropertyValueUpdate(ReboundPropertyValueHolder pvHolder) {
+        // Our target has gone away. Cancel the animation in that case.
+        final View target = this.target.get();
+        if (target == null) {
+            cancel();
+            return;
+        }
 
         final float animatedValue = pvHolder.getAnimatedValue();
-        pvHolder.getProperty().set(target.get(), animatedValue);
+        pvHolder.getProperty().set(target, animatedValue);
 
         if (updateListeners != null) {
             for (AnimatorUpdateListener listener : updateListeners) {
@@ -128,7 +137,7 @@ public class ReboundAnimator
         if (loggingTime) {
             final long endTime = new Date().getTime();
 
-            Log.d(TAG, String.format("Total duration: %dms", endTime - startTime));
+            Log.d(TAG, String.format("Total duration: %d ms", endTime - startTime));
         }
 
         final ArrayList<AnimatorListener> listeners = getListeners();
@@ -174,6 +183,7 @@ public class ReboundAnimator
         @Override
         public void onSpringUpdate(Spring spring) {
             final float reboundValue = (float) spring.getCurrentValue();
+            Log.d(TAG, "onSpringUpdate: " + reboundValue);
 
             for (ReboundPropertyValueHolder pvHolder : pvHolders) {
 
