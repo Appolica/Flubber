@@ -6,11 +6,11 @@ import android.animation.PropertyValuesHolder;
 import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
-import com.appolica.flubber.Flubber;
 
-public class ZoomOut implements Flubber.AnimationProvider {
+public class ZoomOut extends BaseProvider {
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float scale = 2 * animationBody.getForce();
@@ -22,9 +22,6 @@ public class ZoomOut implements Flubber.AnimationProvider {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(view, alphaPVH, scaleXPVH, scaleYPVH);
 
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
-
         return animation;
-
     }
 }

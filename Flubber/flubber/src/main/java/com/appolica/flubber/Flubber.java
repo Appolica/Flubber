@@ -64,6 +64,8 @@ import com.appolica.flubber.interpolator.providers.bezier.EaseOutQuint;
 import com.appolica.flubber.interpolator.providers.bezier.EaseOutSine;
 import com.appolica.flubber.interpolator.providers.bezier.Linear;
 
+import org.jetbrains.annotations.Contract;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +76,7 @@ public class Flubber {
     public static final float[] FRACTIONS = new float[]{0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f};
     public static final String SCALE = "scale";
 
+    @Contract("_ -> !null")
     public static AnimationBody.Builder with(View view) {
         return AnimationBody.Builder.getBuilder(view);
     }
@@ -154,8 +157,11 @@ public class Flubber {
             providers.put(SWING, new Swing());
             providers.put(ALPHA, new Alpha());
             providers.put(ROTATION, new Rotation());
-        }
 
+            if (providers.keySet().size() != AnimationPreset.values().length) {
+                throw new IllegalStateException("You haven't registered all providers for the animation preset.");
+            }
+        }
 
         public Animator createAnimationFor(AnimationBody animationBody) {
             return providers.get(this).createAnimationFor(animationBody);
@@ -192,7 +198,8 @@ public class Flubber {
         BZR_EASE_IN_BACK,
         BZR_EASE_OUT_BACK,
         BZR_EASE_IN_OUT_BACK,
-        SPRING;
+        SPRING,
+        LINEAR;
 
         private static Map<Curve, InterpolatorProvider> providers = new HashMap<>();
 
@@ -227,6 +234,11 @@ public class Flubber {
             providers.put(BZR_EASE_OUT_BACK, new EaseOutBack());
             providers.put(BZR_EASE_IN_OUT_BACK, new EaseInOutBack());
             providers.put(SPRING, new Spring());
+            providers.put(LINEAR, new com.appolica.flubber.interpolator.providers.Linear());
+
+            if (providers.keySet().size() != Curve.values().length) {
+                throw new IllegalStateException("You haven't registered all providers for all curves.");
+            }
         }
 
         @Override

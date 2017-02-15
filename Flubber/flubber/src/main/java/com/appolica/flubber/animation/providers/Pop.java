@@ -10,9 +10,10 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.KeyFrameUtil;
 
-public class Pop implements Flubber.AnimationProvider {
+public class Pop extends BaseProvider {
+
     @Override
-    public Animator createAnimationFor(final AnimationBody animationBody) {
+    public Animator getAnimationFor(final AnimationBody animationBody) {
         final float force = animationBody.getForce();
         final float[] values = {0f, (0.2f * force), (-0.2f * force), (0.2f * force), 0f, 0f};
 
@@ -41,8 +42,6 @@ public class Pop implements Flubber.AnimationProvider {
                 view.setScaleY(scale);
             }
         });
-
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
 
         return animation;
     }

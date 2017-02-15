@@ -10,9 +10,14 @@ import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.DimensionUtils;
 
 
-public class SlideLeft implements Flubber.AnimationProvider {
+public class SlideLeft extends BaseProvider {
+
+    public SlideLeft() {
+        super(Flubber.Curve.SPRING);
+    }
+
     @Override
-    public Animator createAnimationFor(final AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(800);
@@ -24,11 +29,6 @@ public class SlideLeft implements Flubber.AnimationProvider {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
 
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
-
         return animation;
-
     }
-
-
 }

@@ -6,11 +6,11 @@ import android.animation.PropertyValuesHolder;
 import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
-import com.appolica.flubber.Flubber;
 
-public class FlipY implements Flubber.AnimationProvider {
+public class FlipY extends BaseProvider {
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startRotation = view.getRotationY();
@@ -22,9 +22,6 @@ public class FlipY implements Flubber.AnimationProvider {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(view, rotationPVH);
 
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
-
         return animation;
-
     }
 }

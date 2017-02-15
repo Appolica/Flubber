@@ -11,9 +11,10 @@ import com.appolica.flubber.utils.KeyFrameUtil;
 
 import static android.animation.PropertyValuesHolder.ofKeyframe;
 
-public class Morph implements Flubber.AnimationProvider {
+public class Morph extends BaseProvider {
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final float force = animationBody.getForce();
 
         float[] valuesX = {1f, 1.3f * force, 0.7f, 1.3f * force, 1f, 1f};
@@ -27,8 +28,6 @@ public class Morph implements Flubber.AnimationProvider {
 
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), scaleXPVH, scaleYPVH);
-
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
 
         return animation;
     }

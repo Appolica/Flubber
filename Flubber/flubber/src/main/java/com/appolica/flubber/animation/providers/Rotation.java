@@ -9,9 +9,14 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.KeyFrameUtil;
 
-public class Rotation implements Flubber.AnimationProvider {
+public class Rotation extends BaseProvider {
+
+    public Rotation() {
+        super(Flubber.Curve.LINEAR);
+    }
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final float force = animationBody.getForce();
 
         float[] rotationValues = {
@@ -30,6 +35,5 @@ public class Rotation implements Flubber.AnimationProvider {
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), pvhRotation);
 
         return animation;
-
     }
 }

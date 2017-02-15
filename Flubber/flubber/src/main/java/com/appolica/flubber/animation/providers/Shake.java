@@ -6,15 +6,15 @@ import android.animation.PropertyValuesHolder;
 import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
-import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.DimensionUtils;
 import com.appolica.flubber.utils.KeyFrameUtil;
 
 import static com.appolica.flubber.Flubber.FRACTIONS;
 
-public class Shake implements Flubber.AnimationProvider {
+public class Shake extends BaseProvider {
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final float dX = DimensionUtils.dp2px(30);
         final float force = animationBody.getForce();
 
@@ -25,9 +25,6 @@ public class Shake implements Flubber.AnimationProvider {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), translationPVH);
 
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
-
         return animation;
-
     }
 }

@@ -9,9 +9,10 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.KeyFrameUtil;
 
-public class Swing implements Flubber.AnimationProvider {
+public class Swing extends BaseProvider {
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final float force = animationBody.getForce();
 
         float[] values = {
@@ -29,9 +30,6 @@ public class Swing implements Flubber.AnimationProvider {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), pvhRotation);
 
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
-
         return animation;
-
     }
 }

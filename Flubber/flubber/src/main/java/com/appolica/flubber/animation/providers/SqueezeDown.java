@@ -9,9 +9,14 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.DimensionUtils;
 
-public class SqueezeDown implements Flubber.AnimationProvider {
+public class SqueezeDown extends BaseProvider {
+
+    public SqueezeDown() {
+        super(Flubber.Curve.SPRING);
+    }
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(-800);
@@ -27,11 +32,8 @@ public class SqueezeDown implements Flubber.AnimationProvider {
         final PropertyValuesHolder scalePVH =
                 PropertyValuesHolder.ofFloat(View.SCALE_Y, startScaleY, endScaleY);
 
-
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(view, translationPVH, scalePVH);
-
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
 
         return animation;
 

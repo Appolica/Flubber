@@ -9,10 +9,14 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.DimensionUtils;
 
-public class SlideUp implements Flubber.AnimationProvider{
-    @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+public class SlideUp extends BaseProvider {
 
+    public SlideUp() {
+        super(Flubber.Curve.SPRING);
+    }
+
+    @Override
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startY = DimensionUtils.dp2px(800);
@@ -24,8 +28,7 @@ public class SlideUp implements Flubber.AnimationProvider{
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
 
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
-
         return animation;
+
     }
 }

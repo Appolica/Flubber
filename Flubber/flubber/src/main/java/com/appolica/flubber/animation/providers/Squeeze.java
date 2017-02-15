@@ -9,9 +9,10 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.KeyFrameUtil;
 
-public class Squeeze implements Flubber.AnimationProvider {
+public class Squeeze extends BaseProvider {
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final float force = animationBody.getForce();
 
         float[] valuesX = {1f, 1.5f * force, 0.5f, 1.5f * force, 1f, 1f};
@@ -26,9 +27,6 @@ public class Squeeze implements Flubber.AnimationProvider {
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), scaleXPVH, scaleYPVH);
 
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
-
         return animation;
-
     }
 }

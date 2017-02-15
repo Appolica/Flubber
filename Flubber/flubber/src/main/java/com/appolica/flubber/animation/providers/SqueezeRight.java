@@ -9,9 +9,14 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.utils.DimensionUtils;
 
-public class SqueezeRight implements Flubber.AnimationProvider {
+public class SqueezeRight extends BaseProvider {
+
+    public SqueezeRight() {
+        super(Flubber.Curve.SPRING);
+    }
+
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody) {
         final View view = animationBody.getView();
 
         final float startX = DimensionUtils.dp2px(-800);
@@ -30,8 +35,6 @@ public class SqueezeRight implements Flubber.AnimationProvider {
 
         final ObjectAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(view, translationPVH, scalePVH);
-
-        animation.setInterpolator(animationBody.getInterpolator().createInterpolatorFor(animationBody));
 
         return animation;
 

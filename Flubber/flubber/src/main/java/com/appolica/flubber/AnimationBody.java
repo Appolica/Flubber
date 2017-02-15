@@ -3,23 +3,25 @@ package com.appolica.flubber;
 import android.animation.Animator;
 import android.view.View;
 
+import org.jetbrains.annotations.Contract;
+
 public class AnimationBody {
     private boolean autoStart;
     private boolean autoHide;
 
-    private float force = 1;
-    private float damping = 0.7f;
-    private float velocity = 0.7f;
+    private float force;
+    private float damping;
+    private float velocity;
     private float x;
     private float y;
     private float scaleX;
     private float scaleY;
     private float rotate;
-    private float opacity = 1f;
+    private float opacity;
 
-    private int repeatCount = 0;
-    private long delay = 0L;
-    private long duration = 700L;
+    private int repeatCount;
+    private long delay;
+    private long duration;
     private boolean animateFrom;
 
     private Flubber.AnimationProvider animation;
@@ -206,6 +208,7 @@ public class AnimationBody {
             this.view = view;
         }
 
+        @Contract("_ -> !null")
         public static Builder getBuilder(View view) {
             return new Builder(view);
         }
@@ -319,6 +322,8 @@ public class AnimationBody {
             animationBody.setAnimation(animation);
             animationBody.setInterpolator(interpolatorProvider);
             animationBody.setView(view);
+
+
 
             return animationBody;
         }
