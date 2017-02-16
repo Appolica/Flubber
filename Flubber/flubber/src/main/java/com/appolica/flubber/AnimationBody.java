@@ -1,37 +1,51 @@
 package com.appolica.flubber;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.view.View;
-import android.view.animation.Interpolator;
+
+import com.appolica.flubber.annotations.RepeatMode;
+
+import org.jetbrains.annotations.Contract;
 
 public class AnimationBody {
     private boolean autoStart;
     private boolean autoHide;
 
-    private float force = 1;
-    private float damping = 0.7f;
-    private float velocity = 0.7f;
+    private float force;
+    private float damping;
+    private float velocity;
     private float x;
     private float y;
     private float scaleX;
     private float scaleY;
     private float rotate;
-    private float opacity = 1f;
+    private float opacity;
 
-    private int repeatCount = 0;
-    private long delay = 0L;
-    private long duration = 700L;
+    private int repeatCount;
+    private int repeatMode;
+    private long delay;
+    private long duration;
     private boolean animateFrom;
 
-    private Flubber.AnimationPreset animation;
-    private Interpolator interpolator;
+    private Flubber.AnimationProvider animation;
+    private Flubber.InterpolatorProvider interpolator;
     private View view;
 
     public AnimationBody() {
     }
 
     public Animator create() {
-        return Flubber.create(this);
+        final Animator animation = Flubber.getAnimation(this);
+
+        animation.setDuration(duration);
+        animation.setStartDelay(delay);
+
+        if (autoStart) {
+            animation.start();
+        }
+
+        return animation;
     }
 
     public boolean autoStart() {
@@ -154,19 +168,19 @@ public class AnimationBody {
         this.animateFrom = animateFrom;
     }
 
-    public Flubber.AnimationPreset getAnimation() {
+    public Flubber.AnimationProvider getAnimation() {
         return animation;
     }
 
-    public void setAnimation(Flubber.AnimationPreset animation) {
+    public void setAnimation(Flubber.AnimationProvider animation) {
         this.animation = animation;
     }
 
-    public Interpolator getInterpolator() {
+    public Flubber.InterpolatorProvider getInterpolator() {
         return interpolator;
     }
 
-    public void setInterpolator(Interpolator interpolator) {
+    public void setInterpolator(Flubber.InterpolatorProvider interpolator) {
         this.interpolator = interpolator;
     }
 
@@ -176,6 +190,15 @@ public class AnimationBody {
 
     public View getView() {
         return view;
+    }
+
+    @RepeatMode
+    public int getRepeatMode() {
+        return repeatMode;
+    }
+
+    public void setRepeatMode(@RepeatMode int repeatMode) {
+        this.repeatMode = repeatMode;
     }
 
     public static final class Builder {
@@ -196,17 +219,19 @@ public class AnimationBody {
         private float opacity = 1f;
 
         private int repeatCount = 0;
+        private int repeatMode = ValueAnimator.RESTART;
         private long delay = 0L;
         private long duration = 700L;
         private boolean animateFrom;
 
-        private Flubber.AnimationPreset animation;
-        private Interpolator interpolator;
+        private Flubber.AnimationProvider animation;
+        private Flubber.InterpolatorProvider interpolatorProvider;
 
         private Builder(View view) {
             this.view = view;
         }
 
+        @Contract("_ -> !null")
         public static Builder getBuilder(View view) {
             return new Builder(view);
         }
@@ -238,6 +263,11 @@ public class AnimationBody {
 
         public Builder repeatCount(int repeatCount) {
             this.repeatCount = repeatCount;
+            return this;
+        }
+
+        public Builder repeatMode(@RepeatMode int repeatMode) {
+            this.repeatMode = repeatMode;
             return this;
         }
 
@@ -291,13 +321,8 @@ public class AnimationBody {
             return this;
         }
 
-        public Builder interpolator(Flubber.Curve curve) {
-            this.interpolator = Flubber.getInterpolator(curve);
-            return this;
-        }
-
-        public Builder interpolator(Interpolator interpolator) {
-            this.interpolator = interpolator;
+        public Builder interpolator(Flubber.InterpolatorProvider interpolator) {
+            this.interpolatorProvider = interpolator;
             return this;
         }
 
@@ -309,21 +334,28 @@ public class AnimationBody {
             final AnimationBody animationBody = new AnimationBody();
             animationBody.setAutoStart(autoStart);
             animationBody.setAutoHide(autoHide);
+
             animationBody.setForce(force);
             animationBody.setDamping(damping);
             animationBody.setVelocity(velocity);
+
             animationBody.setRepeatCount(repeatCount);
+            animationBody.setRepeatMode(repeatMode);
+
             animationBody.setX(x);
             animationBody.setY(y);
             animationBody.setScaleX(scaleX);
             animationBody.setScaleY(scaleY);
             animationBody.setRotate(rotate);
             animationBody.setOpacity(opacity);
+
             animationBody.setDelay(delay);
             animationBody.setDuration(duration);
+
             animationBody.setAnimateFrom(animateFrom);
+
             animationBody.setAnimation(animation);
-            animationBody.setInterpolator(interpolator);
+            animationBody.setInterpolator(interpolatorProvider);
             animationBody.setView(view);
 
             return animationBody;
