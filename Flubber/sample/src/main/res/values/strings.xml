@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">Spring</string>
+    <string name="app_name">Flubber</string>
+    <string name="flubber">Flubber</string>
 </resources>

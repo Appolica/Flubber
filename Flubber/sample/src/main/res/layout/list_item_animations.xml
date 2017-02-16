@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <import type="com.appolica.sample.ui.main.AnimationsListItemModel"/>
+
+        <variable
+            name="model"
+            type="AnimationsListItemModel"/>
+
+    </data>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:minHeight="80dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="5dp"
+        android:padding="3dp">
+
+        <TextView
+            android:id="@+id/animationName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{model.name}"/>
+
+        <TextView
+            android:id="@+id/animationProperties"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/animationName"
+            android:text="TextView"/>
+    </RelativeLayout>
+
+</layout>
