@@ -16,10 +16,19 @@ public class Flash extends BaseProvider {
         final ValueAnimator animation =
                 ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), alphaPVH);
 
-        animation.setRepeatCount(3);
-        animation.setRepeatMode(ValueAnimator.REVERSE);
-
         return animation;
+    }
 
+    @Override
+    protected void setupRepeating(Animator animation, AnimationBody animationBody) {
+        int repeatCount = animationBody.getRepeatCount();
+        if (repeatCount == 0) {
+            repeatCount = 3;
+        } else {
+            repeatCount *= 3;
+        }
+
+        ((ObjectAnimator) animation).setRepeatCount(repeatCount);
+        ((ObjectAnimator) animation).setRepeatMode(ValueAnimator.REVERSE);
     }
 }

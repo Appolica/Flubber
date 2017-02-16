@@ -15,9 +15,13 @@ public class FadeOutIn extends BaseProvider {
 
         final ObjectAnimator animation = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0f);
 
-        animation.setRepeatCount(animationBody.getRepeatCount() * 2 + 1);
-        animation.setRepeatMode(ValueAnimator.REVERSE);
-
         return animation;
+    }
+
+    @Override
+    protected void setupRepeating(Animator animation, AnimationBody animationBody) {
+        ((ObjectAnimator) animation).setRepeatCount(animationBody.getRepeatCount() * 2 + 1);
+        ((ObjectAnimator) animation).setRepeatMode(ValueAnimator.REVERSE);
+
     }
 }

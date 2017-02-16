@@ -1,6 +1,7 @@
 package com.appolica.flubber.animation.providers;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
 
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
@@ -25,10 +26,24 @@ public abstract class BaseProvider implements Flubber.AnimationProvider {
 
         final Animator animation = getAnimationFor(animationBody);
 
-        animation.setInterpolator(interpolatorProvider.createInterpolatorFor(animationBody));
+        setupAnimation(animationBody, animation);
 
         return animation;
     }
+
+    protected void setupAnimation(AnimationBody animationBody, Animator animation) {
+        animation.setInterpolator(interpolatorProvider.createInterpolatorFor(animationBody));
+        setupRepeating(animation, animationBody);
+    }
+
+    protected void setupRepeating(Animator animation, AnimationBody animationBody) {
+        if (animation instanceof ValueAnimator) {
+            ((ValueAnimator) animation).setRepeatCount(animationBody.getRepeatCount());
+            ((ValueAnimator) animation).setRepeatMode(animationBody.getRepeatMode());
+        }
+    }
+
+    public abstract Animator getAnimationFor(AnimationBody animationBody);
 
     protected void initInterpolatorFor(AnimationBody animationBody) {
         final Flubber.InterpolatorProvider provider = animationBody.getInterpolator();
@@ -37,8 +52,6 @@ public abstract class BaseProvider implements Flubber.AnimationProvider {
             setInterpolatorProvider(provider);
         }
     }
-
-    public abstract Animator getAnimationFor(AnimationBody animationBody);
 
     public Flubber.InterpolatorProvider getInterpolatorProvider() {
         return interpolatorProvider;

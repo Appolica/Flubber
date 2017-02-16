@@ -1,7 +1,10 @@
 package com.appolica.flubber;
 
 import android.animation.Animator;
+import android.animation.ValueAnimator;
 import android.view.View;
+
+import com.appolica.flubber.annotations.RepeatMode;
 
 import org.jetbrains.annotations.Contract;
 
@@ -20,6 +23,7 @@ public class AnimationBody {
     private float opacity;
 
     private int repeatCount;
+    private int repeatMode;
     private long delay;
     private long duration;
     private boolean animateFrom;
@@ -179,6 +183,15 @@ public class AnimationBody {
         return view;
     }
 
+    @RepeatMode
+    public int getRepeatMode() {
+        return repeatMode;
+    }
+
+    public void setRepeatMode(@RepeatMode int repeatMode) {
+        this.repeatMode = repeatMode;
+    }
+
     public static final class Builder {
 
         private View view;
@@ -197,6 +210,7 @@ public class AnimationBody {
         private float opacity = 1f;
 
         private int repeatCount = 0;
+        private int repeatMode = ValueAnimator.RESTART;
         private long delay = 0L;
         private long duration = 700L;
         private boolean animateFrom;
@@ -240,6 +254,11 @@ public class AnimationBody {
 
         public Builder repeatCount(int repeatCount) {
             this.repeatCount = repeatCount;
+            return this;
+        }
+
+        public Builder repeatMode(@RepeatMode int repeatMode) {
+            this.repeatMode = repeatMode;
             return this;
         }
 
@@ -310,6 +329,7 @@ public class AnimationBody {
             animationBody.setDamping(damping);
             animationBody.setVelocity(velocity);
             animationBody.setRepeatCount(repeatCount);
+            animationBody.setRepeatMode(repeatMode);
             animationBody.setX(x);
             animationBody.setY(y);
             animationBody.setScaleX(scaleX);
