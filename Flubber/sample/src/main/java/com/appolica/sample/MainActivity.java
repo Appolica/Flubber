@@ -22,12 +22,8 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Flubber.with(view)
                         .animation(Flubber.AnimationPreset.SLIDE_UP)
-//                        .interpolator(Flubber.Curve.)
                         .repeatCount(1)
                         .duration(SECOND)
-//                        .interpolator(Flubber.Curve.BZR_EASE_IN)
-//                        .damping(0.55f)
-//                        .velocity(1)
                         .create()
                         .start();
 

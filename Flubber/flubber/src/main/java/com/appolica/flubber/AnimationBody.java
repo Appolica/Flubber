@@ -36,7 +36,16 @@ public class AnimationBody {
     }
 
     public Animator create() {
-        return Flubber.create(this);
+        final Animator animation = Flubber.getAnimation(this);
+
+        animation.setDuration(duration);
+        animation.setStartDelay(delay);
+
+        if (autoStart) {
+            animation.start();
+        }
+
+        return animation;
     }
 
     public boolean autoStart() {
@@ -325,25 +334,29 @@ public class AnimationBody {
             final AnimationBody animationBody = new AnimationBody();
             animationBody.setAutoStart(autoStart);
             animationBody.setAutoHide(autoHide);
+
             animationBody.setForce(force);
             animationBody.setDamping(damping);
             animationBody.setVelocity(velocity);
+
             animationBody.setRepeatCount(repeatCount);
             animationBody.setRepeatMode(repeatMode);
+
             animationBody.setX(x);
             animationBody.setY(y);
             animationBody.setScaleX(scaleX);
             animationBody.setScaleY(scaleY);
             animationBody.setRotate(rotate);
             animationBody.setOpacity(opacity);
+
             animationBody.setDelay(delay);
             animationBody.setDuration(duration);
+
             animationBody.setAnimateFrom(animateFrom);
+
             animationBody.setAnimation(animation);
             animationBody.setInterpolator(interpolatorProvider);
             animationBody.setView(view);
-
-
 
             return animationBody;
         }

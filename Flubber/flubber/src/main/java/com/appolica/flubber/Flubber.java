@@ -69,7 +69,6 @@ import org.jetbrains.annotations.Contract;
 import java.util.HashMap;
 import java.util.Map;
 
-// TODO: 04.02.17 Set repeat count
 public class Flubber {
     private static final String TAG = "Flubber";
 
@@ -79,15 +78,6 @@ public class Flubber {
     @Contract("_ -> !null")
     public static AnimationBody.Builder with(View view) {
         return AnimationBody.Builder.getBuilder(view);
-    }
-
-    public static Animator create(@NonNull final AnimationBody animationBody) {
-        final Animator animation = Flubber.getAnimation(animationBody);
-
-        animation.setDuration(animationBody.getDuration());
-        animation.setStartDelay(animation.getStartDelay());
-
-        return animation;
     }
 
     public static Animator getAnimation(@NonNull final AnimationBody animationBody) {

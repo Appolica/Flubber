@@ -22,6 +22,5 @@ public class FadeOutIn extends BaseProvider {
     protected void setupRepeating(Animator animation, AnimationBody animationBody) {
         ((ObjectAnimator) animation).setRepeatCount(animationBody.getRepeatCount() * 2 + 1);
         ((ObjectAnimator) animation).setRepeatMode(ValueAnimator.REVERSE);
-
     }
 }
