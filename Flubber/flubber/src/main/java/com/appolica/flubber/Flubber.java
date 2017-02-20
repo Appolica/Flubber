@@ -20,6 +20,8 @@ import com.appolica.flubber.animation.providers.FlipY;
 import com.appolica.flubber.animation.providers.Morph;
 import com.appolica.flubber.animation.providers.Pop;
 import com.appolica.flubber.animation.providers.Rotation;
+import com.appolica.flubber.animation.providers.ScaleX;
+import com.appolica.flubber.animation.providers.ScaleY;
 import com.appolica.flubber.animation.providers.Shake;
 import com.appolica.flubber.animation.providers.SlideDown;
 import com.appolica.flubber.animation.providers.SlideLeft;
@@ -31,6 +33,8 @@ import com.appolica.flubber.animation.providers.SqueezeLeft;
 import com.appolica.flubber.animation.providers.SqueezeRight;
 import com.appolica.flubber.animation.providers.SqueezeUp;
 import com.appolica.flubber.animation.providers.Swing;
+import com.appolica.flubber.animation.providers.TranslationX;
+import com.appolica.flubber.animation.providers.TranslationY;
 import com.appolica.flubber.animation.providers.Wobble;
 import com.appolica.flubber.animation.providers.ZoomIn;
 import com.appolica.flubber.animation.providers.ZoomOut;
@@ -113,7 +117,11 @@ public class Flubber {
         WOBBLE,
         SWING,
         ALPHA,
-        ROTATION;
+        ROTATION,
+        TRANSLATION_X,
+        TRANSLATION_Y,
+        SCALE_X,
+        SCALE_Y;
 
         private static Map<AnimationPreset, AnimationProvider> providers = new HashMap<>();
 
@@ -147,6 +155,10 @@ public class Flubber {
             providers.put(SWING, new Swing());
             providers.put(ALPHA, new Alpha());
             providers.put(ROTATION, new Rotation());
+            providers.put(TRANSLATION_X, new TranslationX());
+            providers.put(TRANSLATION_Y, new TranslationY());
+            providers.put(SCALE_X, new ScaleX());
+            providers.put(SCALE_Y, new ScaleY());
 
             if (providers.keySet().size() != AnimationPreset.values().length) {
                 throw new IllegalStateException("You haven't registered all providers for the animation preset.");

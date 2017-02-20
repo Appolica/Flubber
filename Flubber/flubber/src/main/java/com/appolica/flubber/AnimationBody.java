@@ -10,22 +10,27 @@ import org.jetbrains.annotations.Contract;
 
 public class AnimationBody {
     private boolean autoStart;
-    private boolean autoHide;
 
-    private float force;
-    private float damping;
-    private float velocity;
-    private float x;
-    private float y;
-    private float scaleX;
-    private float scaleY;
-    private float rotate;
-    private float opacity;
+    private float force = 1;
+    private float damping = 0.7f;
+    private float velocity = 0.7f;
 
-    private int repeatCount;
-    private int repeatMode;
-    private long delay;
-    private long duration;
+    private float startX = 0f;
+    private float endX = 0f;
+    private float startY = 0f;
+    private float endY = 0f;
+
+    private float startScaleX = 1L;
+    private float endScaleX = 1L;
+    private float startScaleY = 1L;
+    private float endScaleY = 1L;
+
+    private int repeatCount = 0;
+    private int repeatMode = ValueAnimator.RESTART;
+
+    private long delay = 0L;
+    private long duration = 700L;
+
     private boolean animateFrom;
 
     private Flubber.AnimationProvider animation;
@@ -54,14 +59,6 @@ public class AnimationBody {
 
     public void setAutoStart(boolean autoStart) {
         this.autoStart = autoStart;
-    }
-
-    public boolean autoHide() {
-        return autoHide;
-    }
-
-    public void setAutoHide(boolean autoHide) {
-        this.autoHide = autoHide;
     }
 
     public float getForce() {
@@ -96,52 +93,36 @@ public class AnimationBody {
         this.repeatCount = repeatCount;
     }
 
-    public float getX() {
-        return x;
+    public float getStartX() {
+        return startX;
     }
 
-    public void setX(float x) {
-        this.x = x;
+    public void setStartX(float startX) {
+        this.startX = startX;
     }
 
-    public float getY() {
-        return y;
+    public float getStartY() {
+        return startY;
     }
 
-    public void setY(float y) {
-        this.y = y;
+    public void setStartY(float startY) {
+        this.startY = startY;
     }
 
-    public float getScaleX() {
-        return scaleX;
+    public float getStartScaleX() {
+        return startScaleX;
     }
 
-    public void setScaleX(float scaleX) {
-        this.scaleX = scaleX;
+    public void setStartScaleX(float startScaleX) {
+        this.startScaleX = startScaleX;
     }
 
-    public float getScaleY() {
-        return scaleY;
+    public float getStartScaleY() {
+        return startScaleY;
     }
 
-    public void setScaleY(float scaleY) {
-        this.scaleY = scaleY;
-    }
-
-    public float getRotate() {
-        return rotate;
-    }
-
-    public void setRotate(float rotate) {
-        this.rotate = rotate;
-    }
-
-    public float getOpacity() {
-        return opacity;
-    }
-
-    public void setOpacity(float opacity) {
-        this.opacity = opacity;
+    public void setStartScaleY(float startScaleY) {
+        this.startScaleY = startScaleY;
     }
 
     public long getDelay() {
@@ -201,27 +182,64 @@ public class AnimationBody {
         this.repeatMode = repeatMode;
     }
 
+    public float getEndScaleX() {
+        return endScaleX;
+    }
+
+    public void setEndScaleX(float endScaleX) {
+        this.endScaleX = endScaleX;
+    }
+
+    public float getEndScaleY() {
+        return endScaleY;
+    }
+
+    public void setEndScaleY(float endScaleY) {
+        this.endScaleY = endScaleY;
+    }
+
+    public float getEndX() {
+        return endX;
+    }
+
+    public void setEndX(float endX) {
+        this.endX = endX;
+    }
+
+    public float getEndY() {
+        return endY;
+    }
+
+    public void setEndY(float endY) {
+        this.endY = endY;
+    }
+
     public static final class Builder {
 
         private View view;
 
         private boolean autoStart;
-        private boolean autoHide;
 
         private float force = 1;
         private float damping = 0.7f;
         private float velocity = 0.7f;
-        private float x;
-        private float y;
-        private float scaleX;
-        private float scaleY;
-        private float rotate;
-        private float opacity = 1f;
+
+        private float startX = 0f;
+        private float endX = 0f;
+        private float startY = 0f;
+        private float endY = 0f;
+
+        private float startScaleX = 1L;
+        private float endScaleX = 1L;
+        private float startScaleY = 1L;
+        private float endScaleY = 1L;
 
         private int repeatCount = 0;
         private int repeatMode = ValueAnimator.RESTART;
+
         private long delay = 0L;
         private long duration = 700L;
+
         private boolean animateFrom;
 
         private Flubber.AnimationProvider animation;
@@ -238,11 +256,6 @@ public class AnimationBody {
 
         public Builder autoStart(boolean autoStart) {
             this.autoStart = autoStart;
-            return this;
-        }
-
-        public Builder autoHide(boolean autoHide) {
-            this.autoHide = autoHide;
             return this;
         }
 
@@ -271,33 +284,47 @@ public class AnimationBody {
             return this;
         }
 
-        public Builder x(float x) {
-            this.x = x;
+        public Builder translateX(float endX) {
+            this.endX = endX;
             return this;
         }
 
-        public Builder y(float y) {
-            this.y = y;
+        public Builder translateX(float startX, float endX) {
+            this.startX = startX;
+            this.endX = endX;
             return this;
         }
 
-        public Builder scaleX(float scaleX) {
-            this.scaleX = scaleX;
+        public Builder translateY(float endY) {
+            this.endY = endY;
             return this;
         }
 
-        public Builder scaleY(float scaleY) {
-            this.scaleY = scaleY;
+        public Builder translateY(float startY, float endY) {
+            this.startY = startY;
+            this.endY = endY;
             return this;
         }
 
-        public Builder rotate(float rotate) {
-            this.rotate = rotate;
+        public Builder scaleX(float endScaleX) {
+            this.endScaleX = endScaleX;
             return this;
         }
 
-        public Builder opacity(float opacity) {
-            this.opacity = opacity;
+        public Builder scaleX(float startScaleX, float endScaleX) {
+            this.startScaleX = startScaleX;
+            this.endScaleX = endScaleX;
+            return this;
+        }
+
+        public Builder scaleY(float endScaleY) {
+            this.endScaleY = endScaleY;
+            return this;
+        }
+
+        public Builder scaleY(float startScaleY, float endScaleY) {
+            this.startScaleY = startScaleY;
+            this.endScaleY = endScaleY;
             return this;
         }
 
@@ -333,7 +360,6 @@ public class AnimationBody {
         public AnimationBody build() {
             final AnimationBody animationBody = new AnimationBody();
             animationBody.setAutoStart(autoStart);
-            animationBody.setAutoHide(autoHide);
 
             animationBody.setForce(force);
             animationBody.setDamping(damping);
@@ -342,12 +368,17 @@ public class AnimationBody {
             animationBody.setRepeatCount(repeatCount);
             animationBody.setRepeatMode(repeatMode);
 
-            animationBody.setX(x);
-            animationBody.setY(y);
-            animationBody.setScaleX(scaleX);
-            animationBody.setScaleY(scaleY);
-            animationBody.setRotate(rotate);
-            animationBody.setOpacity(opacity);
+            animationBody.setStartX(startX);
+            animationBody.setEndX(endX);
+
+            animationBody.setStartY(startY);
+            animationBody.setEndY(endY);
+
+            animationBody.setStartScaleX(startScaleX);
+            animationBody.setEndScaleX(endScaleX);
+
+            animationBody.setStartScaleY(startScaleY);
+            animationBody.setEndScaleY(endScaleY);
 
             animationBody.setDelay(delay);
             animationBody.setDuration(duration);
