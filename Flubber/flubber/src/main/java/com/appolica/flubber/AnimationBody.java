@@ -9,33 +9,35 @@ import com.appolica.flubber.annotations.RepeatMode;
 import org.jetbrains.annotations.Contract;
 
 public class AnimationBody {
+    private View view;
+
     private boolean autoStart;
 
     private float force = 1;
     private float damping = 0.7f;
-    private float velocity = 0.7f;
 
+    private float velocity = 0.7f;
     private float startX = 0f;
     private float endX = 0f;
     private float startY = 0f;
-    private float endY = 0f;
 
+    private float endY = 0f;
     private float startScaleX = 1L;
     private float endScaleX = 1L;
     private float startScaleY = 1L;
+
     private float endScaleY = 1L;
-
     private int repeatCount = 0;
-    private int repeatMode = ValueAnimator.RESTART;
 
+    private int repeatMode = ValueAnimator.RESTART;
     private long delay = 0L;
+
     private long duration = 700L;
 
     private boolean animateFrom;
 
     private Flubber.AnimationProvider animation;
     private Flubber.InterpolatorProvider interpolator;
-    private View view;
 
     public AnimationBody() {
     }
