@@ -3,4 +3,6 @@
     <color name="colorPrimary">#8bc34a</color>
     <color name="colorPrimaryDark">#689f38</color>
     <color name="colorAccent">#00bcd4</color>
+    <color name="main_animations_background">#F1F8E9</color>
+    <color name="color_editor_divider">#B2EBF2</color>
 </resources>

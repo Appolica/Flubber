@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Flubber</string>
     <string name="flubber">Flubber</string>
+    <string name="animations">Animations</string>
+    <string name="edit">Edit</string>
+    <string name="done">Done</string>
+    <string name="cancel">Cancel</string>
 </resources>

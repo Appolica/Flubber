@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="EditorPanelBinding">
+        <import type="java.util.Map"/>
+        <import type="java.lang.String"/>
+        <import type="com.appolica.flubber.Flubber"/>
+        <import type="com.appolica.sample.ui.editor.EditorPanelClickListener"/>
+
+        <variable
+            name="animationNames"
+            type="Map&lt;String, Flubber.AnimationPreset&gt;"/>
+
+        <variable
+            name="interpolatorNames"
+            type="Map&lt;String, Flubber.Curve&gt;"/>
+
+        <variable
+            name="clickListener"
+            type="EditorPanelClickListener"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/constraintLayoutHeader"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:background="@color/main_animations_background"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <TextView
+                android:id="@+id/textViewCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                android:clickable="true"
+                android:onClick="@{() -> clickListener.onCancelClick()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/done"
+                android:clickable="true"
+                android:onClick="@{() -> clickListener.onDoneClick()}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"/>
+
+            <TextView
+                android:id="@+id/textViewEdit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/edit"
+                android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+        </android.support.constraint.ConstraintLayout>
+
+        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+            android:id="@+id/animationsPicker"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            app:values="@{animationNames}"
+            app:npv_ShowCount="5"
+            app:npv_TextSizeNormal="14sp"
+            app:npv_TextSizeSelected="17sp"
+            app:npv_DividerColor="@color/color_editor_divider"
+            app:npv_TextColorSelected="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/guideline"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutHeader"/>
+
+        <cn.carbswang.android.numberpickerview.library.NumberPickerView
+            android:id="@+id/interpolatorPicker"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="8dp"
+            app:values="@{interpolatorNames}"
+            app:npv_ShowCount="5"
+            app:npv_TextSizeNormal="14sp"
+            app:npv_TextSizeSelected="17sp"
+            app:npv_DividerColor="@color/color_editor_divider"
+            app:npv_TextColorSelected="@android:color/black"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/constraintLayoutHeader"
+            app:layout_constraintVertical_bias="0.32999998"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="197dp"
+            tools:layout_editor_absoluteX="197dp"
+            tools:layout_editor_absoluteY="0dp"/>
+    </android.support.constraint.ConstraintLayout>
+</layout>

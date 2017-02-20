@@ -9,6 +9,7 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemAnimationsBinding;
+import com.appolica.sample.ui.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +33,10 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             final AnimationsListItemModel model = binding.getModel();
             final Flubber.AnimationProvider animation = animationBody.getAnimation();
 
-            final String name = animation.getClass().getSimpleName();
-            model.getName().set(name);
+            final String name = ((Flubber.AnimationPreset) animation).name();
+            final String normalizedName = StringUtils.upperUnderScoreToCamel(name);
+
+            model.getName().set(normalizedName);
             binding.executePendingBindings();
         }
     }

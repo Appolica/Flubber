@@ -15,8 +15,6 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".ui.editor.AnimationEditorActivity">
-        </activity>
     </application>
 
 </manifest>
