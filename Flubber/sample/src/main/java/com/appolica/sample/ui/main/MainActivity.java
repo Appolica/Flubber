@@ -3,7 +3,9 @@ package com.appolica.sample.ui.main;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.databinding.DataBindingUtil;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -49,6 +51,60 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
 
     @Override
     public void onAddClick() {
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+            if (binding.editorPanelContainer.getVisibility() == View.VISIBLE) {
+                hideWithReveal(binding.editorPanelContainer);
+            } else {
+                showWithReveal(binding.editorPanelContainer);
+            }
+        } else {
+            binding.editorPanelContainer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void showWithReveal(final View toShow) {
+        final AnimatorSet animatorSet = new AnimatorSet();
+
+        binding.revealView.setAlpha(1);
+        toShow.setAlpha(1);
+        binding.revealView.setVisibility(View.INVISIBLE);
+
+        final float fabY = binding.floatingActionButton.getY();
+        final float revealY = binding.revealView.getY();
+        final float dy = Math.abs(fabY - revealY);
+
+        int cx = (int) (binding.floatingActionButton.getX() + binding.floatingActionButton.getWidth() / 2);
+        int cy = (int) (dy + binding.floatingActionButton.getHeight() / 2);
+
+        float finalRadius = (float) Math.hypot(cx, cy);
+
+        final Animator reveal = getReveal(binding.revealView, cx, cy, finalRadius, true);
+
+        reveal.addListener(new SimpleAnimatorListener() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                toShow.setVisibility(View.VISIBLE);
+            }
+        });
+
+        reveal.setDuration(500);
+
+        final Animator fadeOut = Flubber.with(binding.revealView)
+                .animation(Flubber.AnimationPreset.FADE_OUT)
+                .interpolator(Flubber.Curve.BZR_EASE_OUT)
+                .duration(300)
+                .create();
+
+        animatorSet.play(fadeOut).after(reveal);
+
+        animatorSet.start();
+        binding.revealView.setVisibility(View.VISIBLE);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private void hideWithReveal(final View toHide) {
         final AnimatorSet animatorSet = new AnimatorSet();
 
         binding.revealView.setAlpha(1);
@@ -63,35 +119,45 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
 
         float finalRadius = (float) Math.hypot(cx, cy);
 
-        Animator anim = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
+        final Animator reveal = getReveal(binding.revealView, cx, cy, finalRadius, false);
 
-            anim = ViewAnimationUtils.createCircularReveal(binding.revealView, cx, cy, 0, finalRadius);
-            binding.revealView.setVisibility(View.VISIBLE);
+        reveal.addListener(new SimpleAnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animation) {
+                toHide.setVisibility(View.INVISIBLE);
+            }
 
-            anim.addListener(new SimpleAnimatorListener() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
+                binding.revealView.setVisibility(View.INVISIBLE);
+            }
+        });
 
-                    binding.editorPanelContainer.setVisibility(View.VISIBLE);
-                }
-            });
+        reveal.setDuration(500);
 
-            anim.setDuration(500);
+        final Animator fadeOut = Flubber.with(toHide)
+                .animation(Flubber.AnimationPreset.FADE_OUT)
+                .interpolator(Flubber.Curve.BZR_EASE_OUT)
+                .duration(300)
+                .create();
 
-            final Animator fadeIn = Flubber.with(binding.revealView)
-                    .animation(Flubber.AnimationPreset.FADE_OUT)
-                    .interpolator(Flubber.Curve.BZR_EASE_OUT)
-                    .duration(300)
-                    .create();
+        animatorSet.play(reveal).after(fadeOut);
 
-            animatorSet.play(fadeIn).after(anim);
+        animatorSet.start();
+        binding.revealView.setVisibility(View.VISIBLE);
+    }
 
-            animatorSet.start();
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private Animator getReveal(View view, int cx, int cy, float radius, boolean isOpening) {
+        if (isOpening) {
+            return ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, radius);
         } else {
-            binding.editorPanelContainer.setVisibility(View.VISIBLE);
+            return ViewAnimationUtils.createCircularReveal(view, cx, cy, radius, 0);
         }
     }
+
+
 
     @Override
     public void onBackPressed() {
