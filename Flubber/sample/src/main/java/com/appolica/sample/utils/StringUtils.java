@@ -1,4 +1,4 @@
-package com.appolica.sample.ui.utils;
+package com.appolica.sample.utils;
 
 import java.util.LinkedHashMap;
 import java.util.Map;

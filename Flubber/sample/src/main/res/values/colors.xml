@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8bc34a</color>
-    <color name="colorPrimaryDark">#689f38</color>
+    <color name="colorPrimary">#673ab7</color>
+    <color name="colorPrimaryDark">#512da8</color>
     <color name="colorAccent">#00bcd4</color>
     <color name="main_animations_background">#F1F8E9</color>
-    <color name="color_editor_divider">#B2EBF2</color>
+    <color name="tab_indicator">#00BCD4</color>
 </resources>
