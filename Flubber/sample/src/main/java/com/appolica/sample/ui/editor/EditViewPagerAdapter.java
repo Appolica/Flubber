@@ -1,21 +1,25 @@
 package com.appolica.sample.ui.editor;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.appolica.sample.ui.editor.pager.AnimationBodyProvider;
 import com.appolica.sample.ui.editor.pager.EditorFragmentType;
 import com.appolica.sample.ui.editor.pager.ListenerProvider;
 import com.appolica.sample.ui.editor.pager.animations.AnimationsFragment;
 import com.appolica.sample.ui.editor.pager.interpolators.InterpolatorsFragment;
+import com.appolica.sample.ui.editor.pager.settings.SettingsFragment;
 
 public class EditViewPagerAdapter extends FragmentPagerAdapter {
 
     private final Context context;
 
     private ListenerProvider listenerProvider;
+    private AnimationBodyProvider animationBodyProvider;
 
     public EditViewPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
@@ -57,10 +61,19 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
                 break;
         }
 
+        final Bundle arguments = new Bundle();
+        arguments.putSerializable(SettingsFragment.BUNDLE_ANIM_BODY, animationBodyProvider.getAnimationBody());
+
+        item.setArguments(arguments);
+
         return item;
     }
 
     public void setListenerProvider(ListenerProvider listenerProvider) {
         this.listenerProvider = listenerProvider;
+    }
+
+    public void setAnimationBodyProvider(AnimationBodyProvider animationBodyProvider) {
+        this.animationBodyProvider = animationBodyProvider;
     }
 }

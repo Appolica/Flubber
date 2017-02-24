@@ -2,10 +2,14 @@ package com.appolica.sample.ui.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
+import android.databinding.ObservableFloat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
+
+import com.appolica.sample.ui.editor.pager.settings.ListItemModel;
 
 import java.util.Map;
 
@@ -59,6 +63,34 @@ public class BindingAdapters {
                 }
             });
         }
+    }
+
+    @BindingAdapter({"app:value"})
+    public static void setLimits(final SeekBar seekBar, final ListItemModel model) {
+        seekBar.setMax(100);
+
+        final ObservableFloat value = model.getValue();
+        final float min = model.getMinValue();
+        final float max = model.getMaxValue();
+
+        seekBar.setProgress((int) ((value.get() * 100) / (max - min)));
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                model.getValue().set(min + (progress / 100f) * (max - min));
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
     }
 
 }

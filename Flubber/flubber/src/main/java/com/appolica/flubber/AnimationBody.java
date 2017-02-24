@@ -8,7 +8,9 @@ import com.appolica.flubber.annotations.RepeatMode;
 
 import org.jetbrains.annotations.Contract;
 
-public class AnimationBody {
+import java.io.Serializable;
+
+public class AnimationBody implements Serializable {
     private boolean autoStart;
     private boolean autoHide;
 

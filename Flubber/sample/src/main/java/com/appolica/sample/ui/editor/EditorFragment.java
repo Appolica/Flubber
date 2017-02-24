@@ -12,6 +12,7 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.FragmentEditorPanelBinding;
+import com.appolica.sample.ui.editor.pager.AnimationBodyProvider;
 import com.appolica.sample.ui.editor.pager.ListenerProvider;
 import com.appolica.sample.ui.editor.pager.animations.OnAnimationSelectedListener;
 import com.appolica.sample.ui.editor.pager.interpolators.OnInterpolatorSelectedListener;
@@ -20,7 +21,7 @@ import com.appolica.sample.ui.editor.pager.interpolators.OnInterpolatorSelectedL
 public class EditorFragment extends Fragment
         implements ListenerProvider,
         OnAnimationSelectedListener,
-        OnInterpolatorSelectedListener {
+        OnInterpolatorSelectedListener, AnimationBodyProvider {
 
     public static final String TAG = "EditorFragment";
 
@@ -45,6 +46,7 @@ public class EditorFragment extends Fragment
                 new EditViewPagerAdapter(getChildFragmentManager(), getContext());
 
         adapter.setListenerProvider(this);
+        adapter.setAnimationBodyProvider(this);
 
         binding.tabLayoutEdit.setupWithViewPager(binding.viewPagerEdit);
 
@@ -70,5 +72,10 @@ public class EditorFragment extends Fragment
     @Override
     public void onInterpolatorSelected(Flubber.Curve interpolator) {
         animationBody.setInterpolator(interpolator);
+    }
+
+    @Override
+    public AnimationBody getAnimationBody() {
+        return animationBody;
     }
 }

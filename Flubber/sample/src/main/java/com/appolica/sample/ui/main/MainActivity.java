@@ -53,11 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
     public void onAddClick() {
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            if (binding.editorPanelContainer.getVisibility() == View.VISIBLE) {
-                hideWithReveal(binding.editorPanelContainer);
-            } else {
-                showWithReveal(binding.editorPanelContainer);
-            }
+            showWithReveal(binding.editorPanelContainer);
         } else {
             binding.editorPanelContainer.setVisibility(View.VISIBLE);
         }
@@ -158,9 +154,15 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
     }
 
 
-
     @Override
     public void onBackPressed() {
+        if (binding.editorPanelContainer.getVisibility() == View.VISIBLE) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                hideWithReveal(binding.editorPanelContainer);
+                return;
+            }
+        }
         super.onBackPressed();
+
     }
 }
