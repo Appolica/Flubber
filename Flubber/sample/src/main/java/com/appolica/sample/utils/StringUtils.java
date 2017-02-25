@@ -28,4 +28,9 @@ public class StringUtils {
 
         return resultMap;
     }
+
+    public static String getCapitalizedString(String string) {
+        final char firstLetter = string.charAt(0);
+        return string.replaceAll("^[a-zA-Z]", String.format("%c", Character.toUpperCase(firstLetter)));
+    }
 }

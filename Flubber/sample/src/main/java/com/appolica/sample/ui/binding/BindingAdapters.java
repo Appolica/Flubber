@@ -2,14 +2,16 @@ package com.appolica.sample.ui.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.databinding.ObservableFloat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
-import com.appolica.sample.ui.editor.pager.settings.ListItemModel;
+import com.appolica.sample.ui.editor.pager.settings.NumericTransformer;
+import com.appolica.sample.ui.editor.pager.settings.SeekBarModel;
+
+import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 import java.util.Map;
 
@@ -28,7 +30,7 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"app:checked", "app:model"})
-    public static<T> void setChecked(RadioButton radioButton, final ObservableField<T> checked, final T model) {
+    public static <T> void setChecked(RadioButton radioButton, final ObservableField<T> checked, final T model) {
 
         if (checked == null) {
             return;
@@ -66,31 +68,50 @@ public class BindingAdapters {
     }
 
     @BindingAdapter({"app:value"})
-    public static void setLimits(final SeekBar seekBar, final ListItemModel model) {
-        seekBar.setMax(100);
+    public static void setLimits(final SeekBar seekBar, final SeekBarModel model) {
+//        seekBar.setMax(100);
+//
+//        final ObservableFloat value = model.getValue();
+//        final float min = model.getMinValue();
+//        final float max = model.getMaxValue();
+//
+//        seekBar.setProgress((int) ((value.get() * 100) / (max - min)));
+//
+//        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+//            @Override
+//            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+//                model.getValue().set(min + (progress / 100f) * (max - min));
+//            }
+//
+//            @Override
+//            public void onStartTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//
+//            @Override
+//            public void onStopTrackingTouch(SeekBar seekBar) {
+//
+//            }
+//        });
+    }
 
-        final ObservableFloat value = model.getValue();
-        final float min = model.getMinValue();
-        final float max = model.getMaxValue();
+    @BindingAdapter("app:model")
+    public static <T extends Number> void setNumericTransformer(DiscreteSeekBar seekBar, SeekBarModel<T> model) {
 
-        seekBar.setProgress((int) ((value.get() * 100) / (max - min)));
+        final Class<? extends Number> valueClass = model.getValue().get().getClass();
 
-        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                model.getValue().set(min + (progress / 100f) * (max - min));
-            }
+        NumericTransformer transformer = null;
+        if (valueClass.isAssignableFrom(Float.class)) {
+            transformer = new NumericTransformer((Float) model.getMinValue(), (Float) model.getMaxValue());
+        } else if (valueClass.isAssignableFrom(Long.class)) {
+            transformer = new NumericTransformer((Long) model.getMinValue(), (Long) model.getMaxValue());
+        }
 
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
+        if (transformer != null) {
+            seekBar.setNumericTransformer(transformer);
+            seekBar.setMin(0);
+            seekBar.setMax(100);
+        }
     }
 
 }

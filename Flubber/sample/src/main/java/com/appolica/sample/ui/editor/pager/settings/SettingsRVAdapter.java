@@ -2,8 +2,6 @@ package com.appolica.sample.ui.editor.pager.settings;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
-import android.databinding.ObservableFloat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -12,17 +10,12 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemProgressBinding;
 
-import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.BindingHolder> {
 
-    private final String[] supportedFieldNames = {"duration", "delay", "force", "velocity", "damping", "scale"};
-//    private final List<String> supportedFieldNames;
-
-    private List<ListItemModel> models = new ArrayList<>();
+    private List<SeekBarModel> models = new ArrayList<>();
 
     private Context context;
 
@@ -30,23 +23,8 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
 
     private OnAnimationBodyChangedCallback animationBodyChangedCallback;
 
-    public SettingsRVAdapter(Context context) {
+    public SettingsRVAdapter(Context context) throws NoSuchFieldException {
         this.context = context;
-        for (int nameIndex = 0; nameIndex < supportedFieldNames.length; nameIndex++) {
-            final String name = supportedFieldNames[nameIndex];
-            final ListItemModel model = new ListItemModel();
-            model.getName().set(supportedFieldNames[nameIndex]);
-            models.add(model);
-
-            model.getValue().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
-                @Override
-                public void onPropertyChanged(Observable observable, int i) {
-                    if (animationBodyChangedCallback != null) {
-                        animationBodyChangedCallback.onPropertyChanged(name, ((ObservableFloat) observable).get());
-                    }
-                }
-            });
-        }
     }
 
     public class BindingHolder extends RecyclerView.ViewHolder {
@@ -58,10 +36,15 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
             this.binding = binding;
         }
 
-        public void bindTo(ListItemModel model) {
+        public void bindTo(SeekBarModel model) {
             binding.setModel(model);
             binding.executePendingBindings();
         }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     @Override
@@ -71,22 +54,6 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
         ListItemProgressBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.list_item_progress, parent, false);
 
-        binding.discreteSeekBar.setNumericTransformer(new DiscreteSeekBar.NumericTransformer() {
-            @Override
-            public int transform(int value) {
-                return 0;
-            }
-
-            @Override
-            public String transformToString(int value) {
-                return "v" + value;
-            }
-
-            @Override
-            public boolean useStringTransform() {
-                return true;
-            }
-        });
 
         return new BindingHolder(binding);
     }
@@ -102,16 +69,11 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
     }
 
     public void setAnimationBody(final AnimationBody animationBody) {
-//        this.animationBody = animationBody;
-
-        for (ListItemModel model : models) {
-            initModelFor(model.getName().get(), animationBody, model);
-        }
-
+        this.models = AnimationBodyDataGenerator.generateFor(animationBody);
         notifyDataSetChanged();
     }
 
-    private void initModelFor(String name, AnimationBody animationBody, ListItemModel model) {
+    private void initModelFor(String name, AnimationBody animationBody, SeekBarModel model) {
         model.getName().set(name);
         float value = -1;
         float maxValue = -1;

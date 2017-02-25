@@ -27,7 +27,13 @@ public class SettingsFragment
 
     @Override
     protected SettingsRVAdapter getAdapterInstance() {
-        return new SettingsRVAdapter(getContext());
+        try {
+            return new SettingsRVAdapter(getContext());
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     @Override
