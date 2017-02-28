@@ -11,72 +11,36 @@ import java.util.List;
 
 public class AnimationBodyDataGenerator {
 
-    private static final List<FieldConfiguration> fieldsConfig;
+    public enum FieldConfiguration {
+        DURATION("duration", 100L, 5000L),
+        DELAY("delay", 0L, 5000L),
+        FORCE("force", 1f, 5f),
+        VELOCITY("velocity", 0f, 1f),
+        DAMPING("damping", 0f, 1f),
+        SCALE("scaleX", 0f, 1f);
 
-    static {
-        fieldsConfig = new ArrayList<>();
+        private final String name;
+        private Number min;
+        private Number max;
 
-        fieldsConfig.add(FieldConfiguration.create("duration", 100L, 5000L));
-        fieldsConfig.add(FieldConfiguration.create("delay", 0L, 5000L));
-        fieldsConfig.add(FieldConfiguration.create("force", 1f, 5f));
-        fieldsConfig.add(FieldConfiguration.create("velocity", 0f, 1f));
-        fieldsConfig.add(FieldConfiguration.create("damping", 0f, 1f));
-        fieldsConfig.add(FieldConfiguration.create("scale", 0f, 1f));
-    }
-
-    private static class FieldConfiguration<ValueT extends Number> {
-        private String name;
-        private ValueT minValue;
-        private ValueT maxValue;
-
-        public static<ValueT extends Number> FieldConfiguration<ValueT> create(String name, ValueT minValue, ValueT maxValue) {
-            return new FieldConfiguration<>(name, minValue, maxValue);
-        }
-
-        public FieldConfiguration(String name, ValueT minValue, ValueT maxValue) {
+        FieldConfiguration(String name, Number min, Number max) {
             this.name = name;
-            this.minValue = minValue;
-            this.maxValue = maxValue;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public ValueT getMinValue() {
-            return minValue;
-        }
-
-        public void setMinValue(ValueT minValue) {
-            this.minValue = minValue;
-        }
-
-        public ValueT getMaxValue() {
-            return maxValue;
-        }
-
-        public void setMaxValue(ValueT maxValue) {
-            this.maxValue = maxValue;
+            this.min = min;
+            this.max = max;
         }
     }
 
     public static List<SeekBarModel> generateFor(AnimationBody body) {
         final List<SeekBarModel> data = new ArrayList<>();
 
-        for (FieldConfiguration config : fieldsConfig) {
+        try {
 
-            try {
-                String fieldName = config.getName();
-                if (fieldName.equals("scale")) {
-                    fieldName = fieldName.concat("X");
-                }
+            final FieldConfiguration[] fieldConfigurations = FieldConfiguration.values();
+            for (int i = 0; i < fieldConfigurations.length; i++) {
+                FieldConfiguration config = fieldConfigurations[i];
 
-                final Field field = AnimationBody.class.getDeclaredField(fieldName);
-                final String getterName = "get" + StringUtils.getCapitalizedString(fieldName);
+                final Field field = AnimationBody.class.getDeclaredField(config.name);
+                final String getterName = "get" + StringUtils.getCapitalizedString(config.name);
 
                 final Method getter = AnimationBody.class.getDeclaredMethod(getterName);
                 final String fieldType = field.getType().getName();
@@ -90,20 +54,20 @@ public class AnimationBodyDataGenerator {
                 }
 
                 final SeekBarModel model =
-                        SeekBarModel.create(config.getName(), value, config.minValue, config.maxValue);
+                        SeekBarModel.create(config.name, value, config.min, config.max);
 
                 data.add(model);
-
-            } catch (NoSuchFieldException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
             }
 
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
         }
 
         return data;
