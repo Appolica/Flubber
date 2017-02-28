@@ -19,6 +19,8 @@ import com.appolica.sample.ui.editor.EditorFragment;
 
 public class MainActivity extends AppCompatActivity implements MainActivityClickListener {
 
+    private static final String TAG = "MainActivity";
+
     public static final int SECOND = 1000;
     private ActivityMainBinding binding;
 
@@ -27,7 +29,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
 
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.mainPanelContainer, new MainPanelFragment(), MainPanelFragment.TAG)

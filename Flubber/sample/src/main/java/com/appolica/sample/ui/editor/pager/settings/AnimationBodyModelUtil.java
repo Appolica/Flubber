@@ -48,7 +48,7 @@ public class AnimationBodyModelUtil {
             return factor;
         }
 
-        public FieldConfiguration forFieldName(String name) {
+        public static FieldConfiguration forFieldName(String name) {
             return FieldConfiguration.valueOf(name.toUpperCase());
         }
     }
@@ -85,9 +85,7 @@ public class AnimationBodyModelUtil {
             InvocationTargetException {
 
         final Field field = AnimationBody.class.getDeclaredField(config.getName());
-        final String getterName = "get" + StringUtils.getCapitalizedString(config.getName());
-
-        final Method getter = AnimationBody.class.getDeclaredMethod(getterName);
+        final Method getter = getGetter(config);
         final String fieldType = field.getType().getName();
 
         Float value = null;
@@ -100,7 +98,44 @@ public class AnimationBodyModelUtil {
         return SeekBarModel.create(config.getName(), value, config.getMin(), config.getMax());
     }
 
-    public static void initFieldFromModel(SeekBarModel model, AnimationBody animationBody) {
 
+    private static Method getGetter(FieldConfiguration config) throws NoSuchMethodException {
+        final String getterName = "get" + StringUtils.getCapitalizedString(config.getName());
+
+        return AnimationBody.class.getDeclaredMethod(getterName);
+    }
+
+    private static Method getSetter(FieldConfiguration config, Class type) throws NoSuchMethodException {
+        final String getterName = "set" + StringUtils.getCapitalizedString(config.getName());
+
+        return AnimationBody.class.getDeclaredMethod(getterName, type);
+    }
+
+    public static void initFieldFromModel(SeekBarModel model, AnimationBody animationBody) {
+        final String fieldName = model.getName().get();
+        final FieldConfiguration configuration = FieldConfiguration.forFieldName(fieldName);
+
+        try {
+            final Field field = AnimationBody.class.getDeclaredField(fieldName);
+            final String fieldType = field.getType().getName();
+
+            final Method setter;
+            if (fieldType.equals(long.class.getName())) {
+                 setter = getSetter(configuration, long.class);
+                setter.invoke(animationBody, (long) (model.getValue().get() * configuration.getFactor()));
+            } else if (fieldType.equals(float.class.getName())) {
+                setter = getSetter(configuration, float.class);
+                setter.invoke(animationBody, model.getValue().get() * configuration.getFactor());
+            }
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }
