@@ -54,7 +54,6 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
         ListItemProgressBinding binding =
                 DataBindingUtil.inflate(inflater, R.layout.list_item_progress, parent, false);
 
-
         return new BindingHolder(binding);
     }
 
@@ -69,7 +68,7 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
     }
 
     public void setAnimationBody(final AnimationBody animationBody) {
-        this.models = AnimationBodyDataGenerator.generateFor(animationBody);
+        this.models = AnimationBodyModelUtil.generateFor(animationBody);
         notifyDataSetChanged();
     }
 

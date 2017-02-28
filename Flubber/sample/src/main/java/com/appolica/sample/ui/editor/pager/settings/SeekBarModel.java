@@ -1,16 +1,17 @@
 package com.appolica.sample.ui.editor.pager.settings;
 
 import android.databinding.ObservableField;
+import android.databinding.ObservableFloat;
 
-public class SeekBarModel<ValueT extends Number> {
+public class SeekBarModel {
     private ObservableField<String> name = new ObservableField<>();
-    private ObservableField<ValueT> value = new ObservableField<>();
+    private ObservableFloat value = new ObservableFloat();
 
-    private ValueT minValue;
-    private ValueT maxValue;
+    private float minValue;
+    private float maxValue;
 
-    public static<ValueT extends Number> SeekBarModel create(String name, ValueT value, ValueT minValue, ValueT maxValue) {
-        final SeekBarModel<ValueT> model = new SeekBarModel<>();
+    public static SeekBarModel create(String name, float value, float minValue, float maxValue) {
+        final SeekBarModel model = new SeekBarModel();
 
         model.getName().set(name);
         model.getValue().set(value);
@@ -28,27 +29,27 @@ public class SeekBarModel<ValueT extends Number> {
         this.name = name;
     }
 
-    public ObservableField<ValueT> getValue() {
+    public ObservableFloat getValue() {
         return value;
     }
 
-    public void setValue(ObservableField<ValueT> value) {
+    public void setValue(ObservableFloat value) {
         this.value = value;
     }
 
-    public ValueT getMinValue() {
+    public float getMinValue() {
         return minValue;
     }
 
-    public void setMinValue(ValueT minValue) {
+    public void setMinValue(float minValue) {
         this.minValue = minValue;
     }
 
-    public ValueT getMaxValue() {
+    public float getMaxValue() {
         return maxValue;
     }
 
-    public void setMaxValue(ValueT maxValue) {
+    public void setMaxValue(float maxValue) {
         this.maxValue = maxValue;
     }
 }

@@ -3,14 +3,18 @@ package com.appolica.sample.ui.editor.pager.settings;
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
-
     private int factor = 1;
-    private int minValue;
-    private int maxValue;
+    private long minValue;
+    private long maxValue;
+
+    public NumericTransformer() {
+
+    }
 
     public NumericTransformer(float minValue, float maxValue) {
-        this.minValue = toInt(minValue);
-        this.maxValue = toInt(maxValue);
+        calculateFactor(minValue, maxValue);
+        this.minValue = (long) (minValue * factor);
+        this.maxValue = (long) (maxValue * factor);
     }
 
     public NumericTransformer(long minValue, long maxValue) {
@@ -18,14 +22,19 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
         this.maxValue = (int) maxValue;
     }
 
-    private int toInt(float value) {
+    private void calculateFactor(float minValue, float maxValue) {
+        this.factor = getFactor(minValue) * getFactor(maxValue);
+    }
+
+    private int getFactor(float value) {
+        int factor = 1;
         float result = value;
         for (int i = 1; result % 2 != 0; i++) {
             factor = (int) Math.pow(10, i);
             result = value * factor;
         }
 
-        return (int) result;
+        return factor;
     }
 
     @Override
@@ -36,8 +45,8 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
     @Override
     public String transformToString(int percentage) {
 
-        float value = minValue + (percentage / 100f) * (maxValue - minValue);
-        float displayValue = value / factor;
+        float value = (percentage / 100f) * (maxValue - minValue);
+        float displayValue = (float) minValue / factor + value / factor;
 
         if (factor == 1) {
             return String.format("%d", (int) displayValue);
@@ -51,15 +60,21 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
         return true;
     }
 
-    public int getFactor() {
-        return factor;
-    }
-
-    public int getMinValue() {
+    public long getMinValue() {
         return minValue;
     }
 
-    public int getMaxValue() {
+    public void setValues(float minValue, float maxValue) {
+        calculateFactor(minValue, maxValue);
+        this.minValue = (long) (minValue * factor);
+        this.maxValue = (long) (maxValue * factor);
+    }
+
+    public long getMaxValue() {
         return maxValue;
+    }
+
+    public int getFactor() {
+        return factor;
     }
 }

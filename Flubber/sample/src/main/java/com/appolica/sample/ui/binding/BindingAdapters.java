@@ -96,22 +96,18 @@ public class BindingAdapters {
     }
 
     @BindingAdapter("app:model")
-    public static <T extends Number> void setNumericTransformer(DiscreteSeekBar seekBar, SeekBarModel<T> model) {
+    public static void bindToModel(DiscreteSeekBar seekBar, SeekBarModel model) {
+        DiscreteSeekBar.NumericTransformer transformer = seekBar.getNumericTransformer();
 
-        final Class<? extends Number> valueClass = model.getValue().get().getClass();
-
-        NumericTransformer transformer = null;
-        if (valueClass.isAssignableFrom(Float.class)) {
-            transformer = new NumericTransformer((Float) model.getMinValue(), (Float) model.getMaxValue());
-        } else if (valueClass.isAssignableFrom(Long.class)) {
-            transformer = new NumericTransformer((Long) model.getMinValue(), (Long) model.getMaxValue());
-        }
-
-        if (transformer != null) {
+        if (!(transformer instanceof NumericTransformer)) {
+            transformer = new NumericTransformer();
             seekBar.setNumericTransformer(transformer);
-            seekBar.setMin(0);
-            seekBar.setMax(100);
         }
+
+        ((NumericTransformer) transformer).setValues(model.getMinValue(), model.getMaxValue());
+
+        seekBar.setMin(0);
+        seekBar.setMax(100);
     }
 
 }
