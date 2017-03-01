@@ -2,6 +2,7 @@ package com.appolica.sample.ui.editor.pager.settings;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.databinding.Observable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -11,19 +12,22 @@ import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemProgressBinding;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.BindingHolder> {
 
     private List<SeekBarModel> models = new ArrayList<>();
+    private Map<Observable, SeekBarModel> modelsMap = new LinkedHashMap<>();
 
     private Context context;
 
 //    private AnimationBody animationBody;
 
-    private OnAnimationBodyChangedCallback animationBodyChangedCallback;
+    private OnModelChangedCallback modelChangedCallback;
 
-    public SettingsRVAdapter(Context context) throws NoSuchFieldException {
+    public SettingsRVAdapter(Context context) {
         this.context = context;
     }
 
@@ -69,60 +73,27 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
 
     public void setAnimationBody(final AnimationBody animationBody) {
         this.models = AnimationBodyModelUtil.generateFor(animationBody);
+        for (SeekBarModel model : models) {
+
+            modelsMap.put(model.getValue(), model);
+
+            model.getValue().addOnPropertyChangedCallback(new Observable.OnPropertyChangedCallback() {
+                @Override
+                public void onPropertyChanged(Observable observable, int i) {
+                    if (modelChangedCallback != null) {
+                        modelChangedCallback.onModelChanged(modelsMap.get(observable));
+                    }
+                }
+            });
+        }
         notifyDataSetChanged();
     }
 
-    private void initModelFor(String name, AnimationBody animationBody, SeekBarModel model) {
-        model.getName().set(name);
-        float value = -1;
-        float maxValue = -1;
-        float minValue = -1;
-        switch (name) {
-            case "force":
-                value = animationBody.getForce();
-                minValue = 1f;
-                maxValue = 5f;
-                break;
-            case "damping":
-                value = animationBody.getDamping();
-                minValue = 0f;
-                maxValue = 1f;
-                break;
-            case "velocity":
-                value = animationBody.getVelocity();
-                minValue = 0f;
-                maxValue = 1f;
-                break;
-            case "scale":
-                // In the sample app, both scales should be equal
-                value = animationBody.getScaleX();
-                minValue = 0f;
-                maxValue = 5f;
-                break;
-            case "delay":
-                value = animationBody.getDelay();
-                minValue = 0f;
-                maxValue = 5f;
-                break;
-            case "duration":
-                value = animationBody.getDuration();
-                minValue = 0.1f;
-                maxValue = 5f;
-                break;
-        }
-
-        if (value != -1) {
-            model.getValue().set(value);
-            model.setMinValue(minValue);
-            model.setMaxValue(maxValue);
-        }
+    public void setModelChangedCallback(OnModelChangedCallback modelChangedCallback) {
+        this.modelChangedCallback = modelChangedCallback;
     }
 
-    public void setAnimationBodyChangedCallback(OnAnimationBodyChangedCallback animationBodyChangedCallback) {
-        this.animationBodyChangedCallback = animationBodyChangedCallback;
-    }
-
-    public interface OnAnimationBodyChangedCallback {
-        void onPropertyChanged(String name, float value);
+    public interface OnModelChangedCallback {
+        void onModelChanged(SeekBarModel model);
     }
 }

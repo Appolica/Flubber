@@ -18,7 +18,7 @@ public class StringUtils {
     }
 
     public static<T extends Enum> Map<String, T> normalizedNameMapFor(Class<T> clazz) {
-        final LinkedHashMap<String, T> resultMap = new LinkedHashMap<>();
+        final Map<String, T> resultMap = new LinkedHashMap<>();
 
         final T[] enumConstants = clazz.getEnumConstants();
         for (int i = 0; i < enumConstants.length; i++) {

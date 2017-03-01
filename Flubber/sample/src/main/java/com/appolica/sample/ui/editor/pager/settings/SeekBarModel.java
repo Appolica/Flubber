@@ -52,4 +52,9 @@ public class SeekBarModel {
     public void setMaxValue(float maxValue) {
         this.maxValue = maxValue;
     }
+
+    @Override
+    public String toString() {
+        return String.format("%s: Min = %f | Max = %f | Value = %f", name.get(), minValue, maxValue, value.get());
+    }
 }

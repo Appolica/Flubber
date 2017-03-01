@@ -2,6 +2,7 @@ package com.appolica.sample.ui.editor.pager.settings;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
@@ -9,7 +10,7 @@ import com.appolica.sample.ui.editor.pager.BaseFragment;
 
 public class SettingsFragment
         extends BaseFragment<SettingsRVAdapter>
-        implements SettingsRVAdapter.OnAnimationBodyChangedCallback {
+        implements SettingsRVAdapter.OnModelChangedCallback {
 
     public static final String TAG = "SettingsFragment";
     public static final String BUNDLE_ANIM_BODY = "SettingsArguments";
@@ -22,29 +23,19 @@ public class SettingsFragment
         animationBody = (AnimationBody) getArguments().getSerializable(SettingsFragment.BUNDLE_ANIM_BODY);
 
         getAdapter().setAnimationBody(animationBody);
-        getAdapter().setAnimationBodyChangedCallback(this);
+        getAdapter().setModelChangedCallback(this);
     }
 
     @Override
     protected SettingsRVAdapter getAdapterInstance() {
-        try {
-            return new SettingsRVAdapter(getContext());
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return new SettingsRVAdapter(getContext());
     }
 
     @Override
-    public void onPropertyChanged(String name, float value) {
-
-//        try {
-//            AnimationBody.class.getDeclaredField(name).setFloat(animationBody, value);
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchFieldException e) {
-//            e.printStackTrace();
-//        }
+    public void onModelChanged(SeekBarModel model) {
+        AnimationBodyModelUtil.initFieldFromModel(model, animationBody);
+        Log.d(TAG, "onModelChanged: " + model);
+        Log.d(TAG, "AnimationBody: duration: " + animationBody.getDuration());
+        Log.d(TAG, "AnimationBody: force: " + animationBody.getForce());
     }
 }

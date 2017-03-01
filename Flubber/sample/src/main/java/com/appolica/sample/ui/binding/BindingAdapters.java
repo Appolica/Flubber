@@ -96,7 +96,7 @@ public class BindingAdapters {
     }
 
     @BindingAdapter("app:model")
-    public static void bindToModel(DiscreteSeekBar seekBar, SeekBarModel model) {
+    public static void bindToModel(DiscreteSeekBar seekBar, final SeekBarModel model) {
         DiscreteSeekBar.NumericTransformer transformer = seekBar.getNumericTransformer();
 
         if (!(transformer instanceof NumericTransformer)) {
@@ -112,6 +112,24 @@ public class BindingAdapters {
 
         final int percentage = (int) customTransformer.transformToPercentage(model.getValue().get());
         seekBar.setProgress(percentage);
+
+
+        seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
+            @Override
+            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
+                model.getValue().set(customTransformer.transformFromPercentage(seekBar.getProgress()));
+            }
+        });
     }
 
 }

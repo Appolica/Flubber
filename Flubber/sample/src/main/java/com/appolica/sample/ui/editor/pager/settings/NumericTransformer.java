@@ -45,8 +45,7 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
     @Override
     public String transformToString(int percentage) {
 
-        float value = (percentage / 100f) * (maxValue - minValue);
-        float displayValue = (float) minValue / factor + value / factor;
+        float displayValue = transformFromPercentage(percentage);
 
         if (factor == 1) {
             return String.format("%d", (int) displayValue);
@@ -80,5 +79,12 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
 
     public float transformToPercentage(float value) {
         return (100 * (value)) / (maxValue / factor);
+    }
+
+    public float transformFromPercentage(int percentage) {
+        float value = (percentage / 100f) * (maxValue - minValue);
+        float result = (float) minValue / factor + value / factor;
+
+        return result;
     }
 }
