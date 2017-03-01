@@ -77,4 +77,8 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
     public int getFactor() {
         return factor;
     }
+
+    public float transformToPercentage(float value) {
+        return (100 * (value)) / (maxValue / factor);
+    }
 }

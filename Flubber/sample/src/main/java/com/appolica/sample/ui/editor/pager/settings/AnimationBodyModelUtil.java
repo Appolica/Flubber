@@ -106,7 +106,7 @@ public class AnimationBodyModelUtil {
     }
 
     private static Method getSetter(FieldConfiguration config, Class type) throws NoSuchMethodException {
-        final String getterName = "set" + StringUtils.getCapitalizedString(config.getName());
+        final String getterName = "set"  + StringUtils.getCapitalizedString(config.getName());
 
         return AnimationBody.class.getDeclaredMethod(getterName, type);
     }

@@ -104,10 +104,14 @@ public class BindingAdapters {
             seekBar.setNumericTransformer(transformer);
         }
 
-        ((NumericTransformer) transformer).setValues(model.getMinValue(), model.getMaxValue());
+        final NumericTransformer customTransformer = (NumericTransformer) transformer;
+        customTransformer.setValues(model.getMinValue(), model.getMaxValue());
 
         seekBar.setMin(0);
         seekBar.setMax(100);
+
+        final int percentage = (int) customTransformer.transformToPercentage(model.getValue().get());
+        seekBar.setProgress(percentage);
     }
 
 }
