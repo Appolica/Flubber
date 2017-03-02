@@ -16,14 +16,20 @@ import com.appolica.sample.ui.editor.pager.AnimationBodyProvider;
 import com.appolica.sample.ui.editor.pager.ListenerProvider;
 import com.appolica.sample.ui.editor.pager.animations.OnAnimationSelectedListener;
 import com.appolica.sample.ui.editor.pager.interpolators.OnInterpolatorSelectedListener;
+import com.appolica.sample.ui.editor.pager.settings.AnimationBodyModelUtil;
+import com.appolica.sample.ui.editor.pager.settings.OnFieldChangedListener;
+import com.appolica.sample.ui.editor.pager.settings.SeekBarModel;
 
 
 public class EditorFragment extends Fragment
         implements ListenerProvider,
         OnAnimationSelectedListener,
-        OnInterpolatorSelectedListener, AnimationBodyProvider {
+        OnInterpolatorSelectedListener,
+        OnFieldChangedListener,
+        AnimationBodyProvider {
 
     public static final String TAG = "EditorFragment";
+    public static final String BUNDLE_ANIM_BODY = "SettingsArguments";
 
     private FragmentEditorPanelBinding binding;
 
@@ -40,7 +46,12 @@ public class EditorFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        animationBody = new AnimationBody();
+        final Bundle arguments = getArguments();
+        if (arguments != null && arguments.getSerializable(BUNDLE_ANIM_BODY) != null) {
+            animationBody = (AnimationBody) arguments.getSerializable(BUNDLE_ANIM_BODY);
+        } else {
+            animationBody = new AnimationBody();
+        }
 
         final EditViewPagerAdapter adapter =
                 new EditViewPagerAdapter(getChildFragmentManager(), getContext());
@@ -65,6 +76,11 @@ public class EditorFragment extends Fragment
     }
 
     @Override
+    public OnFieldChangedListener getFieldChangedListener() {
+        return this;
+    }
+
+    @Override
     public void onAnimationSelected(Flubber.AnimationProvider animationProvider) {
         animationBody.setAnimation(animationProvider);
     }
@@ -72,6 +88,11 @@ public class EditorFragment extends Fragment
     @Override
     public void onInterpolatorSelected(Flubber.Curve interpolator) {
         animationBody.setInterpolator(interpolator);
+    }
+
+    @Override
+    public void onFieldChanged(SeekBarModel model) {
+        AnimationBodyModelUtil.initFieldFromModel(model, animationBody);
     }
 
     @Override

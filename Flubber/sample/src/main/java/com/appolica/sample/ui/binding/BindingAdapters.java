@@ -10,6 +10,7 @@ import android.widget.SeekBar;
 
 import com.appolica.sample.ui.editor.pager.settings.NumericTransformer;
 import com.appolica.sample.ui.editor.pager.settings.SeekBarModel;
+import com.appolica.sample.ui.editor.pager.settings.SimpleOnProgressChangeListener;
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
@@ -113,18 +114,7 @@ public class BindingAdapters {
         final int percentage = (int) customTransformer.transformToPercentage(model.getValue().get());
         seekBar.setProgress(percentage);
 
-
-        seekBar.setOnProgressChangeListener(new DiscreteSeekBar.OnProgressChangeListener() {
-            @Override
-            public void onProgressChanged(DiscreteSeekBar seekBar, int value, boolean fromUser) {
-
-            }
-
-            @Override
-            public void onStartTrackingTouch(DiscreteSeekBar seekBar) {
-
-            }
-
+        seekBar.setOnProgressChangeListener(new SimpleOnProgressChangeListener() {
             @Override
             public void onStopTrackingTouch(DiscreteSeekBar seekBar) {
                 model.getValue().set(customTransformer.transformFromPercentage(seekBar.getProgress()));

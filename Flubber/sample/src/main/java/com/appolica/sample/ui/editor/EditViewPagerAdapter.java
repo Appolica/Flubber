@@ -57,13 +57,12 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
                 ((InterpolatorsFragment) item).setSelectedListener(listenerProvider.getInterpolatorSelectedListener());
                 break;
             case SETTINGS:
-
+                ((SettingsFragment) item).setFieldChangedListener(listenerProvider.getFieldChangedListener());
                 break;
         }
 
         final Bundle arguments = new Bundle();
-        arguments.putSerializable(SettingsFragment.BUNDLE_ANIM_BODY, animationBodyProvider.getAnimationBody());
-
+        arguments.putSerializable(EditorFragment.BUNDLE_ANIM_BODY, animationBodyProvider.getAnimationBody());
         item.setArguments(arguments);
 
         return item;

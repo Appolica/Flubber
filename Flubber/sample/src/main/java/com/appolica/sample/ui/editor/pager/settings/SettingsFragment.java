@@ -2,10 +2,10 @@ package com.appolica.sample.ui.editor.pager.settings;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
+import com.appolica.sample.ui.editor.EditorFragment;
 import com.appolica.sample.ui.editor.pager.BaseFragment;
 
 public class SettingsFragment
@@ -13,14 +13,15 @@ public class SettingsFragment
         implements SettingsRVAdapter.OnModelChangedCallback {
 
     public static final String TAG = "SettingsFragment";
-    public static final String BUNDLE_ANIM_BODY = "SettingsArguments";
-    private AnimationBody animationBody;
+
+    private OnFieldChangedListener fieldChangedListener;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        animationBody = (AnimationBody) getArguments().getSerializable(SettingsFragment.BUNDLE_ANIM_BODY);
+        final AnimationBody animationBody =
+                (AnimationBody) getArguments().getSerializable(EditorFragment.BUNDLE_ANIM_BODY);
 
         getAdapter().setAnimationBody(animationBody);
         getAdapter().setModelChangedCallback(this);
@@ -33,9 +34,12 @@ public class SettingsFragment
 
     @Override
     public void onModelChanged(SeekBarModel model) {
-        AnimationBodyModelUtil.initFieldFromModel(model, animationBody);
-        Log.d(TAG, "onModelChanged: " + model);
-        Log.d(TAG, "AnimationBody: duration: " + animationBody.getDuration());
-        Log.d(TAG, "AnimationBody: force: " + animationBody.getForce());
+        if (fieldChangedListener != null) {
+            fieldChangedListener.onFieldChanged(model);
+        }
+    }
+
+    public void setFieldChangedListener(OnFieldChangedListener fieldChangedListener) {
+        this.fieldChangedListener = fieldChangedListener;
     }
 }

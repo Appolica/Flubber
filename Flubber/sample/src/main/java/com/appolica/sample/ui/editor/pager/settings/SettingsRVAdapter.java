@@ -23,8 +23,6 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
 
     private Context context;
 
-//    private AnimationBody animationBody;
-
     private OnModelChangedCallback modelChangedCallback;
 
     public SettingsRVAdapter(Context context) {

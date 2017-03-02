@@ -37,7 +37,6 @@ public class AnimationsFragment
         return Utils.convertMapToData(animationNamesMap);
     }
 
-
     @Override
     public void onElementSelected(RadioElementModel model) {
         if (selectedListener != null) {
