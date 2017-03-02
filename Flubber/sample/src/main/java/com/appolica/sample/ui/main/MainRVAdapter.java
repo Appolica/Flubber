@@ -14,7 +14,7 @@ import com.appolica.sample.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
+public class MainRVAdapter extends RecyclerView.Adapter<MainRVAdapter.ViewHolder> {
 
     private List<AnimationBody> animations = new ArrayList<>();
 

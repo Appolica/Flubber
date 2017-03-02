@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.appolica.flubber.AnimationBody;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.MainPanelBinding;
 
@@ -16,6 +17,7 @@ public class MainPanelFragment extends Fragment {
 
     public static final String TAG = "MainPanelFragment";
     private MainPanelBinding binding;
+    private MainRVAdapter adapter;
 
     @Nullable
     @Override
@@ -27,5 +29,12 @@ public class MainPanelFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        adapter = new MainRVAdapter();
+        binding.recyclerViewAnimations.setAdapter(adapter);
+    }
+
+    public void addAnimation(AnimationBody animationBody) {
+        adapter.add(animationBody);
     }
 }
