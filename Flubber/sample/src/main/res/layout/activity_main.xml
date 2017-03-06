@@ -5,11 +5,16 @@
 
     <data>
 
-        <import type="com.appolica.sample.ui.main.MainActivityClickListener"/>
+        <import type="com.appolica.sample.ui.main.AddClickListener"/>
+        <import type="com.appolica.sample.ui.main.FlubberClickListener"/>
 
         <variable
-            name="clickListener"
-            type="MainActivityClickListener"/>
+            name="addClickListener"
+            type="AddClickListener"/>
+
+        <variable
+            name="flubberClickListener"
+            type="FlubberClickListener"/>
 
     </data>
 
@@ -65,7 +70,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:clickable="true"
-            android:onClick="@{() -> clickListener.onAddClick()}"
+            android:onClick="@{() -> addClickListener.onAddClick()}"
             android:src="@drawable/ic_add_white_48dp"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +99,7 @@
             android:layout_marginTop="16dp"
             android:background="@color/colorAccent"
             android:gravity="center"
-            android:onClick="@{(view) -> clickListener.onViewClick(view)}"
+            android:onClick="@{(view) -> flubberClickListener.onFlubberClick(view)}"
             android:padding="20dp"
             android:text="@string/flubber"
             android:textColor="@android:color/white"

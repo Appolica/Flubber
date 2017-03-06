@@ -19,6 +19,7 @@ import com.appolica.sample.ui.editor.pager.interpolators.OnInterpolatorSelectedL
 import com.appolica.sample.ui.editor.pager.settings.AnimationBodyModelUtil;
 import com.appolica.sample.ui.editor.pager.settings.OnFieldChangedListener;
 import com.appolica.sample.ui.editor.pager.settings.SeekBarModel;
+import com.appolica.sample.ui.main.FlubberClickListener;
 
 
 public class EditorFragment extends Fragment
@@ -26,7 +27,8 @@ public class EditorFragment extends Fragment
         OnAnimationSelectedListener,
         OnInterpolatorSelectedListener,
         OnFieldChangedListener,
-        AnimationBodyProvider {
+        AnimationBodyProvider,
+        FlubberClickListener {
 
     public static final String TAG = "EditorFragment";
     public static final String BUNDLE_ANIM_BODY = "SettingsArguments";
@@ -37,7 +39,10 @@ public class EditorFragment extends Fragment
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_editor_panel, container, false);
         return binding.getRoot();
     }
@@ -46,23 +51,32 @@ public class EditorFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final Bundle arguments = getArguments();
-        if (arguments != null && arguments.getSerializable(BUNDLE_ANIM_BODY) != null) {
-            animationBody = (AnimationBody) arguments.getSerializable(BUNDLE_ANIM_BODY);
-        } else {
-            animationBody = new AnimationBody();
-        }
-
         final EditViewPagerAdapter adapter =
                 new EditViewPagerAdapter(getChildFragmentManager(), getContext());
 
         adapter.setListenerProvider(this);
         adapter.setAnimationBodyProvider(this);
 
+        animationBody = createAnimationBody(getArguments());
+
         binding.tabLayoutEdit.setupWithViewPager(binding.viewPagerEdit);
 
-        binding.viewPagerEdit.setOffscreenPageLimit(4);
+        binding.viewPagerEdit.setOffscreenPageLimit(2);
         binding.viewPagerEdit.setAdapter(adapter);
+    }
+
+    private AnimationBody createAnimationBody(Bundle arguments) {
+        if (arguments != null && arguments.getSerializable(BUNDLE_ANIM_BODY) != null) {
+            return (AnimationBody) arguments.getSerializable(BUNDLE_ANIM_BODY);
+        } else {
+            throw new IllegalStateException("AnimationBody must be provided as an argument with key " + BUNDLE_ANIM_BODY);
+        }
+    }
+
+    @Override
+    public void onFlubberClick(View view) {
+        animationBody.setView(view);
+        animationBody.create().start();
     }
 
     @Override

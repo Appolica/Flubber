@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,7 +20,10 @@ import com.appolica.sample.databinding.ActivityMainBinding;
 import com.appolica.sample.ui.animation.SimpleAnimatorListener;
 import com.appolica.sample.ui.editor.EditorFragment;
 
-public class MainActivity extends AppCompatActivity implements MainActivityClickListener {
+public class MainActivity
+        extends AppCompatActivity
+        implements AddClickListener,
+        FlubberClickListener {
 
     private static final String TAG = "MainActivity";
 
@@ -38,35 +42,42 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
                 .add(R.id.mainPanelContainer, new MainPanelFragment(), MainPanelFragment.TAG)
                 .commitNow();
 
-        binding.setClickListener(this);
+        binding.setAddClickListener(this);
+        binding.setFlubberClickListener(this);
     }
 
     @Override
-    public void onViewClick(View view) {
-        final AnimationBody animationBody = Flubber.with(view)
-                .animation(Flubber.AnimationPreset.WOBBLE)
-                .duration(SECOND)
-                .build();
+    public void onFlubberClick(View view) {
 
-        animationBody
-                .create()
-                .start();
+        final EditorFragment editorFragment =
+                (EditorFragment) getSupportFragmentManager().findFragmentByTag(EditorFragment.TAG);
+        if (editorFragment != null && editorFragment.isVisible()) {
+
+            editorFragment.onFlubberClick(view);
+
+        } else {
+            final AnimationBody animationBody = Flubber.with(view)
+                    .animation(Flubber.AnimationPreset.WOBBLE)
+                    .duration(SECOND)
+                    .build();
+
+            animationBody
+                    .create()
+                    .start();
+        }
     }
 
     @Override
     public void onAddClick() {
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            openEditor();
-        } else {
-            binding.editorPanelContainer.setVisibility(View.VISIBLE);
-        }
+        openEditor();
     }
 
     private void openEditor() {
         final EditorFragment editorFragment = new EditorFragment();
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
-                .add(R.id.editorPanelContainer, editorFragment, EditorFragment.TAG);
+        final FragmentManager fragmentManager = getSupportFragmentManager();
+
+        final FragmentTransaction transaction = fragmentManager.beginTransaction()
+                .replace(R.id.editorPanelContainer, editorFragment, EditorFragment.TAG);
 
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             final Animator showAnimation = getShowWithReveal(binding.editorPanelContainer);
@@ -76,7 +87,18 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
+        editorFragment.setArguments(getEditorArguments());
+
         transaction.commitNow();
+    }
+
+    private Bundle getEditorArguments() {
+        final Bundle arguments = new Bundle();
+        final AnimationBody animationBody = new AnimationBody();
+
+        arguments.putSerializable(EditorFragment.BUNDLE_ANIM_BODY, animationBody );
+
+        return arguments;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -123,7 +145,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityClick
             binding.editorPanelContainer.setVisibility(View.INVISIBLE);
             transaction.commitNow();
         }
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

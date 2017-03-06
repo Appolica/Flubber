@@ -6,4 +6,6 @@
     <color name="main_animations_background">#F1F8E9</color>
     <color name="tab_indicator">#00BCD4</color>
     <color name="colorText">#212121</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="colorSeekBarTrack">#BDBDBD</color>
 </resources>
