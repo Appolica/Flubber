@@ -13,7 +13,7 @@ import com.appolica.flubber.utils.KeyFrameUtil;
 public class Pop extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(final AnimationBody animationBody) {
+    public Animator getAnimationFor(final AnimationBody animationBody, final View view) {
         final float force = animationBody.getForce();
         final float[] values = {0f, (0.2f * force), (-0.2f * force), (0.2f * force), 0f, 0f};
 
@@ -28,7 +28,6 @@ public class Pop extends BaseProvider {
 
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
-                final View view = animationBody.getView();
 
                 if (initialWidth == -1) {
                     initialWidth = view.getWidth();

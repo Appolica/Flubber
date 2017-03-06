@@ -8,9 +8,9 @@ import com.appolica.flubber.AnimationBody;
 
 public class TranslationY extends BaseProvider {
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         return ObjectAnimator.ofFloat(
-                animationBody.getView(),
+                view,
                 View.TRANSLATION_Y,
                 animationBody.getStartY(),
                 animationBody.getEndY());

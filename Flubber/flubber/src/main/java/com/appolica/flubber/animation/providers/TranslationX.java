@@ -8,10 +8,10 @@ import com.appolica.flubber.AnimationBody;
 
 public class TranslationX extends BaseProvider {
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
 
         return ObjectAnimator.ofFloat(
-                animationBody.getView(),
+                view,
                 View.TRANSLATION_X,
                 animationBody.getStartX(),
                 animationBody.getEndX());

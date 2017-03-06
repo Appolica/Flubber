@@ -14,7 +14,7 @@ import static com.appolica.flubber.Flubber.FRACTIONS;
 public class Shake extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         final float dX = DimensionUtils.dp2px(30);
         final float force = animationBody.getForce();
 
@@ -23,7 +23,7 @@ public class Shake extends BaseProvider {
                 PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X, KeyFrameUtil.getKeyFrames(FRACTIONS, translationValues));
 
         final ObjectAnimator animation =
-                ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), translationPVH);
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
 
         return animation;
     }

@@ -2,6 +2,7 @@ package com.appolica.flubber.animation.providers;
 
 import android.animation.Animator;
 import android.animation.ValueAnimator;
+import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
@@ -21,10 +22,10 @@ public abstract class BaseProvider implements Flubber.AnimationProvider {
     }
 
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator createAnimationFor(AnimationBody animationBody, View view) {
         initInterpolatorFor(animationBody);
 
-        final Animator animation = getAnimationFor(animationBody);
+        final Animator animation = getAnimationFor(animationBody, view);
 
         setupAnimation(animationBody, animation);
 
@@ -43,7 +44,7 @@ public abstract class BaseProvider implements Flubber.AnimationProvider {
         }
     }
 
-    public abstract Animator getAnimationFor(AnimationBody animationBody);
+    public abstract Animator getAnimationFor(AnimationBody animationBody, View view);
 
     protected void initInterpolatorFor(AnimationBody animationBody) {
         final Flubber.InterpolatorProvider provider = animationBody.getInterpolator();

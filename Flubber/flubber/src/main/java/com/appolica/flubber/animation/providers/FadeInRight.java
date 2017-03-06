@@ -10,8 +10,7 @@ import com.appolica.flubber.utils.DimensionUtils;
 public class FadeInRight extends BaseFadeIn {
 
     @NonNull
-    protected ObjectAnimator getTranslation(AnimationBody animationBody) {
-        final View view = animationBody.getView();
+    protected ObjectAnimator getTranslation(AnimationBody animationBody, View view) {
         final float startY = -DimensionUtils.dp2px(300) * animationBody.getForce();
         final float endY = 0;
 

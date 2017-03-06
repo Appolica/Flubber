@@ -80,12 +80,12 @@ public class Flubber {
     public static final String SCALE = "scale";
 
     @Contract("_ -> !null")
-    public static AnimationBody.Builder with(View view) {
-        return AnimationBody.Builder.getBuilder(view);
+    public static AnimationBody.Builder with() {
+        return AnimationBody.Builder.getBuilder();
     }
 
-    public static Animator getAnimation(@NonNull final AnimationBody animationBody) {
-        return animationBody.getAnimation().createAnimationFor(animationBody);
+    public static Animator getAnimation(@NonNull final AnimationBody animationBody, View view) {
+        return animationBody.getAnimation().createAnimationFor(animationBody, view);
     }
 
     public static enum AnimationPreset implements AnimationProvider {
@@ -165,8 +165,8 @@ public class Flubber {
             }
         }
 
-        public Animator createAnimationFor(AnimationBody animationBody) {
-            return providers.get(this).createAnimationFor(animationBody);
+        public Animator createAnimationFor(AnimationBody animationBody, View view) {
+            return providers.get(this).createAnimationFor(animationBody, view);
         }
     }
 
@@ -250,7 +250,7 @@ public class Flubber {
     }
 
     public static interface AnimationProvider {
-        public Animator createAnimationFor(final AnimationBody animationBody);
+        public Animator createAnimationFor(final AnimationBody animationBody, View view);
     }
 
     public static interface InterpolatorProvider {

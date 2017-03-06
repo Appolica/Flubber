@@ -20,13 +20,12 @@ public class MainActivity extends AppCompatActivity {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Flubber.with(view)
+                Flubber.with()
                         .animation(Flubber.AnimationPreset.SLIDE_UP)
                         .repeatCount(1)
                         .duration(SECOND)
-                        .create()
+                        .createFor(view)
                         .start();
-
             }
         });
 

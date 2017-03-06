@@ -10,8 +10,7 @@ import com.appolica.flubber.AnimationBody;
 public class ZoomOut extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
-        final View view = animationBody.getView();
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
 
         final float scale = 2 * animationBody.getForce();
 

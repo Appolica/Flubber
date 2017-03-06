@@ -9,7 +9,6 @@ import com.appolica.flubber.annotations.RepeatMode;
 import org.jetbrains.annotations.Contract;
 
 public class AnimationBody {
-    private View view;
 
     private boolean autoStart;
 
@@ -42,8 +41,8 @@ public class AnimationBody {
     public AnimationBody() {
     }
 
-    public Animator create() {
-        final Animator animation = Flubber.getAnimation(this);
+    public Animator createFor(View view) {
+        final Animator animation = Flubber.getAnimation(this, view);
 
         animation.setDuration(duration);
         animation.setStartDelay(delay);
@@ -167,14 +166,6 @@ public class AnimationBody {
         this.interpolator = interpolator;
     }
 
-    public void setView(View view) {
-        this.view = view;
-    }
-
-    public View getView() {
-        return view;
-    }
-
     @RepeatMode
     public int getRepeatMode() {
         return repeatMode;
@@ -218,8 +209,6 @@ public class AnimationBody {
 
     public static final class Builder {
 
-        private View view;
-
         private boolean autoStart;
 
         private float force = 1;
@@ -247,13 +236,13 @@ public class AnimationBody {
         private Flubber.AnimationProvider animation;
         private Flubber.InterpolatorProvider interpolatorProvider;
 
-        private Builder(View view) {
-            this.view = view;
+        private Builder() {
+
         }
 
-        @Contract("_ -> !null")
-        public static Builder getBuilder(View view) {
-            return new Builder(view);
+        @Contract(" -> !null")
+        public static Builder getBuilder() {
+            return new Builder();
         }
 
         public Builder autoStart(boolean autoStart) {
@@ -355,8 +344,8 @@ public class AnimationBody {
             return this;
         }
 
-        public Animator create() {
-            return build().create();
+        public Animator createFor(View view) {
+            return build().createFor(view);
         }
 
         public AnimationBody build() {
@@ -389,7 +378,6 @@ public class AnimationBody {
 
             animationBody.setAnimation(animation);
             animationBody.setInterpolator(interpolatorProvider);
-            animationBody.setView(view);
 
             return animationBody;
         }

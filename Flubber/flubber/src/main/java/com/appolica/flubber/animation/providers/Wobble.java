@@ -17,17 +17,17 @@ import static com.appolica.flubber.Flubber.FRACTIONS;
 public class Wobble extends BaseProvider {
 
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator createAnimationFor(AnimationBody animationBody, View view) {
         initInterpolatorFor(animationBody);
-        return getAnimationFor(animationBody);
+        return getAnimationFor(animationBody, view);
     }
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         final AnimatorSet animatorSet = new AnimatorSet();
 
-        final Animator rotationAnimator = getRotation(animationBody);
-        final Animator translationAnimator = getShake(animationBody);
+        final Animator rotationAnimator = getRotation(animationBody, view);
+        final Animator translationAnimator = getShake(animationBody, view);
 
         animatorSet.play(translationAnimator)
                 .with(rotationAnimator);
@@ -35,7 +35,7 @@ public class Wobble extends BaseProvider {
         return animatorSet;
     }
 
-    private Animator getRotation(AnimationBody animationBody) {
+    private Animator getRotation(AnimationBody animationBody, View view) {
         final float force = animationBody.getForce();
 
         float[] rotationValues = {
@@ -51,14 +51,14 @@ public class Wobble extends BaseProvider {
                 PropertyValuesHolder.ofKeyframe(View.ROTATION, KeyFrameUtil.getKeyFrames(Flubber.FRACTIONS, rotationValues));
 
         final ObjectAnimator animation =
-                ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), pvhRotation);
+                ObjectAnimator.ofPropertyValuesHolder(view, pvhRotation);
 
         animation.setInterpolator(new LinearInterpolator());
 
         return animation;
     }
 
-    private Animator getShake(AnimationBody animationBody) {
+    private Animator getShake(AnimationBody animationBody, View view) {
         final float dX = DimensionUtils.dp2px(30);
         final float force = animationBody.getForce();
 
@@ -67,7 +67,7 @@ public class Wobble extends BaseProvider {
                 PropertyValuesHolder.ofKeyframe(View.TRANSLATION_X, KeyFrameUtil.getKeyFrames(FRACTIONS, translationValues));
 
         final ObjectAnimator animation =
-                ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), translationPVH);
+                ObjectAnimator.ofPropertyValuesHolder(view, translationPVH);
 
         animation.setInterpolator(getInterpolatorProvider().createInterpolatorFor(animationBody));
 

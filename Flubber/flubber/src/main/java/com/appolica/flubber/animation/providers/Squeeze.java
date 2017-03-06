@@ -12,7 +12,7 @@ import com.appolica.flubber.utils.KeyFrameUtil;
 public class Squeeze extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         final float force = animationBody.getForce();
 
         float[] valuesX = {1f, 1.5f * force, 0.5f, 1.5f * force, 1f, 1f};
@@ -25,7 +25,7 @@ public class Squeeze extends BaseProvider {
                 PropertyValuesHolder.ofKeyframe(View.SCALE_Y, KeyFrameUtil.getKeyFrames(Flubber.FRACTIONS, valuesY));
 
         final ObjectAnimator animation =
-                ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), scaleXPVH, scaleYPVH);
+                ObjectAnimator.ofPropertyValuesHolder(view, scaleXPVH, scaleYPVH);
 
         return animation;
     }

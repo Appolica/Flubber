@@ -10,8 +10,7 @@ import com.appolica.flubber.AnimationBody;
 public class FadeOutIn extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
-        final View view = animationBody.getView();
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
 
         final ObjectAnimator animation = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0f);
 
