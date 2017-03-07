@@ -16,8 +16,7 @@ public class SqueezeLeft extends BaseProvider {
     }
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
-        final View view = animationBody.getView();
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
 
         final float startX = DimensionUtils.dp2px(800);
         final float endX = 0f;

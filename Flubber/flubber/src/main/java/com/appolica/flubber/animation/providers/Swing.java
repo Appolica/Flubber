@@ -12,7 +12,7 @@ import com.appolica.flubber.utils.KeyFrameUtil;
 public class Swing extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         final float force = animationBody.getForce();
 
         float[] values = {
@@ -28,7 +28,7 @@ public class Swing extends BaseProvider {
                 PropertyValuesHolder.ofKeyframe(View.ROTATION, KeyFrameUtil.getKeyFrames(Flubber.FRACTIONS, values));
 
         final ObjectAnimator animation =
-                ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), pvhRotation);
+                ObjectAnimator.ofPropertyValuesHolder(view, pvhRotation);
 
         return animation;
     }

@@ -16,8 +16,7 @@ public class SlideDown extends BaseProvider {
     }
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
-        final View view = animationBody.getView();
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
 
         final float startY = DimensionUtils.dp2px(-800);
         final float endY = 0f;

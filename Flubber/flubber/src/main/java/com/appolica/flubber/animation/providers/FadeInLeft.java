@@ -10,8 +10,7 @@ import com.appolica.flubber.utils.DimensionUtils;
 public class FadeInLeft extends BaseFadeIn {
 
     @Override
-    protected Animator getTranslation(AnimationBody animationBody) {
-        final View view = animationBody.getView();
+    protected Animator getTranslation(AnimationBody animationBody, View view) {
 
         final float startY = DimensionUtils.dp2px(300) * animationBody.getForce();
         final float endY = 0;

@@ -16,7 +16,7 @@ public class Rotation extends BaseProvider {
     }
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         final float force = animationBody.getForce();
 
         float[] rotationValues = {
@@ -32,7 +32,7 @@ public class Rotation extends BaseProvider {
                 PropertyValuesHolder.ofKeyframe(View.ROTATION, KeyFrameUtil.getKeyFrames(Flubber.FRACTIONS, rotationValues));
 
         final ObjectAnimator animation =
-                ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), pvhRotation);
+                ObjectAnimator.ofPropertyValuesHolder(view, pvhRotation);
 
         return animation;
     }
