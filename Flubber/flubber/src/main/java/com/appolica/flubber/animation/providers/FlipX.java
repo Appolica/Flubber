@@ -10,8 +10,7 @@ import com.appolica.flubber.AnimationBody;
 public class FlipX extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
-        final View view = animationBody.getView();
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
 
         final float startRotation = view.getRotationX();
         final float endRotation = startRotation + 180f;

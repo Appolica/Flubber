@@ -11,10 +11,10 @@ import com.appolica.flubber.AnimationBody;
 public class Flash extends BaseProvider {
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         final PropertyValuesHolder alphaPVH = PropertyValuesHolder.ofFloat(View.ALPHA, 1f, 0f);
         final ValueAnimator animation =
-                ObjectAnimator.ofPropertyValuesHolder(animationBody.getView(), alphaPVH);
+                ObjectAnimator.ofPropertyValuesHolder(view, alphaPVH);
 
         return animation;
     }

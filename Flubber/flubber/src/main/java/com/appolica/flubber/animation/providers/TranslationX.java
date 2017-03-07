@@ -6,13 +6,14 @@ import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
 
-public class FadeOut extends BaseProvider {
-
+public class TranslationX extends BaseProvider {
     @Override
     public Animator getAnimationFor(AnimationBody animationBody, View view) {
 
-        final ObjectAnimator animation = ObjectAnimator.ofFloat(view, View.ALPHA, 1f, 0f);
-
-        return animation;
+        return ObjectAnimator.ofFloat(
+                view,
+                View.TRANSLATION_X,
+                animationBody.getStartX(),
+                animationBody.getEndX());
     }
 }

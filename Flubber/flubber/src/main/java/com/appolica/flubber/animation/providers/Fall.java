@@ -11,16 +11,14 @@ import com.appolica.flubber.utils.DimensionUtils;
 
 public class Fall extends BaseProvider {
     @Override
-    public Animator createAnimationFor(AnimationBody animationBody) {
+    public Animator createAnimationFor(AnimationBody animationBody, View view) {
         initInterpolatorFor(animationBody);
-        return getAnimationFor(animationBody);
+        return getAnimationFor(animationBody, view);
     }
 
     @Override
-    public Animator getAnimationFor(AnimationBody animationBody) {
+    public Animator getAnimationFor(AnimationBody animationBody, View view) {
         final AnimatorSet animatorSet = new AnimatorSet();
-
-        final View view = animationBody.getView();
 
         final ObjectAnimator translateAnimation = getTranslation(animationBody, view);
         final ObjectAnimator rotateAnimation = getRotation(view);
