@@ -75,8 +75,7 @@ public class EditorFragment extends Fragment
 
     @Override
     public void onFlubberClick(View view) {
-        animationBody.setView(view);
-        animationBody.create().start();
+        animationBody.createFor(view).start();
     }
 
     @Override

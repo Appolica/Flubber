@@ -56,13 +56,14 @@ public class MainActivity
             editorFragment.onFlubberClick(view);
 
         } else {
-            final AnimationBody animationBody = Flubber.with(view)
+            final AnimationBody animationBody =
+                    Flubber.with()
                     .animation(Flubber.AnimationPreset.WOBBLE)
                     .duration(SECOND)
                     .build();
 
             animationBody
-                    .create()
+                    .createFor(view)
                     .start();
         }
     }
@@ -177,19 +178,19 @@ public class MainActivity
     }
 
     private Animator getFadeOut(View toHide) {
-        return Flubber.with(toHide)
+        return Flubber.with()
                 .animation(Flubber.AnimationPreset.FADE_OUT)
                 .interpolator(Flubber.Curve.BZR_EASE_OUT)
                 .duration(DURATION_FADE)
-                .create();
+                .createFor(toHide);
     }
 
     private Animator getFadeIn(View toHide) {
-        return Flubber.with(toHide)
+        return Flubber.with()
                 .animation(Flubber.AnimationPreset.FADE_IN)
                 .interpolator(Flubber.Curve.BZR_EASE_IN)
                 .duration(DURATION_FADE)
-                .create();
+                .createFor(toHide);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

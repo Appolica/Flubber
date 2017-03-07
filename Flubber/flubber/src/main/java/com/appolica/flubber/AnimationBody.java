@@ -16,23 +16,24 @@ public class AnimationBody implements Serializable {
 
     private float force = 1;
     private float damping = 0.7f;
-
     private float velocity = 0.7f;
+
     private float startX = 0f;
     private float endX = 0f;
-    private float startY = 0f;
 
+    private float startY = 0f;
     private float endY = 0f;
+
     private float startScaleX = 1L;
     private float endScaleX = 1L;
+
     private float startScaleY = 1L;
-
     private float endScaleY = 1L;
+
     private int repeatCount = 0;
-
     private int repeatMode = ValueAnimator.RESTART;
-    private long delay = 0L;
 
+    private long delay = 0L;
     private long duration = 700L;
 
     private boolean animateFrom;
