@@ -6,7 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
-import com.appolica.flubber.Flubber;
 import com.appolica.sample.ui.editor.pager.AnimationBodyProvider;
 import com.appolica.sample.ui.editor.pager.EditorFragmentType;
 import com.appolica.sample.ui.editor.pager.ListenerProvider;
@@ -60,9 +59,6 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
                 ((SettingsFragment) item).setFieldChangedListener(listenerProvider.getFieldChangedListener());
                 break;
         }
-
-        animationBodyProvider.getAnimationBody().setAnimation(Flubber.AnimationPreset.SQUEEZE_LEFT);
-        animationBodyProvider.getAnimationBody().setInterpolator(Flubber.Curve.BZR_SPRING);
 
         if (item instanceof AnimationBodyHolder) {
             ((AnimationBodyHolder) item).setAnimationBody(animationBodyProvider.getAnimationBody());
