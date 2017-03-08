@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
+import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.ui.editor.pager.BaseRadioRVFragment;
 import com.appolica.sample.ui.editor.pager.RadioElementModel;
@@ -29,7 +30,22 @@ public class InterpolatorsFragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        final RadioRVAdapter adapter = getAdapter();
+
         getAdapter().setSelectedListener(this);
+
+        final AnimationBody animationBody = getAnimationBody();
+        if (animationBody.getInterpolator() == null) {
+            getAdapter().setSelected(0);
+        } else {
+            final Flubber.InterpolatorProvider interpolatorProvider = ((Flubber.Curve) animationBody.getInterpolator()).getProvider();
+            final Flubber.Curve interpolator = Flubber.Curve.valueFor(interpolatorProvider);
+            final RadioElementModel radioElementModel = Utils.convertEnumToModel(interpolator);
+
+            final int index = adapter.getData().indexOf(radioElementModel);
+
+            adapter.setSelected(index);
+        }
     }
 
     @Override
@@ -47,4 +63,5 @@ public class InterpolatorsFragment
     public void setSelectedListener(OnInterpolatorSelectedListener selectedListener) {
         this.selectedListener = selectedListener;
     }
+
 }

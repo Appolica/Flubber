@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
+import com.android.databinding.library.baseAdapters.BR;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemRadioBinding;
 
@@ -38,6 +39,23 @@ public class RadioRVAdapter extends RecyclerView.Adapter<RadioRVAdapter.BindingH
 
     public void setSelectedListener(OnElementSelectedListener selectedListener) {
         this.selectedListener = selectedListener;
+    }
+
+    public void setSelected(int index) {
+        final RadioElementModel checkedModel = checked.get();
+        final int oldCheckedIndex = data.indexOf(checkedModel);
+
+        if (oldCheckedIndex == index) {
+            checked.notifyPropertyChanged(BR.checked);
+        } else {
+            if (oldCheckedIndex >= 0) {
+                checkedModel.getChecked().set(false);
+                notifyItemChanged(oldCheckedIndex);
+            }
+
+            checked.set(data.get(index));
+            notifyItemChanged(index);
+        }
     }
 
     public class BindingHolder extends RecyclerView.ViewHolder {
@@ -82,23 +100,10 @@ public class RadioRVAdapter extends RecyclerView.Adapter<RadioRVAdapter.BindingH
 
     public void setData(List<RadioElementModel> data) {
         this.data = data;
-        checked.set(data.get(0));
         notifyDataSetChanged();
     }
 
     public interface OnElementSelectedListener {
         void onElementSelected(RadioElementModel model);
     }
-
-
 }
-
-
-
-
-
-
-
-
-
-

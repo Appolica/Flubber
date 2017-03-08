@@ -28,10 +28,11 @@ public class EditorFragment extends Fragment
         OnInterpolatorSelectedListener,
         OnFieldChangedListener,
         AnimationBodyProvider,
-        FlubberClickListener {
+        FlubberClickListener,
+        AnimationBodyHolder {
 
     public static final String TAG = "EditorFragment";
-    public static final String BUNDLE_ANIM_BODY = "SettingsArguments";
+    public static final String BUNDLE_ARGUMENTS = "SettingsArguments";
 
     private FragmentEditorPanelBinding binding;
 
@@ -57,20 +58,16 @@ public class EditorFragment extends Fragment
         adapter.setListenerProvider(this);
         adapter.setAnimationBodyProvider(this);
 
-        animationBody = createAnimationBody(getArguments());
-
         binding.tabLayoutEdit.setupWithViewPager(binding.viewPagerEdit);
 
         binding.viewPagerEdit.setOffscreenPageLimit(2);
         binding.viewPagerEdit.setAdapter(adapter);
     }
 
-    private AnimationBody createAnimationBody(Bundle arguments) {
-        if (arguments != null && arguments.getSerializable(BUNDLE_ANIM_BODY) != null) {
-            return (AnimationBody) arguments.getSerializable(BUNDLE_ANIM_BODY);
-        } else {
-            throw new IllegalStateException("AnimationBody must be provided as an argument with key " + BUNDLE_ANIM_BODY);
-        }
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBundle(BUNDLE_ARGUMENTS, getArguments());
     }
 
     @Override
@@ -111,5 +108,10 @@ public class EditorFragment extends Fragment
     @Override
     public AnimationBody getAnimationBody() {
         return animationBody;
+    }
+
+    @Override
+    public void setAnimationBody(AnimationBody animationBody) {
+        this.animationBody = animationBody;
     }
 }

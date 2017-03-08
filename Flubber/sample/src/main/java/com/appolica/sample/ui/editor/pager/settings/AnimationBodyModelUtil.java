@@ -18,7 +18,7 @@ public class AnimationBodyModelUtil {
         FORCE("force", 1f, 5f, 1f),
         VELOCITY("velocity", 0f, 1f, 1f),
         DAMPING("damping", 0f, 1f, 1f),
-        SCALE("scaleX", 0f, 1f, 1f);
+        SCALE("endScaleX", 0f, 5f, 1f);
 
         private final String name;
         private float min;

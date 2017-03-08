@@ -1,12 +1,12 @@
 package com.appolica.sample.ui.editor;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.view.ViewGroup;
 
+import com.appolica.flubber.Flubber;
 import com.appolica.sample.ui.editor.pager.AnimationBodyProvider;
 import com.appolica.sample.ui.editor.pager.EditorFragmentType;
 import com.appolica.sample.ui.editor.pager.ListenerProvider;
@@ -61,9 +61,12 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
                 break;
         }
 
-        final Bundle arguments = new Bundle();
-        arguments.putSerializable(EditorFragment.BUNDLE_ANIM_BODY, animationBodyProvider.getAnimationBody());
-        item.setArguments(arguments);
+        animationBodyProvider.getAnimationBody().setAnimation(Flubber.AnimationPreset.SQUEEZE_LEFT);
+        animationBodyProvider.getAnimationBody().setInterpolator(Flubber.Curve.BZR_SPRING);
+
+        if (item instanceof AnimationBodyHolder) {
+            ((AnimationBodyHolder) item).setAnimationBody(animationBodyProvider.getAnimationBody());
+        }
 
         return item;
     }
@@ -75,4 +78,5 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
     public void setAnimationBodyProvider(AnimationBodyProvider animationBodyProvider) {
         this.animationBodyProvider = animationBodyProvider;
     }
+
 }

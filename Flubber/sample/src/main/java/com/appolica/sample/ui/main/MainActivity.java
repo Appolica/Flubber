@@ -56,13 +56,10 @@ public class MainActivity
             editorFragment.onFlubberClick(view);
 
         } else {
-            final AnimationBody animationBody =
-                    Flubber.with()
+            Flubber.with()
                     .animation(Flubber.AnimationPreset.WOBBLE)
                     .duration(SECOND)
-                    .build();
-
-            animationBody
+                    .build()
                     .createFor(view)
                     .start();
         }
@@ -75,6 +72,7 @@ public class MainActivity
 
     private void openEditor() {
         final EditorFragment editorFragment = new EditorFragment();
+        editorFragment.setAnimationBody(new AnimationBody());
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
         final FragmentTransaction transaction = fragmentManager.beginTransaction()
@@ -88,18 +86,7 @@ public class MainActivity
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
         }
 
-        editorFragment.setArguments(getEditorArguments());
-
         transaction.commitNow();
-    }
-
-    private Bundle getEditorArguments() {
-        final Bundle arguments = new Bundle();
-        final AnimationBody animationBody = new AnimationBody();
-
-        arguments.putSerializable(EditorFragment.BUNDLE_ANIM_BODY, animationBody );
-
-        return arguments;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)

@@ -30,7 +30,10 @@ public class RadioElementModel implements Serializable {
     public boolean equals(Object obj) {
 
         if (obj instanceof RadioElementModel) {
-            return ((RadioElementModel) obj).getName().get().equals(name.get());
+            final RadioElementModel query = (RadioElementModel) obj;
+
+            return query.getName().get().equals(name.get())
+                    && query.getChecked().get() == checked.get();
         }
 
         return super.equals(obj);

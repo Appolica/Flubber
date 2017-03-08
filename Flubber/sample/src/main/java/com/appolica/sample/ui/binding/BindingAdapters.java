@@ -40,14 +40,16 @@ public class BindingAdapters {
         radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (!checked.get().equals(model) && isChecked) {
+                if ((checked.get() == null || !checked.get().equals(model))
+                        && isChecked) {
+
                     checked.set(model);
                 }
             }
         });
 
         final T checkedModel = checked.get();
-        final boolean shouldBeChecked = checkedModel.equals(model);
+        final boolean shouldBeChecked = checkedModel != null && checkedModel.equals(model);
 
         if (shouldBeChecked != radioButton.isChecked()) {
             radioButton.setChecked(shouldBeChecked);

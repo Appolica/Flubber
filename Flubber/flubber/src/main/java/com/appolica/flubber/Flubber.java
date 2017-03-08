@@ -165,8 +165,24 @@ public class Flubber {
             }
         }
 
+        public AnimationProvider getProvider() {
+            return providers.get(this);
+        }
+
         public Animator createAnimationFor(AnimationBody animationBody, View view) {
-            return providers.get(this).createAnimationFor(animationBody, view);
+            return getProvider().createAnimationFor(animationBody, view);
+        }
+
+        public static AnimationPreset valueFor(AnimationProvider animationProvider) {
+            for (Map.Entry<AnimationPreset, AnimationProvider> providersEntry :
+                    providers.entrySet()) {
+
+                if (animationProvider.getClass().isAssignableFrom(providersEntry.getValue().getClass())) {
+                    return providersEntry.getKey();
+                }
+            }
+
+            return null;
         }
     }
 
@@ -243,9 +259,25 @@ public class Flubber {
             }
         }
 
+        public InterpolatorProvider getProvider() {
+            return providers.get(this);
+        }
+
         @Override
         public Interpolator createInterpolatorFor(AnimationBody animationBody) {
-            return providers.get(this).createInterpolatorFor(animationBody);
+            return getProvider().createInterpolatorFor(animationBody);
+        }
+
+        public static Curve valueFor(InterpolatorProvider interpolatorProvider) {
+            for (Map.Entry<Curve, InterpolatorProvider> providersEntry :
+                    providers.entrySet()) {
+
+                if (interpolatorProvider.getClass().isAssignableFrom(providersEntry.getValue().getClass())) {
+                    return providersEntry.getKey();
+                }
+            }
+
+            return null;
         }
     }
 
