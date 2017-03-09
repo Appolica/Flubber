@@ -337,7 +337,7 @@ public class AnimationBody implements Serializable {
             return this;
         }
 
-        public Builder animation(Flubber.AnimationPreset animation) {
+        public Builder animation(Flubber.AnimationProvider animation) {
             this.animation = animation;
             return this;
         }
