@@ -18,6 +18,7 @@ import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ActivityMainBinding;
 import com.appolica.sample.ui.animation.FABRevealProvider;
+import com.appolica.sample.ui.animation.RevealProvider;
 import com.appolica.sample.ui.animation.SimpleAnimatorListener;
 import com.appolica.sample.ui.editor.EditorFragment;
 
@@ -113,16 +114,16 @@ public class MainActivity
         toShow.setVisibility(View.INVISIBLE);
         toShow.setAlpha(1);
 
-        final Animator reveal = getReveal(binding.revealView, true);
-        final Animator fadeOut = getFadeOut(binding.revealView);
+        final Animator reveal = Flubber.with()
+                .animation(RevealProvider.create(binding.floatingActionButton, binding.revealView, true))
+                .duration(DURATION_REVEAL)
+                .createFor(toShow);
 
-        reveal.setDuration(DURATION_REVEAL);
-        reveal.addListener(new SimpleAnimatorListener() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                toShow.setVisibility(View.VISIBLE);
-            }
-        });
+        final Animator fadeOut = Flubber.with()
+                .animation(Flubber.AnimationPreset.FADE_OUT)
+                .interpolator(Flubber.Curve.BZR_EASE_OUT)
+                .duration(DURATION_FADE)
+                .createFor(binding.revealView);
 
         animatorSet.play(fadeOut).after(reveal);
 
@@ -187,14 +188,6 @@ public class MainActivity
         animatorSet.play(reveal).after(fadeOut);
 
         return animatorSet;
-    }
-
-    private Animator getFadeOut(View toHide) {
-        return Flubber.with()
-                .animation(Flubber.AnimationPreset.FADE_OUT)
-                .interpolator(Flubber.Curve.BZR_EASE_OUT)
-                .duration(DURATION_FADE)
-                .createFor(toHide);
     }
 
     private Animator getFadeIn(View toHide) {
