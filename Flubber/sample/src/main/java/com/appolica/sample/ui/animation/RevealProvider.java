@@ -53,7 +53,12 @@ public class RevealProvider implements Flubber.AnimationProvider {
             };
         } else {
             animator = ViewAnimationUtils.createCircularReveal(revealView, cx, cy, radius, 0);
-            listener = null;
+            listener = new SimpleAnimatorListener() {
+                @Override
+                public void onAnimationEnd(Animator animation) {
+                    revealView.setVisibility(View.INVISIBLE);
+                }
+            };
         }
 
         animator.addListener(listener);

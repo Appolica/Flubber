@@ -11,7 +11,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
@@ -166,10 +165,19 @@ public class MainActivity
         final AnimatorSet animatorSet = new AnimatorSet();
 
         binding.revealView.setVisibility(View.VISIBLE);
-        final Animator reveal = getReveal(binding.revealView, false);
-        final Animator fadeOut = getFadeIn(binding.revealView);
 
-        reveal.setDuration(DURATION_REVEAL);
+        final Animator revealAnimation =
+                Flubber.with()
+                        .animation(RevealProvider.create(binding.floatingActionButton, binding.revealView, false))
+                        .duration(DURATION_REVEAL)
+                        .createFor(toHide);
+
+        final Animator fadeOut =
+                Flubber.with()
+                        .animation(Flubber.AnimationPreset.FADE_IN)
+                        .interpolator(Flubber.Curve.BZR_EASE_OUT)
+                        .duration(DURATION_FADE)
+                        .createFor(binding.revealView);
 
         fadeOut.addListener(new SimpleAnimatorListener() {
             @Override
@@ -178,53 +186,9 @@ public class MainActivity
             }
         });
 
-        animatorSet.addListener(new SimpleAnimatorListener() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                binding.revealView.setVisibility(View.INVISIBLE);
-            }
-        });
-
-        animatorSet.play(reveal).after(fadeOut);
+        animatorSet.play(revealAnimation).after(fadeOut);
 
         return animatorSet;
-    }
-
-    private Animator getFadeIn(View toHide) {
-        return Flubber.with()
-                .animation(Flubber.AnimationPreset.FADE_IN)
-                .interpolator(Flubber.Curve.BZR_EASE_IN)
-                .duration(DURATION_FADE)
-                .createFor(toHide);
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private Animator getReveal(final View view, boolean isOpening) {
-        final float fabY = binding.floatingActionButton.getY();
-        final float revealY = binding.revealView.getY();
-        final float dy = Math.abs(fabY - revealY);
-
-        int cx = (int) (binding.floatingActionButton.getX() + binding.floatingActionButton.getWidth() / 2);
-        int cy = (int) (dy + binding.floatingActionButton.getHeight() / 2);
-
-        float radius = (float) Math.hypot(cx, cy);
-
-        final Animator animator;
-        if (isOpening) {
-            animator = ViewAnimationUtils.createCircularReveal(view, cx, cy, 0, radius);
-        } else {
-            animator = ViewAnimationUtils.createCircularReveal(view, cx, cy, radius, 0);
-        }
-
-        animator.addListener(new SimpleAnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                view.setAlpha(1);
-                view.setVisibility(View.VISIBLE);
-            }
-        });
-
-        return animator;
     }
 
     private <T extends Fragment> T getFragment(String tag) {
