@@ -76,13 +76,6 @@ public class MainActivity
     }
 
     private void openEditor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Flubber.with()
-                    .animation(FABRevealProvider.create(R.drawable.ic_done_white_24dp))
-                    .duration(DURATION_REVEAL)
-                    .autoStart(true)
-                    .createFor(binding.floatingActionButton);
-        }
 
         final EditorFragment editorFragment = new EditorFragment();
         final FragmentManager fragmentManager = getSupportFragmentManager();
@@ -93,11 +86,17 @@ public class MainActivity
                 fragmentManager.beginTransaction()
                         .replace(R.id.editorPanelContainer, editorFragment, EditorFragment.TAG);
 
+        binding.mainPanelContainer.setVisibility(View.INVISIBLE);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-
             final Animator showAnimation = getShowWithReveal(binding.editorPanelContainer);
-            showAnimation.start();
 
+            Flubber.with()
+                    .animation(FABRevealProvider.create(R.drawable.ic_done_white_24dp))
+                    .duration(DURATION_REVEAL)
+                    .autoStart(true)
+                    .createFor(binding.floatingActionButton);
+
+            showAnimation.start();
         } else {
             binding.editorPanelContainer.setVisibility(View.VISIBLE);
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -130,18 +129,12 @@ public class MainActivity
     }
 
     private void closeEditor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Flubber.with()
-                    .animation(new FABRevealProvider(R.drawable.ic_add_white_48dp))
-                    .autoStart(true)
-                    .duration(DURATION_REVEAL)
-                    .createFor(binding.floatingActionButton);
-        }
-
         final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction()
-                .remove(editorFragment);
 
+        MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
+        fragment.addAnimation(editorFragment.getAnimationBody());
+
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().remove(editorFragment);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
             final AnimatorSet hideAnimation = getHideWithReveal(binding.editorPanelContainer);
 
@@ -149,13 +142,21 @@ public class MainActivity
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     transaction.commitNow();
+                    binding.mainPanelContainer.setVisibility(View.VISIBLE);
                 }
             });
+
+            Flubber.with()
+                    .animation(FABRevealProvider.create(R.drawable.ic_add_white_48dp))
+                    .autoStart(true)
+                    .duration(DURATION_REVEAL)
+                    .createFor(binding.floatingActionButton);
 
             hideAnimation.start();
         } else {
             transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
             binding.editorPanelContainer.setVisibility(View.INVISIBLE);
+            binding.mainPanelContainer.setVisibility(View.VISIBLE);
             transaction.commitNow();
         }
     }

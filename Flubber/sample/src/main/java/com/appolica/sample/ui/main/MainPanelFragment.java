@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,9 @@ public class MainPanelFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         adapter = new MainRVAdapter();
+
+        binding.recyclerViewAnimations.setHasFixedSize(true);
+        binding.recyclerViewAnimations.setLayoutManager(new LinearLayoutManager(getContext()));
         binding.recyclerViewAnimations.setAdapter(adapter);
     }
 

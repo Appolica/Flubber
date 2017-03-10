@@ -24,16 +24,6 @@
         android:layout_height="match_parent"
         tools:context="com.appolica.sample.ui.main.MainActivity">
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/guideline"
-            app:layout_constraintHorizontal_bias="0.33"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
-
         <FrameLayout
             android:id="@+id/mainPanelContainer"
             android:layout_width="0dp"
