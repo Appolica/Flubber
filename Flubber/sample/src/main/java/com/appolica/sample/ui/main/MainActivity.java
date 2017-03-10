@@ -21,6 +21,9 @@ import com.appolica.sample.ui.animation.RevealProvider;
 import com.appolica.sample.ui.animation.SimpleAnimatorListener;
 import com.appolica.sample.ui.editor.EditorFragment;
 
+import java.util.Iterator;
+import java.util.List;
+
 public class MainActivity
         extends AppCompatActivity
         implements AddClickListener,
@@ -57,18 +60,40 @@ public class MainActivity
             editorFragment.onFlubberClick(view);
 
         } else {
-            Flubber.with()
-                    .animation(Flubber.AnimationPreset.WOBBLE)
-                    .duration(SECOND)
-                    .autoStart(true)
-                    .build()
-                    .createFor(view);
+            final MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
+            AnimatorSet allAnimationsSet = buildSetForBodies(fragment.getAnimations(), view);
+
+            if (allAnimationsSet.getChildAnimations().size() > 0) {
+                allAnimationsSet.start();
+            }
         }
+    }
+
+    private AnimatorSet buildSetForBodies(List<AnimationBody> animations, View view) {
+        final AnimatorSet animatorSet = new AnimatorSet();
+
+        if (animations.size() > 0) {
+            final Iterator<AnimationBody> iterator = animations.iterator();
+
+            final AnimatorSet.Builder builder =
+                    animatorSet.play(iterator.next().createFor(view));
+
+            while (iterator.hasNext()) {
+                builder.with(iterator.next().createFor(view));
+            }
+        }
+
+        return animatorSet;
     }
 
     @Override
     public void onAddClick() {
         if (isEditorOpen()) {
+            final MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
+            final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
+
+            fragment.addAnimation(editorFragment.getAnimationBody());
+
             closeEditor();
         } else {
             openEditor();
@@ -130,9 +155,6 @@ public class MainActivity
 
     private void closeEditor() {
         final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
-
-        MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
-        fragment.addAnimation(editorFragment.getAnimationBody());
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().remove(editorFragment);
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {

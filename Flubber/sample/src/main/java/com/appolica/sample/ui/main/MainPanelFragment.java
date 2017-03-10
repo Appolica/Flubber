@@ -13,6 +13,8 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.MainPanelBinding;
 
+import java.util.List;
+
 
 public class MainPanelFragment extends Fragment {
 
@@ -40,5 +42,9 @@ public class MainPanelFragment extends Fragment {
 
     public void addAnimation(AnimationBody animationBody) {
         adapter.add(animationBody);
+    }
+
+    public List<AnimationBody> getAnimations() {
+        return adapter.getAnimations();
     }
 }

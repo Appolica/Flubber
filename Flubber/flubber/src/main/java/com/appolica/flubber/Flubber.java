@@ -79,7 +79,7 @@ public class Flubber {
     public static final float[] FRACTIONS = new float[]{0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f};
     public static final String SCALE = "scale";
 
-    @Contract("_ -> !null")
+    @Contract(" -> !null")
     public static AnimationBody.Builder with() {
         return AnimationBody.Builder.getBuilder();
     }
