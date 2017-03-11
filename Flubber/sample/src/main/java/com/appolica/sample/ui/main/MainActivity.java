@@ -34,6 +34,7 @@ public class MainActivity
     public static final int SECOND = 1000;
     public static final int DURATION_REVEAL = 350;
     public static final int DURATION_FADE = 200;
+    public static final String EDITOR_VISIBILITY = "EditorVisibility";
     private ActivityMainBinding binding;
 
 
@@ -48,6 +49,20 @@ public class MainActivity
 
         binding.setAddClickListener(this);
         binding.setFlubberClickListener(this);
+
+        if (savedInstanceState != null) {
+            binding.editorPanelContainer.setVisibility(savedInstanceState.getInt(EDITOR_VISIBILITY));
+            if (isEditorOpen()) {
+                binding.floatingActionButton.setImageResource(R.drawable.ic_done_white_24dp);
+            }
+        }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt(EDITOR_VISIBILITY, binding.editorPanelContainer.getVisibility());
     }
 
     @Override

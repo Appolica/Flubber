@@ -1,7 +1,10 @@
 package com.appolica.sample.utils;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 
+import com.appolica.flubber.AnimationBody;
+import com.appolica.flubber.Flubber;
 import com.appolica.sample.ui.editor.pager.RadioElementModel;
 
 import java.util.ArrayList;
@@ -10,6 +13,10 @@ import java.util.Map;
 import java.util.Set;
 
 public class Utils {
+    public static final String ANIMATION_BODY = "AnimationBody";
+    public static final String ANIMATION_PRESET = "AnimationPreset";
+    public static final String INTERPOLATOR = "Interpolator";
+
     public static List<RadioElementModel> convertMapToData(Map<String, ?> animationNamesMap) {
         final Set<String> names = animationNamesMap.keySet();
         final List<RadioElementModel> data = new ArrayList<>();
@@ -37,4 +44,27 @@ public class Utils {
         return element;
     }
 
+    @NonNull
+    public static Bundle createAnimationBodyBundle(AnimationBody animationBody) {
+        final Bundle animationBodyBundle = new Bundle();
+        animationBodyBundle.putSerializable(ANIMATION_BODY, animationBody);
+
+        final Flubber.AnimationPreset animationPreset =
+                Flubber.AnimationPreset.valueFor(((Flubber.AnimationPreset) animationBody.getAnimation()).getProvider());
+        final Flubber.Curve interpolator =
+                Flubber.Curve.valueFor(((Flubber.Curve) animationBody.getInterpolator()).getProvider());
+
+        animationBodyBundle.putSerializable(ANIMATION_PRESET, animationPreset);
+        animationBodyBundle.putSerializable(INTERPOLATOR, interpolator);
+
+        return animationBodyBundle;
+    }
+
+    public static AnimationBody restoreAnimationBody(@NonNull Bundle savedInstanceState) {
+        final AnimationBody animationBody = (AnimationBody) savedInstanceState.getSerializable(ANIMATION_BODY);
+        animationBody.setAnimation((Flubber.AnimationPreset) savedInstanceState.getSerializable(ANIMATION_PRESET));
+        animationBody.setInterpolator((Flubber.Curve) savedInstanceState.getSerializable(INTERPOLATOR));
+
+        return animationBody;
+    }
 }

@@ -2,6 +2,7 @@ package com.appolica.sample.ui.editor;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -20,6 +21,9 @@ import com.appolica.sample.ui.editor.pager.settings.AnimationBodyModelUtil;
 import com.appolica.sample.ui.editor.pager.settings.OnFieldChangedListener;
 import com.appolica.sample.ui.editor.pager.settings.SeekBarModel;
 import com.appolica.sample.ui.main.FlubberClickListener;
+import com.appolica.sample.utils.Utils;
+
+import java.util.ArrayList;
 
 
 public class EditorFragment extends Fragment
@@ -32,11 +36,14 @@ public class EditorFragment extends Fragment
         AnimationBodyHolder {
 
     public static final String TAG = "EditorFragment";
-    public static final String BUNDLE_ARGUMENTS = "SettingsArguments";
+
+    public static final String PAGER_FRAGMENT_TAGS = "PagerFragmentTags";
+    private static final String ANIMATION_BODY_BUNDLE = "AnimationBodyBundle";
 
     private FragmentEditorPanelBinding binding;
 
     private AnimationBody animationBody;
+    private EditViewPagerAdapter adapter;
 
     @Nullable
     @Override
@@ -52,22 +59,40 @@ public class EditorFragment extends Fragment
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final EditViewPagerAdapter adapter =
-                new EditViewPagerAdapter(getChildFragmentManager(), getContext());
-
+        adapter = new EditViewPagerAdapter(getChildFragmentManager(), getContext());
         adapter.setListenerProvider(this);
         adapter.setAnimationBodyProvider(this);
 
-        binding.tabLayoutEdit.setupWithViewPager(binding.viewPagerEdit);
+        if (savedInstanceState != null) {
+            animationBody = Utils.restoreAnimationBody(savedInstanceState);
+            propagateRestoredAnimationBody(savedInstanceState);
+        }
 
-        binding.viewPagerEdit.setOffscreenPageLimit(2);
         binding.viewPagerEdit.setAdapter(adapter);
+        binding.tabLayoutEdit.setupWithViewPager(binding.viewPagerEdit);
+        binding.viewPagerEdit.setOffscreenPageLimit(2);
+    }
+
+    private void propagateRestoredAnimationBody(@NonNull Bundle savedInstanceState) {
+        final ArrayList<String> pagerFragmentTags =
+                (ArrayList<String>) savedInstanceState.getSerializable(PAGER_FRAGMENT_TAGS);
+
+        for (String tag : pagerFragmentTags) {
+            final AnimationBodyHolder bodyHolder =
+                    (AnimationBodyHolder) getChildFragmentManager().findFragmentByTag(tag);
+            bodyHolder.setAnimationBody(animationBody);
+        }
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putBundle(BUNDLE_ARGUMENTS, getArguments());
+        final AnimationBody animationBody = this.animationBody;
+
+        final Bundle animationBodyBundle = Utils.createAnimationBodyBundle(animationBody);
+
+        outState.putBundle(ANIMATION_BODY_BUNDLE, animationBodyBundle);
+        outState.putSerializable(PAGER_FRAGMENT_TAGS, adapter.getRegisteredFragmentTags());
     }
 
     @Override

@@ -14,7 +14,7 @@ public class AnimationBody implements Serializable {
 
     private boolean autoStart;
 
-    private float force = 1;
+    private float force = 1f;
     private float damping = 0.7f;
     private float velocity = 0.7f;
 
@@ -38,8 +38,8 @@ public class AnimationBody implements Serializable {
 
     private boolean animateFrom;
 
-    private Flubber.AnimationProvider animation;
-    private Flubber.InterpolatorProvider interpolator;
+    private transient Flubber.AnimationProvider animation;
+    private transient Flubber.InterpolatorProvider interpolator;
 
     public AnimationBody() {
     }

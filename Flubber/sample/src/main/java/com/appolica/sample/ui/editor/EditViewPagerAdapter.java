@@ -13,9 +13,13 @@ import com.appolica.sample.ui.editor.pager.animations.AnimationsFragment;
 import com.appolica.sample.ui.editor.pager.interpolators.InterpolatorsFragment;
 import com.appolica.sample.ui.editor.pager.settings.SettingsFragment;
 
+import java.util.ArrayList;
+
 public class EditViewPagerAdapter extends FragmentPagerAdapter {
 
     private final Context context;
+
+    private ArrayList<String> registeredFragmentTags = new ArrayList<>();
 
     private ListenerProvider listenerProvider;
     private AnimationBodyProvider animationBodyProvider;
@@ -23,6 +27,11 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
     public EditViewPagerAdapter(FragmentManager fm, Context context) {
         super(fm);
         this.context = context;
+
+        for (int i = 0; i < getCount(); i++) {
+            registeredFragmentTags.add(null);
+        }
+
     }
 
     @Override
@@ -64,7 +73,15 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
             ((AnimationBodyHolder) item).setAnimationBody(animationBodyProvider.getAnimationBody());
         }
 
+        registeredFragmentTags.set(position, item.getTag());
+
         return item;
+    }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        registeredFragmentTags.remove(position);
+        super.destroyItem(container, position, object);
     }
 
     public void setListenerProvider(ListenerProvider listenerProvider) {
@@ -75,4 +92,7 @@ public class EditViewPagerAdapter extends FragmentPagerAdapter {
         this.animationBodyProvider = animationBodyProvider;
     }
 
+    public ArrayList<String> getRegisteredFragmentTags() {
+        return registeredFragmentTags;
+    }
 }
