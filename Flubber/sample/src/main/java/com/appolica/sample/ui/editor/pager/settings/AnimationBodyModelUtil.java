@@ -11,48 +11,6 @@ import java.util.List;
 
 public class AnimationBodyModelUtil {
 
-    public enum FieldConfiguration {
-        //                   0.1   5.0
-        DURATION("duration", 0.1f, 5f, 1000f),
-        DELAY("delay", 0f, 5f, 1000f),
-        FORCE("force", 1f, 5f, 1f),
-        VELOCITY("velocity", 0f, 1f, 1f),
-        DAMPING("damping", 0f, 1f, 1f),
-        SCALE("endScaleX", 0f, 5f, 1f);
-
-        private final String name;
-        private float min;
-        private float max;
-        private float factor;
-
-        FieldConfiguration(String name, float min, float max, float factor) {
-            this.name = name;
-            this.min = min;
-            this.max = max;
-            this.factor = factor;
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public float getMin() {
-            return min;
-        }
-
-        public float getMax() {
-            return max;
-        }
-
-        public float getFactor() {
-            return factor;
-        }
-
-        public static FieldConfiguration forFieldName(String name) {
-            return FieldConfiguration.valueOf(name.toUpperCase());
-        }
-    }
-
     public static List<SeekBarModel> generateFor(AnimationBody body) {
         final List<SeekBarModel> data = new ArrayList<>();
 
@@ -98,7 +56,6 @@ public class AnimationBodyModelUtil {
         return SeekBarModel.create(config.getName(), value, config.getMin(), config.getMax());
     }
 
-
     private static Method getGetter(FieldConfiguration config) throws NoSuchMethodException {
         final String getterName = "get" + StringUtils.getCapitalizedString(config.getName());
 
@@ -113,7 +70,7 @@ public class AnimationBodyModelUtil {
 
     public static void initFieldFromModel(SeekBarModel model, AnimationBody animationBody) {
         final String fieldName = model.getName().get();
-        final FieldConfiguration configuration = FieldConfiguration.forFieldName(fieldName);
+        final FieldConfiguration configuration = FieldConfiguration.forFieldName(fieldName.replace("endScaleX", "scale"));
 
         try {
             final Field field = AnimationBody.class.getDeclaredField(fieldName);
@@ -136,6 +93,48 @@ public class AnimationBodyModelUtil {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
+        }
+    }
+
+    public enum FieldConfiguration {
+        //                   0.1   5.0
+        DURATION("duration", 0.1f, 5f, 1000f),
+        DELAY("delay", 0f, 5f, 1000f),
+        FORCE("force", 1f, 5f, 1f),
+        VELOCITY("velocity", 0f, 1f, 1f),
+        DAMPING("damping", 0f, 1f, 1f),
+        SCALE("endScaleX", 0f, 5f, 1f);
+
+        private final String name;
+        private float min;
+        private float max;
+        private float factor;
+
+        FieldConfiguration(String name, float min, float max, float factor) {
+            this.name = name;
+            this.min = min;
+            this.max = max;
+            this.factor = factor;
+        }
+
+        public static FieldConfiguration forFieldName(String name) {
+            return FieldConfiguration.valueOf(name.toUpperCase());
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public float getMin() {
+            return min;
+        }
+
+        public float getMax() {
+            return max;
+        }
+
+        public float getFactor() {
+            return factor;
         }
     }
 }

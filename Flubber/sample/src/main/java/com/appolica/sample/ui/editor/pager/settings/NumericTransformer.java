@@ -78,12 +78,13 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
     }
 
     public float transformToPercentage(float value) {
-        return (100 * (value)) / (maxValue / factor);
+        final float result = (100 * (value - (minValue / factor))) / ((maxValue - minValue) / factor);
+        return result;
     }
 
     public float transformFromPercentage(int percentage) {
-        float value = (percentage / 100f) * (maxValue - minValue);
-        float result = (float) minValue / factor + value / factor;
+        float value = (percentage / 100f) * ((maxValue - minValue) / factor);
+        float result = (float) minValue / factor + value;
 
         return result;
     }

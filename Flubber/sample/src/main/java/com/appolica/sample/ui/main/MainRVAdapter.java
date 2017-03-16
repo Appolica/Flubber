@@ -15,45 +15,15 @@ import com.appolica.sample.utils.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainRVAdapter extends RecyclerView.Adapter<MainRVAdapter.BaseViewHolder<?>> {
+public class MainRVAdapter
+        extends RecyclerView.Adapter<MainRVAdapter.BaseViewHolder<?>> {
 
     private static final int HEADER = 23;
     private static final int LIST_ITEM = 836;
     private List<AnimationBody> animations = new ArrayList<>();
 
-    public class BaseViewHolder<DataType> extends RecyclerView.ViewHolder {
-
-        public BaseViewHolder(View itemView) {
-            super(itemView);
-        }
-
-        public void bindTo(DataType item) {
-
-        }
-    }
-
-    public class ItemViewHolder extends BaseViewHolder<AnimationBody> {
-
-        private ListItemAnimationsBinding binding;
-
-        public ItemViewHolder(ListItemAnimationsBinding binding) {
-            super(binding.getRoot());
-
-            this.binding = binding;
-            binding.setModel(new AnimationsListItemModel());
-        }
-
-        @Override
-        public void bindTo(AnimationBody animationBody) {
-            final AnimationsListItemModel model = binding.getModel();
-            final Flubber.AnimationProvider animation = animationBody.getAnimation();
-
-            final String name = ((Flubber.AnimationPreset) animation).name();
-            final String normalizedName = StringUtils.upperUnderScoreToCamel(name);
-
-            model.getAnimation().set(normalizedName);
-            binding.executePendingBindings();
-        }
+    public MainRVAdapter() {
+        setHasStableIds(true);
     }
 
     @Override
@@ -89,13 +59,18 @@ public class MainRVAdapter extends RecyclerView.Adapter<MainRVAdapter.BaseViewHo
 
     public void add(AnimationBody animationBody) {
         animations.add(animationBody);
-        notifyItemInserted(animations.size());
+        notifyDataSetChanged();
+    }
+
+    public void add(int position, AnimationBody toRemove) {
+        animations.add(position, toRemove);
+        notifyDataSetChanged();
     }
 
     public void remove(AnimationBody animationBody) {
         final int index = animations.indexOf(animationBody);
         animations.remove(index);
-        notifyItemRemoved(index);
+        notifyDataSetChanged();
     }
 
     public List<AnimationBody> getAnimations() {
@@ -105,5 +80,52 @@ public class MainRVAdapter extends RecyclerView.Adapter<MainRVAdapter.BaseViewHo
     public void setAnimations(List<AnimationBody> animations) {
         this.animations = animations;
         notifyDataSetChanged();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        final int viewType = getItemViewType(position);
+        if (viewType == HEADER) {
+            return 0;
+        } else {
+            return animations.get(position - 1).hashCode();
+        }
+    }
+
+    public class BaseViewHolder<DataType> extends RecyclerView.ViewHolder {
+
+        public BaseViewHolder(View itemView) {
+            super(itemView);
+        }
+
+        public void bindTo(DataType item) {
+
+        }
+
+    }
+
+    public class ItemViewHolder extends BaseViewHolder<AnimationBody> {
+
+        private ListItemAnimationsBinding binding;
+
+        public ItemViewHolder(ListItemAnimationsBinding binding) {
+            super(binding.getRoot());
+
+            this.binding = binding;
+            binding.setModel(new AnimationsListItemModel());
+        }
+
+        @Override
+        public void bindTo(AnimationBody animationBody) {
+            final AnimationsListItemModel model = binding.getModel();
+            final Flubber.AnimationProvider animation = animationBody.getAnimation();
+
+            final String name = ((Flubber.AnimationPreset) animation).name();
+            final String normalizedName = StringUtils.upperUnderScoreToCamel(name);
+
+            model.getAnimation().set(normalizedName);
+            binding.executePendingBindings();
+        }
+
     }
 }

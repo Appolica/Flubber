@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -14,11 +14,10 @@
 
     </data>
 
-
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp">
-
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
 
         <TextView
             android:id="@+id/textViewAnimation"
@@ -37,11 +36,15 @@
             android:id="@+id/textViewInterpolator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
             android:text="@{model.interpolator}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewAnimation"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="Interpolator"/>
     </android.support.constraint.ConstraintLayout>
 

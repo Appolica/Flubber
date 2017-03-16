@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -19,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainPanelFragment extends Fragment {
+public class MainPanelFragment extends Fragment implements MainSwipeDecorator.ItemDismissCallback {
 
     public static final String TAG = "MainPanelFragment";
     public static final String BUNDLE_ANIMATION_BODIES = "BundleAnimationBodies";
@@ -39,13 +40,22 @@ public class MainPanelFragment extends Fragment {
 
         adapter = new MainRVAdapter();
 
-        binding.recyclerViewAnimations.setHasFixedSize(true);
-        binding.recyclerViewAnimations.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recyclerViewAnimations.setAdapter(adapter);
+        setupRecyclerView();
 
         if (savedInstanceState != null) {
             restoreAnimationBodies(savedInstanceState);
         }
+    }
+
+    private void setupRecyclerView() {
+        binding.recyclerViewAnimations.setHasFixedSize(true);
+        binding.recyclerViewAnimations.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recyclerViewAnimations.setAdapter(adapter);
+
+        final MainSwipeDecorator itemDecoration =
+                new MainSwipeDecorator(this);
+
+        itemDecoration.attachToRecyclerView(binding.recyclerViewAnimations);
     }
 
     private void restoreAnimationBodies(@NonNull Bundle savedInstanceState) {
@@ -77,5 +87,20 @@ public class MainPanelFragment extends Fragment {
 
     public List<AnimationBody> getAnimations() {
         return adapter.getAnimations();
+    }
+
+    @Override
+    public void onItemDismissed(final int position) {
+        final AnimationBody toRemove = adapter.getAnimations().get(position - 1);
+        adapter.remove(toRemove);
+
+        Snackbar.make(binding.getRoot(), R.string.snackAnimationRemoved, Snackbar.LENGTH_LONG)
+                .setAction(R.string.undo, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        adapter.add(position - 1, toRemove);
+                    }
+                })
+                .show();
     }
 }

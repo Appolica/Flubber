@@ -8,4 +8,5 @@
     <color name="colorText">#212121</color>
     <color name="divider">#E0E0E0</color>
     <color name="colorSeekBarTrack">#BDBDBD</color>
+    <color name="colorSwipeDismiss">#929292</color>
 </resources>
