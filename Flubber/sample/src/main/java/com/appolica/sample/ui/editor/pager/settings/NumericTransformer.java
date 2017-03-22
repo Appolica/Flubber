@@ -1,8 +1,12 @@
 package com.appolica.sample.ui.editor.pager.settings;
 
+import android.util.Log;
+
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
 public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
+    private static final String TAG = "NumericTransformer";
+
     private int factor = 1;
     private long minValue;
     private long maxValue;
@@ -15,11 +19,6 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
         calculateFactor(minValue, maxValue);
         this.minValue = (long) (minValue * factor);
         this.maxValue = (long) (maxValue * factor);
-    }
-
-    public NumericTransformer(long minValue, long maxValue) {
-        this.minValue = (int) minValue;
-        this.maxValue = (int) maxValue;
     }
 
     private void calculateFactor(float minValue, float maxValue) {
@@ -39,6 +38,7 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
 
     @Override
     public int transform(int value) {
+        Log.d(TAG, "transform: " + value);
         return value;
     }
 
@@ -46,7 +46,7 @@ public class NumericTransformer extends DiscreteSeekBar.NumericTransformer {
     public String transformToString(int percentage) {
 
         float displayValue = transformFromPercentage(percentage);
-
+        Log.d(TAG, "transformToString: " + displayValue);
         if (factor == 1) {
             return String.format("%d", (int) displayValue);
         } else {

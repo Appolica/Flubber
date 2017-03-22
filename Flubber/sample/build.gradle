@@ -56,10 +56,9 @@ dependencies {
 
     compile 'com.android.support:design:25.3.0'
     compile 'com.android.support:recyclerview-v7:25.3.0'
-    compile 'cn.carbswang.android:NumberPickerView:1.1.0'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+
     compile 'org.adw.library:discrete-seekbar:1.0.1'
 
-
     compile 'com.annimon:stream:1.1.4'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
 }

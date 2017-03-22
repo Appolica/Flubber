@@ -12,21 +12,7 @@ import com.appolica.sample.ui.editor.pager.settings.SimpleOnProgressChangeListen
 
 import org.adw.library.widgets.discreteseekbar.DiscreteSeekBar;
 
-import java.util.Map;
-
-import cn.carbswang.android.numberpickerview.library.NumberPickerView;
-
 public class BindingAdapters {
-
-    @BindingAdapter({"app:values"})
-    public static void setDisplayedValues(NumberPickerView numberPicker, Map<String, ? extends Enum> namesMap) {
-        final String[] names = new String[namesMap.size()];
-        namesMap.keySet().toArray(names);
-        numberPicker.setDisplayedValues(names);
-
-        numberPicker.setMinValue(0);
-        numberPicker.setMaxValue(namesMap.size() - 1);
-    }
 
     @BindingAdapter({"app:checked", "app:model"})
     public static <T> void setChecked(RadioButton radioButton, final ObservableField<T> checked, final T model) {
@@ -107,6 +93,8 @@ public class BindingAdapters {
         seekBar.setMax(100);
 
         final int percentage = (int) customTransformer.transformToPercentage(model.getValue().get());
+        // Bug in the library
+        seekBar.setProgress(1);
         seekBar.setProgress(percentage);
 
         seekBar.setOnProgressChangeListener(new SimpleOnProgressChangeListener() {
