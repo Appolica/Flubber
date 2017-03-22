@@ -1,4 +1,4 @@
-package com.appolica.sample.ui.main;
+package com.appolica.sample.ui.main.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.support.v7.widget.RecyclerView;
@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemAnimationsBinding;
 import com.appolica.sample.ui.animation.CustomAnimationBody;
+import com.appolica.sample.ui.main.AnimationsListItemModel;
 
 import java.util.ArrayList;
 import java.util.List;

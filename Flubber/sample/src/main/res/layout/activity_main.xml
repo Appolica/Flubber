@@ -5,7 +5,7 @@
 
     <data>
 
-        <import type="com.appolica.sample.ui.main.AddClickListener"/>
+        <import type="com.appolica.sample.ui.main.activity.AddClickListener"/>
         <import type="com.appolica.sample.ui.main.FlubberClickListener"/>
 
         <variable
@@ -22,26 +22,26 @@
         android:id="@+id/activity_main"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="com.appolica.sample.ui.main.MainActivity">
+        tools:context="com.appolica.sample.ui.main.activity.MainActivity">
 
         <FrameLayout
             android:id="@+id/mainPanelContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"/>
 
         <FrameLayout
             android:id="@+id/editorPanelContainer"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:visibility="gone"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"/>
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline"
@@ -56,12 +56,12 @@
             android:id="@+id/revealView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:visibility="invisible"
             android:background="@color/colorPrimary"
-            app:layout_constraintRight_toRightOf="parent"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/guideline"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline"/>
 
         <android.support.design.widget.FloatingActionButton
             android:id="@+id/floatingActionButton"

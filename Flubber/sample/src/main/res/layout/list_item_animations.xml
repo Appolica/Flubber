@@ -8,7 +8,7 @@
 
         <import type="com.appolica.sample.ui.main.AnimationsListItemModel"/>
 
-        <import type="com.appolica.sample.ui.main.MainRVAdapter.OnItemClickListener"/>
+        <import type="com.appolica.sample.ui.main.fragment.MainRVAdapter.OnItemClickListener"/>
 
         <variable
             name="model"

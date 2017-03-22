@@ -1,4 +1,4 @@
-package com.appolica.sample.ui.main;
+package com.appolica.sample.ui.main.fragment;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

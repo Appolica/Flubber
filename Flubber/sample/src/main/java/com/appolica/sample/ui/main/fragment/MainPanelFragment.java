@@ -1,4 +1,4 @@
-package com.appolica.sample.ui.main;
+package com.appolica.sample.ui.main.fragment;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -17,6 +17,7 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.MainPanelBinding;
 import com.appolica.sample.ui.animation.CustomAnimationBody;
+import com.appolica.sample.ui.main.AnimationsListItemModel;
 import com.appolica.sample.utils.Utils;
 
 import java.util.ArrayList;

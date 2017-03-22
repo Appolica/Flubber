@@ -1,4 +1,4 @@
-package com.appolica.sample.ui.main;
+package com.appolica.sample.ui.main.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
@@ -19,6 +19,8 @@ import com.appolica.sample.ui.animation.FABRevealProvider;
 import com.appolica.sample.ui.animation.RevealProvider;
 import com.appolica.sample.ui.animation.SimpleAnimatorListener;
 import com.appolica.sample.ui.editor.EditorFragment;
+import com.appolica.sample.ui.main.FlubberClickListener;
+import com.appolica.sample.ui.main.fragment.MainPanelFragment;
 
 import java.util.Iterator;
 import java.util.List;
