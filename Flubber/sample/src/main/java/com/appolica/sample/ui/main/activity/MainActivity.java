@@ -27,7 +27,7 @@ import java.util.List;
 
 public class MainActivity
         extends AppCompatActivity
-        implements AddClickListener,
+        implements FabClickListener,
         FlubberClickListener, MainPanelFragment.AnimationClickListener {
 
     public static final int SECOND = 1000;
@@ -51,7 +51,7 @@ public class MainActivity
 
         mainFragment.setClickListener(this);
 
-        binding.setAddClickListener(this);
+        binding.setFabClickListener(this);
         binding.setFlubberClickListener(this);
 
         restoreState(savedInstanceState);
@@ -94,16 +94,17 @@ public class MainActivity
 
     @Override
     public void onAddClick() {
-        if (isEditorOpen()) {
-            final MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
-            final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
+        openEditor(new CustomAnimationBody());
+    }
 
-            fragment.addAnimation(editorFragment.getAnimationBody());
+    @Override
+    public void onDoneClick() {
+        final MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
+        final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
 
-            closeEditor();
-        } else {
-            openEditor(new CustomAnimationBody());
-        }
+        fragment.addAnimation(editorFragment.getAnimationBody());
+
+        closeEditor();
     }
 
     @Override
@@ -152,6 +153,8 @@ public class MainActivity
         showAnimation.start();
 
         transaction.commitNow();
+
+        binding.setEditorOpen(true);
     }
 
     private Animator getShowWithReveal(final View toShow) {
@@ -197,6 +200,7 @@ public class MainActivity
                 .createFor(binding.floatingActionButton);
 
         hideAnimation.start();
+        binding.setEditorOpen(false);
     }
 
     private AnimatorSet getHideWithReveal(final View toHide) {

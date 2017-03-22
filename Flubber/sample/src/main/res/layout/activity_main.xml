@@ -5,16 +5,20 @@
 
     <data>
 
-        <import type="com.appolica.sample.ui.main.activity.AddClickListener"/>
+        <import type="com.appolica.sample.ui.main.activity.FabClickListener"/>
         <import type="com.appolica.sample.ui.main.FlubberClickListener"/>
 
         <variable
-            name="addClickListener"
-            type="AddClickListener"/>
+            name="fabClickListener"
+            type="FabClickListener"/>
 
         <variable
             name="flubberClickListener"
             type="FlubberClickListener"/>
+
+        <variable
+            name="editorOpen"
+            type="boolean"/>
 
     </data>
 
@@ -71,7 +75,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:clickable="true"
-            android:onClick="@{() -> addClickListener.onAddClick()}"
+            android:onClick="@{() -> editorOpen ? fabClickListener.onDoneClick() : fabClickListener.onAddClick()}"
             android:src="@drawable/ic_add_white_48dp"
             app:fabSize="normal"
             app:layout_constraintBottom_toBottomOf="parent"
