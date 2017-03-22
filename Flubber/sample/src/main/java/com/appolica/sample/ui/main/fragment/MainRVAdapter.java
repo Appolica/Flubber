@@ -19,7 +19,7 @@ public class MainRVAdapter
 
     private static final int HEADER = 23;
     private static final int LIST_ITEM = 836;
-    private List<AnimationsListItemModel> data = new ArrayList<>();
+    private List<CustomAnimationBody> data = new ArrayList<>();
     private OnItemClickListener clickListener;
 
     public MainRVAdapter() {
@@ -41,6 +41,8 @@ public class MainRVAdapter
             final ListItemAnimationsBinding binding =
                     DataBindingUtil.inflate(inflater, R.layout.list_item_animations, parent, false);
 
+            binding.setModel(new AnimationsListItemModel());
+
             return new ItemViewHolder(binding);
         }
     }
@@ -59,26 +61,29 @@ public class MainRVAdapter
     }
 
     public void add(CustomAnimationBody animationBody) {
-        data.add(new AnimationsListItemModel(animationBody));
+        final int index = data.indexOf(animationBody);
+        if (index == -1 ) {
+            data.add(animationBody);
+        }
         notifyDataSetChanged();
     }
 
-    public void add(int position, AnimationsListItemModel toRemove) {
+    public void add(int position, CustomAnimationBody toRemove) {
         data.add(position, toRemove);
         notifyDataSetChanged();
     }
 
-    public void remove(AnimationsListItemModel model) {
+    public void remove(CustomAnimationBody model) {
         final int index = data.indexOf(model);
         data.remove(index);
         notifyDataSetChanged();
     }
 
-    public List<AnimationsListItemModel> getData() {
+    public List<CustomAnimationBody> getData() {
         return data;
     }
 
-    public void setData(List<AnimationsListItemModel> data) {
+    public void setData(List<CustomAnimationBody> data) {
         this.data = data;
         notifyDataSetChanged();
     }
@@ -98,7 +103,7 @@ public class MainRVAdapter
     }
 
     public interface OnItemClickListener {
-        void onItemClicked(AnimationsListItemModel model);
+        void onItemClicked(CustomAnimationBody animationBody);
     }
 
     public class BaseViewHolder<DataType> extends RecyclerView.ViewHolder {
@@ -107,13 +112,13 @@ public class MainRVAdapter
             super(itemView);
         }
 
-        public void bindTo(DataType item) {
+        public void bindTo(DataType element) {
 
         }
 
     }
 
-    public class ItemViewHolder extends BaseViewHolder<AnimationsListItemModel> {
+    public class ItemViewHolder extends BaseViewHolder<CustomAnimationBody> {
 
         private ListItemAnimationsBinding binding;
 
@@ -124,8 +129,8 @@ public class MainRVAdapter
         }
 
         @Override
-        public void bindTo(AnimationsListItemModel model) {
-            binding.setModel(model);
+        public void bindTo(CustomAnimationBody animationBody) {
+            binding.getModel().setAnimationBody(animationBody);
             binding.executePendingBindings();
         }
 

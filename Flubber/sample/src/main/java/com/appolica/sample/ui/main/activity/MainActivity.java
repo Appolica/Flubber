@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ActivityMainBinding;
@@ -36,7 +35,6 @@ public class MainActivity
     public static final String EDITOR_VISIBILITY = "EditorVisibility";
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,11 +110,11 @@ public class MainActivity
         openEditor(animationBody);
     }
 
-    private AnimatorSet buildSetForBodies(List<AnimationBody> animations, View view) {
+    private AnimatorSet buildSetForBodies(List<CustomAnimationBody> animations, View view) {
         final AnimatorSet animatorSet = new AnimatorSet();
 
         if (animations.size() > 0) {
-            final Iterator<AnimationBody> iterator = animations.iterator();
+            final Iterator<CustomAnimationBody> iterator = animations.iterator();
 
             final AnimatorSet.Builder builder =
                     animatorSet.play(iterator.next().createFor(view));
@@ -248,5 +246,9 @@ public class MainActivity
 
     private boolean isEditorOpen() {
         return binding.editorPanelContainer.getVisibility() == View.VISIBLE;
+    }
+
+    class A {
+
     }
 }

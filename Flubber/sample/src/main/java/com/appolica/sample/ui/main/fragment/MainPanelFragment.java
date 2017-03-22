@@ -13,11 +13,9 @@ import android.view.ViewGroup;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
-import com.appolica.flubber.AnimationBody;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.MainPanelBinding;
 import com.appolica.sample.ui.animation.CustomAnimationBody;
-import com.appolica.sample.ui.main.AnimationsListItemModel;
 import com.appolica.sample.utils.Utils;
 
 import java.util.ArrayList;
@@ -80,7 +78,7 @@ public class MainPanelFragment extends Fragment
 
         final ArrayList<Bundle> animationBundles =
                 Stream.of(adapter.getData())
-                        .map(model -> Utils.createAnimationBodyBundle(model.getAnimationBody()))
+                        .map(Utils::createAnimationBodyBundle)
                         .collect(Collectors.toCollection(ArrayList::new));
 
         outState.putParcelableArrayList(BUNDLE_ANIMATION_BODIES, animationBundles);
@@ -90,15 +88,15 @@ public class MainPanelFragment extends Fragment
         adapter.add(animationBody);
     }
 
-    public List<AnimationBody> getAnimations() {
+    public List<CustomAnimationBody> getAnimations() {
         return Stream.of(adapter.getData())
-                .map(AnimationsListItemModel::getAnimationBody)
+                .map(animationBody -> animationBody)
                 .collect(Collectors.toList());
     }
 
     @Override
     public void onItemDismissed(final int position) {
-        final AnimationsListItemModel toRemove = adapter.getData().get(position - 1);
+        final CustomAnimationBody toRemove = adapter.getData().get(position - 1);
         adapter.remove(toRemove);
 
         Snackbar.make(binding.getRoot(), R.string.snackAnimationRemoved, Snackbar.LENGTH_LONG)
@@ -107,9 +105,9 @@ public class MainPanelFragment extends Fragment
     }
 
     @Override
-    public void onItemClicked(AnimationsListItemModel model) {
+    public void onItemClicked(CustomAnimationBody animationBody) {
         if (clickListener != null) {
-            clickListener.onAnimationClick(model.getAnimationBody());
+            clickListener.onAnimationClick(animationBody);
         }
     }
 
