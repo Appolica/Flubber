@@ -1,25 +1,55 @@
 package com.appolica.sample.ui.main;
 
-import android.databinding.ObservableField;
+import com.appolica.flubber.Flubber;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
+import com.appolica.sample.utils.StringUtils;
 
 public class AnimationsListItemModel {
-    private ObservableField<String> animation = new ObservableField<>();
+    private final CustomAnimationBody animationBody;
+    private String animationName;
+    private String interpolatorName;
 
-    private ObservableField<String> interpolator = new ObservableField<>();
+    public AnimationsListItemModel(CustomAnimationBody animationBody) {
+        this.animationBody = animationBody;
 
-    public ObservableField<String> getAnimation() {
-        return animation;
+        final Flubber.AnimationProvider animation = animationBody.getAnimation();
+        final Flubber.InterpolatorProvider interpolator = animationBody.getInterpolator();
+        final String animationName = StringUtils.getNormalizedEnumName(((Flubber.AnimationPreset) animation));
+        final String interpolatorName = StringUtils.getNormalizedEnumName(((Flubber.Curve) interpolator));
+
+        setAnimationName(animationName);
+        setInterpolatorName(interpolatorName);
     }
 
-    public void setAnimation(ObservableField<String> animation) {
-        this.animation = animation;
+    public String getAnimationName() {
+        return animationName;
     }
 
-    public ObservableField<String> getInterpolator() {
-        return interpolator;
+    private void setAnimationName(String animationName) {
+        this.animationName = animationName;
     }
 
-    public void setInterpolator(ObservableField<String> interpolator) {
-        this.interpolator = interpolator;
+    public String getInterpolatorName() {
+        return interpolatorName;
+    }
+
+    private void setInterpolatorName(String interpolatorName) {
+        this.interpolatorName = interpolatorName;
+    }
+
+    public CustomAnimationBody getAnimationBody() {
+        return animationBody;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof AnimationsListItemModel) {
+            final AnimationsListItemModel query = (AnimationsListItemModel) obj;
+            return animationBody.equals(query.getAnimationBody())
+                    && animationName.equals(query.getAnimationName())
+                    && interpolatorName.equals(query.getInterpolatorName());
+        }
+
+        return super.equals(obj);
     }
 }

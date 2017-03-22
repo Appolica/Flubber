@@ -1,7 +1,7 @@
 package com.appolica.sample.ui.editor.pager;
 
-import com.appolica.flubber.AnimationBody;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 
 public interface AnimationBodyProvider {
-    AnimationBody getAnimationBody();
+    CustomAnimationBody getAnimationBody();
 }

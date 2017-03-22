@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 import com.appolica.sample.ui.editor.pager.RadioElementModel;
 
 import java.util.ArrayList;
@@ -60,8 +61,8 @@ public class Utils {
         return animationBodyBundle;
     }
 
-    public static AnimationBody restoreAnimationBody(@NonNull Bundle savedInstanceState) {
-        final AnimationBody animationBody = (AnimationBody) savedInstanceState.getSerializable(ANIMATION_BODY);
+    public static CustomAnimationBody restoreAnimationBody(@NonNull Bundle savedInstanceState) {
+        final CustomAnimationBody animationBody = (CustomAnimationBody) savedInstanceState.getSerializable(ANIMATION_BODY);
         animationBody.setAnimation((Flubber.AnimationPreset) savedInstanceState.getSerializable(ANIMATION_PRESET));
         animationBody.setInterpolator((Flubber.Curve) savedInstanceState.getSerializable(INTERPOLATOR));
 

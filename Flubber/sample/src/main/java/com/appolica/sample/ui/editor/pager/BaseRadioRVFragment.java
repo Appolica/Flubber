@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.appolica.flubber.AnimationBody;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 import com.appolica.sample.ui.editor.AnimationBodyHolder;
 
 import java.util.ArrayList;
@@ -44,12 +45,12 @@ public abstract class BaseRadioRVFragment
         return new RadioRVAdapter(getContext());
     }
 
-    @Override
-    public void setAnimationBody(AnimationBody animationBody) {
-        this.animationBody = animationBody;
-    }
-
     public AnimationBody getAnimationBody() {
         return animationBody;
+    }
+
+    @Override
+    public void setAnimationBody(CustomAnimationBody animationBody) {
+        this.animationBody = animationBody;
     }
 }

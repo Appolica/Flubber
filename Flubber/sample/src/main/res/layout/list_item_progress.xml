@@ -32,8 +32,8 @@
             app:dsb_min="0"
             app:dsb_progressColor="@color/colorAccent"
             app:dsb_scrubberHeight="2dp"
-            app:dsb_trackHeight="2dp"
             app:dsb_trackColor="@color/colorSeekBarTrack"
+            app:dsb_trackHeight="2dp"
             app:layout_constraintBottom_toBottomOf="@+id/divider"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="@+id/textView"
@@ -48,7 +48,7 @@
             android:layout_marginLeft="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="@{StringUtils.getCapitalizedString(model.name)}"
+            android:text="@{model.name}"
             android:textColor="@color/colorText"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>

@@ -1,9 +1,12 @@
 package com.appolica.sample.utils;
 
+import android.support.annotation.NonNull;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class StringUtils {
+    @NonNull
     public static String upperUnderScoreToCamel(String input) {
         final StringBuilder resultBuilder = new StringBuilder();
         final String[] tokens = input.split("_");
@@ -17,7 +20,7 @@ public class StringUtils {
         return resultBuilder.toString();
     }
 
-    public static<T extends Enum> Map<String, T> normalizedNameMapFor(Class<T> clazz) {
+    public static <T extends Enum> Map<String, T> normalizedNameMapFor(Class<T> clazz) {
         final Map<String, T> resultMap = new LinkedHashMap<>();
 
         final T[] enumConstants = clazz.getEnumConstants();
@@ -29,8 +32,10 @@ public class StringUtils {
         return resultMap;
     }
 
-    public static String getCapitalizedString(String string) {
-        final char firstLetter = string.charAt(0);
-        return string.replaceAll("^[a-zA-Z]", String.format("%c", Character.toUpperCase(firstLetter)));
+    public static <T extends Enum> String getNormalizedEnumName(T enumVar) {
+        final String name = enumVar.name();
+        final String normalizedName = StringUtils.upperUnderScoreToCamel(name);
+
+        return normalizedName;
     }
 }

@@ -7,9 +7,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.appolica.flubber.AnimationBody;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemProgressBinding;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -27,21 +27,6 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
 
     public SettingsRVAdapter(Context context) {
         this.context = context;
-    }
-
-    public class BindingHolder extends RecyclerView.ViewHolder {
-
-        private ListItemProgressBinding binding;
-
-        private BindingHolder(ListItemProgressBinding binding) {
-            super(binding.getRoot());
-            this.binding = binding;
-        }
-
-        public void bindTo(SeekBarModel model) {
-            binding.setModel(model);
-            binding.executePendingBindings();
-        }
     }
 
     @Override
@@ -69,7 +54,7 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
         return models.size();
     }
 
-    public void setAnimationBody(final AnimationBody animationBody) {
+    public void setAnimationBody(final CustomAnimationBody animationBody) {
         this.models = AnimationBodyModelUtil.generateFor(animationBody);
         for (SeekBarModel model : models) {
 
@@ -93,5 +78,20 @@ public class SettingsRVAdapter extends RecyclerView.Adapter<SettingsRVAdapter.Bi
 
     public interface OnModelChangedCallback {
         void onModelChanged(SeekBarModel model);
+    }
+
+    public class BindingHolder extends RecyclerView.ViewHolder {
+
+        private ListItemProgressBinding binding;
+
+        private BindingHolder(ListItemProgressBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
+
+        public void bindTo(SeekBarModel model) {
+            binding.setModel(model);
+            binding.executePendingBindings();
+        }
     }
 }

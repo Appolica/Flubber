@@ -6,11 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.appolica.flubber.AnimationBody;
-import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemAnimationsBinding;
-import com.appolica.sample.utils.StringUtils;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +18,8 @@ public class MainRVAdapter
 
     private static final int HEADER = 23;
     private static final int LIST_ITEM = 836;
-    private List<AnimationBody> animations = new ArrayList<>();
+    private List<AnimationsListItemModel> data = new ArrayList<>();
+    private OnItemClickListener clickListener;
 
     public MainRVAdapter() {
         setHasStableIds(true);
@@ -48,37 +47,38 @@ public class MainRVAdapter
     @Override
     public void onBindViewHolder(BaseViewHolder holder, int position) {
         if (getItemViewType(position) == LIST_ITEM) {
-            holder.bindTo(animations.get(position - 1));
+            holder.bindTo(data.get(position - 1));
+            ((ItemViewHolder) holder).getBinding().setClickListener(clickListener);
         }
     }
 
     @Override
     public int getItemCount() {
-        return animations.size() + 1;
+        return data.size() + 1;
     }
 
-    public void add(AnimationBody animationBody) {
-        animations.add(animationBody);
+    public void add(CustomAnimationBody animationBody) {
+        data.add(new AnimationsListItemModel(animationBody));
         notifyDataSetChanged();
     }
 
-    public void add(int position, AnimationBody toRemove) {
-        animations.add(position, toRemove);
+    public void add(int position, AnimationsListItemModel toRemove) {
+        data.add(position, toRemove);
         notifyDataSetChanged();
     }
 
-    public void remove(AnimationBody animationBody) {
-        final int index = animations.indexOf(animationBody);
-        animations.remove(index);
+    public void remove(AnimationsListItemModel model) {
+        final int index = data.indexOf(model);
+        data.remove(index);
         notifyDataSetChanged();
     }
 
-    public List<AnimationBody> getAnimations() {
-        return animations;
+    public List<AnimationsListItemModel> getData() {
+        return data;
     }
 
-    public void setAnimations(List<AnimationBody> animations) {
-        this.animations = animations;
+    public void setData(List<AnimationsListItemModel> data) {
+        this.data = data;
         notifyDataSetChanged();
     }
 
@@ -88,8 +88,16 @@ public class MainRVAdapter
         if (viewType == HEADER) {
             return 0;
         } else {
-            return animations.get(position - 1).hashCode();
+            return data.get(position - 1).hashCode();
         }
+    }
+
+    public void setClickListener(OnItemClickListener clickListener) {
+        this.clickListener = clickListener;
+    }
+
+    public interface OnItemClickListener {
+        void onItemClicked(AnimationsListItemModel model);
     }
 
     public class BaseViewHolder<DataType> extends RecyclerView.ViewHolder {
@@ -104,7 +112,7 @@ public class MainRVAdapter
 
     }
 
-    public class ItemViewHolder extends BaseViewHolder<AnimationBody> {
+    public class ItemViewHolder extends BaseViewHolder<AnimationsListItemModel> {
 
         private ListItemAnimationsBinding binding;
 
@@ -112,19 +120,16 @@ public class MainRVAdapter
             super(binding.getRoot());
 
             this.binding = binding;
-            binding.setModel(new AnimationsListItemModel());
         }
 
         @Override
-        public void bindTo(AnimationBody animationBody) {
-            final AnimationsListItemModel model = binding.getModel();
-            final Flubber.AnimationProvider animation = animationBody.getAnimation();
-
-            final String name = ((Flubber.AnimationPreset) animation).name();
-            final String normalizedName = StringUtils.upperUnderScoreToCamel(name);
-
-            model.getAnimation().set(normalizedName);
+        public void bindTo(AnimationsListItemModel model) {
+            binding.setModel(model);
             binding.executePendingBindings();
+        }
+
+        public ListItemAnimationsBinding getBinding() {
+            return binding;
         }
 
     }

@@ -1,7 +1,7 @@
 package com.appolica.sample.ui.editor;
 
-import com.appolica.flubber.AnimationBody;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 
 public interface AnimationBodyHolder {
-    void setAnimationBody(AnimationBody animationBody);
+    void setAnimationBody(CustomAnimationBody animationBody);
 }

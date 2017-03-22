@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.annimon.stream.Stream;
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.FragmentEditorPanelBinding;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 import com.appolica.sample.ui.editor.pager.AnimationBodyProvider;
 import com.appolica.sample.ui.editor.pager.ListenerProvider;
 import com.appolica.sample.ui.editor.pager.animations.OnAnimationSelectedListener;
@@ -42,7 +44,7 @@ public class EditorFragment extends Fragment
 
     private FragmentEditorPanelBinding binding;
 
-    private AnimationBody animationBody;
+    private CustomAnimationBody animationBody;
     private EditViewPagerAdapter adapter;
 
     @Nullable
@@ -77,10 +79,13 @@ public class EditorFragment extends Fragment
         final ArrayList<String> pagerFragmentTags =
                 (ArrayList<String>) savedInstanceState.getSerializable(PAGER_FRAGMENT_TAGS);
 
-        for (String tag : pagerFragmentTags) {
-            final AnimationBodyHolder bodyHolder =
-                    (AnimationBodyHolder) getChildFragmentManager().findFragmentByTag(tag);
-            bodyHolder.setAnimationBody(animationBody);
+        if (pagerFragmentTags != null) {
+            Stream.of(pagerFragmentTags)
+                    .forEach(tag -> {
+                        final AnimationBodyHolder bodyHolder =
+                                (AnimationBodyHolder) getChildFragmentManager().findFragmentByTag(tag);
+                        bodyHolder.setAnimationBody(animationBody);
+                    });
         }
     }
 
@@ -126,17 +131,17 @@ public class EditorFragment extends Fragment
     }
 
     @Override
-    public void onFieldChanged(SeekBarModel model) {
-        AnimationBodyModelUtil.initFieldFromModel(model, animationBody);
+    public void onPropertyChanged(SeekBarModel model) {
+        AnimationBodyModelUtil.initFieldFromModel(animationBody, model);
     }
 
     @Override
-    public AnimationBody getAnimationBody() {
+    public CustomAnimationBody getAnimationBody() {
         return animationBody;
     }
 
     @Override
-    public void setAnimationBody(AnimationBody animationBody) {
+    public void setAnimationBody(CustomAnimationBody animationBody) {
         this.animationBody = animationBody;
     }
 }

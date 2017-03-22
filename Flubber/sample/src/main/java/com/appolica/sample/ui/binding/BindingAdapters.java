@@ -2,9 +2,7 @@ package com.appolica.sample.ui.binding;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableField;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 
@@ -37,16 +35,14 @@ public class BindingAdapters {
             return;
         }
 
-        radioButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if ((checked.get() == null || !checked.get().equals(model))
-                        && isChecked) {
+        radioButton.setOnCheckedChangeListener(
+                (buttonView, isChecked) -> {
+                    if ((checked.get() == null || !checked.get().equals(model))
+                            && isChecked) {
 
-                    checked.set(model);
-                }
-            }
-        });
+                        checked.set(model);
+                    }
+                });
 
         final T checkedModel = checked.get();
         final boolean shouldBeChecked = checkedModel != null && checkedModel.equals(model);
@@ -59,12 +55,9 @@ public class BindingAdapters {
     @BindingAdapter("app:propagateClick")
     public static void propagateClick(final ViewGroup container, boolean propagate) {
         if (propagate) {
-            container.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    for (int i = 0; i < container.getChildCount(); i++) {
-                        container.getChildAt(i).performClick();
-                    }
+            container.setOnClickListener(v -> {
+                for (int i = 0; i < container.getChildCount(); i++) {
+                    container.getChildAt(i).performClick();
                 }
             });
         }
@@ -74,7 +67,7 @@ public class BindingAdapters {
     public static void setLimits(final SeekBar seekBar, final SeekBarModel model) {
 //        seekBar.setMax(100);
 //
-//        final ObservableFloat value = model.getValue();
+//        final ObservableFloat value = model.get();
 //        final float min = model.getMinValue();
 //        final float max = model.getMaxValue();
 //
@@ -83,7 +76,7 @@ public class BindingAdapters {
 //        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 //            @Override
 //            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-//                model.getValue().set(min + (progress / 100f) * (max - min));
+//                model.get().set(min + (progress / 100f) * (max - min));
 //            }
 //
 //            @Override

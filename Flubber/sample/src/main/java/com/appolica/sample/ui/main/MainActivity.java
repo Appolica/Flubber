@@ -16,6 +16,7 @@ import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ActivityMainBinding;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
 import com.appolica.sample.ui.animation.FABRevealProvider;
 import com.appolica.sample.ui.animation.RevealProvider;
 import com.appolica.sample.ui.animation.SimpleAnimatorListener;
@@ -27,14 +28,13 @@ import java.util.List;
 public class MainActivity
         extends AppCompatActivity
         implements AddClickListener,
-        FlubberClickListener {
-
-    private static final String TAG = "MainActivity";
+        FlubberClickListener, MainPanelFragment.AnimationClickListener {
 
     public static final int SECOND = 1000;
     public static final int DURATION_REVEAL = 350;
     public static final int DURATION_FADE = 200;
     public static final String EDITOR_VISIBILITY = "EditorVisibility";
+    private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
 
 
@@ -43,13 +43,21 @@ public class MainActivity
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
+        final MainPanelFragment mainFragment = new MainPanelFragment();
+
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.mainPanelContainer, new MainPanelFragment(), MainPanelFragment.TAG)
+                .add(R.id.mainPanelContainer, mainFragment, MainPanelFragment.TAG)
                 .commitNow();
+
+        mainFragment.setClickListener(this);
 
         binding.setAddClickListener(this);
         binding.setFlubberClickListener(this);
 
+        restoreState(savedInstanceState);
+    }
+
+    private void restoreState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             binding.editorPanelContainer.setVisibility(savedInstanceState.getInt(EDITOR_VISIBILITY));
             if (isEditorOpen()) {
@@ -84,6 +92,25 @@ public class MainActivity
         }
     }
 
+    @Override
+    public void onAddClick() {
+        if (isEditorOpen()) {
+            final MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
+            final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
+
+            fragment.addAnimation(editorFragment.getAnimationBody());
+
+            closeEditor();
+        } else {
+            openEditor(new CustomAnimationBody());
+        }
+    }
+
+    @Override
+    public void onAnimationClick(CustomAnimationBody animationBody) {
+        openEditor(animationBody);
+    }
+
     private AnimatorSet buildSetForBodies(List<AnimationBody> animations, View view) {
         final AnimatorSet animatorSet = new AnimatorSet();
 
@@ -101,26 +128,12 @@ public class MainActivity
         return animatorSet;
     }
 
-    @Override
-    public void onAddClick() {
-        if (isEditorOpen()) {
-            final MainPanelFragment fragment = getFragment(MainPanelFragment.TAG);
-            final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
-
-            fragment.addAnimation(editorFragment.getAnimationBody());
-
-            closeEditor();
-        } else {
-            openEditor();
-        }
-    }
-
-    private void openEditor() {
+    private void openEditor(CustomAnimationBody animationBody) {
 
         final EditorFragment editorFragment = new EditorFragment();
         final FragmentManager fragmentManager = getSupportFragmentManager();
 
-        editorFragment.setAnimationBody(new AnimationBody());
+        editorFragment.setAnimationBody(animationBody);
 
         final FragmentTransaction transaction =
                 fragmentManager.beginTransaction()
@@ -237,10 +250,9 @@ public class MainActivity
     public void onBackPressed() {
         if (isEditorOpen()) {
             closeEditor();
-            return;
+        } else {
+            super.onBackPressed();
         }
-
-        super.onBackPressed();
     }
 
     private boolean isEditorOpen() {

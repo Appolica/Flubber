@@ -1,19 +1,19 @@
 package com.appolica.sample.ui.editor.pager.settings;
 
-import android.databinding.ObservableField;
 import android.databinding.ObservableFloat;
+import android.databinding.ObservableInt;
 
 public class SeekBarModel {
-    private ObservableField<String> name = new ObservableField<>();
+    private ObservableInt name = new ObservableInt();
     private ObservableFloat value = new ObservableFloat();
 
     private float minValue;
     private float maxValue;
 
-    public static SeekBarModel create(String name, float value, float minValue, float maxValue) {
+    public static SeekBarModel create(int nameId, float value, float minValue, float maxValue) {
         final SeekBarModel model = new SeekBarModel();
 
-        model.getName().set(name);
+        model.getName().set(nameId);
         model.getValue().set(value);
         model.setMinValue(minValue);
         model.setMaxValue(maxValue);
@@ -21,11 +21,11 @@ public class SeekBarModel {
         return model;
     }
 
-    public ObservableField<String> getName() {
+    public ObservableInt getName() {
         return name;
     }
 
-    public void setName(ObservableField<String> name) {
+    public void setName(ObservableInt name) {
         this.name = name;
     }
 

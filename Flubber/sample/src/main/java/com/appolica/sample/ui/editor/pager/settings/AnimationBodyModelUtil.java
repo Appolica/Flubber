@@ -1,127 +1,90 @@
 package com.appolica.sample.ui.editor.pager.settings;
 
-import com.appolica.flubber.AnimationBody;
-import com.appolica.sample.utils.StringUtils;
+import android.support.annotation.Nullable;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
+import com.annimon.stream.Collectors;
+import com.annimon.stream.Stream;
+import com.appolica.sample.ui.animation.CustomAnimationBody;
+
 import java.util.List;
+import java.util.Map;
 
 public class AnimationBodyModelUtil {
 
-    public static List<SeekBarModel> generateFor(AnimationBody body) {
-        final List<SeekBarModel> data = new ArrayList<>();
+    public static List<SeekBarModel> generateFor(CustomAnimationBody body) {
+        final FieldConfiguration[] fieldConfigurations = FieldConfiguration.values();
 
-        try {
-            final FieldConfiguration[] fieldConfigurations = FieldConfiguration.values();
-            for (int i = 0; i < fieldConfigurations.length; i++) {
-
-                final FieldConfiguration config = fieldConfigurations[i];
-                final SeekBarModel model = mapFieldToModel(body, config);
-
-                data.add(model);
-            }
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-
-        return data;
+        return Stream.of(fieldConfigurations)
+                .map(config -> mapFieldToModel(body, config))
+                .collect(Collectors.toList());
     }
 
-    public static SeekBarModel mapFieldToModel(AnimationBody body, FieldConfiguration config)
-            throws NoSuchFieldException,
-            NoSuchMethodException,
-            IllegalAccessException,
-            InvocationTargetException {
+    public static SeekBarModel mapFieldToModel(CustomAnimationBody body, FieldConfiguration config) {
 
-        final Field field = AnimationBody.class.getDeclaredField(config.getName());
-        final Method getter = getGetter(config);
-        final String fieldType = field.getType().getName();
+        final Float value = AnimationBodyModelUtil.getValue(config, body).floatValue() / config.getFactor();
+        final int stringId = config.getName().getStringId();
 
-        Float value = null;
-        if (fieldType.equals(long.class.getName())) {
-            value = (Long) getter.invoke(body) / config.getFactor();
-        } else if (fieldType.equals(float.class.getName())) {
-            value = (Float) getter.invoke(body) / config.getFactor();
-        }
-
-        return SeekBarModel.create(config.getName(), value, config.getMin(), config.getMax());
+        return SeekBarModel.create(stringId, value, config.getMin(), config.getMax());
     }
 
-    private static Method getGetter(FieldConfiguration config) throws NoSuchMethodException {
-        final String getterName = "get" + StringUtils.getCapitalizedString(config.getName());
-
-        return AnimationBody.class.getDeclaredMethod(getterName);
+    public static <T extends Number> T getValue(FieldConfiguration fieldConfiguration, CustomAnimationBody animationBody) {
+        return animationBody.getPropertyValue(fieldConfiguration.getName(), fieldConfiguration.getFieldClass());
     }
 
-    private static Method getSetter(FieldConfiguration config, Class type) throws NoSuchMethodException {
-        final String getterName = "set"  + StringUtils.getCapitalizedString(config.getName());
+    public static void initFieldFromModel(CustomAnimationBody animationBody, SeekBarModel model) {
+        final CustomAnimationBody.FieldName fieldName = CustomAnimationBody.FieldName.forStringId(model.getName().get());
+        final FieldConfiguration config = FieldConfiguration.forFieldName(fieldName);
 
-        return AnimationBody.class.getDeclaredMethod(getterName, type);
-    }
+        final float floatValue = model.getValue().get() * config.getFactor();
 
-    public static void initFieldFromModel(SeekBarModel model, AnimationBody animationBody) {
-        final String fieldName = model.getName().get();
-        final FieldConfiguration configuration = FieldConfiguration.forFieldName(fieldName.replace("endScaleX", "scale"));
-
-        try {
-            final Field field = AnimationBody.class.getDeclaredField(fieldName);
-            final String fieldType = field.getType().getName();
-
-            final Method setter;
-            if (fieldType.equals(long.class.getName())) {
-                 setter = getSetter(configuration, long.class);
-                setter.invoke(animationBody, (long) (model.getValue().get() * configuration.getFactor()));
-            } else if (fieldType.equals(float.class.getName())) {
-                setter = getSetter(configuration, float.class);
-                setter.invoke(animationBody, model.getValue().get() * configuration.getFactor());
-            }
-
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
+        if (config.fieldClass == Long.class) {
+            animationBody.setProperty(fieldName, (long) floatValue);
+        } else if (config.fieldClass == Float.class) {
+            animationBody.setProperty(fieldName, floatValue);
         }
     }
 
     public enum FieldConfiguration {
-        //                   0.1   5.0
-        DURATION("duration", 0.1f, 5f, 1000f),
-        DELAY("delay", 0f, 5f, 1000f),
-        FORCE("force", 1f, 5f, 1f),
-        VELOCITY("velocity", 0f, 1f, 1f),
-        DAMPING("damping", 0f, 1f, 1f),
-        SCALE("endScaleX", 0f, 5f, 1f);
+        DURATION(CustomAnimationBody.FieldName.DURATION, 0.1f, 5f, 1000f, Long.class),
+        DELAY(CustomAnimationBody.FieldName.DELAY, 0f, 5f, 1000f, Long.class),
+        FORCE(CustomAnimationBody.FieldName.FORCE, 1f, 5f, 1f, Float.class),
+        VELOCITY(CustomAnimationBody.FieldName.VELOCITY, 0f, 1f, 1f, Float.class),
+        DAMPING(CustomAnimationBody.FieldName.DAMPING, 0f, 1f, 1f, Float.class),
+        SCALE(CustomAnimationBody.FieldName.SCALE, 0f, 5f, 1f, Float.class);
 
-        private final String name;
-        private float min;
-        private float max;
-        private float factor;
+        private static final Map<CustomAnimationBody.FieldName, FieldConfiguration> nameConfigMap;
 
-        FieldConfiguration(String name, float min, float max, float factor) {
+        static {
+            nameConfigMap =
+                    Stream.of(FieldConfiguration.values())
+                    .collect(Collectors.toMap(FieldConfiguration::getName, config -> config));
+        }
+
+        private final CustomAnimationBody.FieldName name;
+        private final float min;
+        private final float max;
+        private final float factor;
+        private final Class<? extends Number> fieldClass;
+
+        FieldConfiguration(CustomAnimationBody.FieldName name,
+                           float min,
+                           float max,
+                           float factor,
+                           Class<? extends Number> fieldClass) {
+
             this.name = name;
             this.min = min;
             this.max = max;
             this.factor = factor;
+            this.fieldClass = fieldClass;
         }
 
-        public static FieldConfiguration forFieldName(String name) {
-            return FieldConfiguration.valueOf(name.toUpperCase());
+        @Nullable
+        public static FieldConfiguration forFieldName(CustomAnimationBody.FieldName name) {
+            return nameConfigMap.get(name);
         }
 
-        public String getName() {
+        public CustomAnimationBody.FieldName getName() {
             return name;
         }
 
@@ -136,5 +99,10 @@ public class AnimationBodyModelUtil {
         public float getFactor() {
             return factor;
         }
+
+        public Class<? extends Number> getFieldClass() {
+            return fieldClass;
+        }
+
     }
 }

@@ -8,16 +8,23 @@
 
         <import type="com.appolica.sample.ui.main.AnimationsListItemModel"/>
 
+        <import type="com.appolica.sample.ui.main.MainRVAdapter.OnItemClickListener"/>
+
         <variable
             name="model"
             type="AnimationsListItemModel"/>
+
+        <variable
+            name="clickListener"
+            type="OnItemClickListener"/>
 
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@android:color/white">
+        android:background="@android:color/white"
+        android:onClick="@{() -> clickListener.onItemClicked(model)}">
 
         <TextView
             android:id="@+id/textViewAnimation"
@@ -26,7 +33,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            android:text="@{model.animation}"
+            android:text="@{model.animationName}"
             android:textSize="16sp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -40,7 +47,7 @@
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="@{model.interpolator}"
+            android:text="@{model.interpolatorName}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textViewAnimation"

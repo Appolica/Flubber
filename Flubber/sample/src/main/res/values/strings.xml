@@ -1,14 +1,20 @@
 <resources>
     <string name="app_name">Flubber</string>
     <string name="flubber">Flubber</string>
-    <string name="animations">Animations</string>
+    <string name="data">Animations</string>
     <string name="edit">Edit</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="tab_animation">Animation</string>
     <string name="tab_curve">Curve</string>
     <string name="tab_settings">Settings</string>
-    <string name="added_animations">Added animations</string>
+    <string name="added_animations">Added data</string>
     <string name="snackAnimationRemoved">Animation removed.</string>
     <string name="undo">UNDO</string>
+    <string name="duration">Duration</string>
+    <string name="delay">Delay</string>
+    <string name="force">Force</string>
+    <string name="velocity">Velocity</string>
+    <string name="damping">Damping</string>
+    <string name="scale">Scale</string>
 </resources>
