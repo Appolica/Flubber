@@ -3,9 +3,7 @@ package com.appolica.sample.ui.main;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.databinding.DataBindingUtil;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -140,25 +138,20 @@ public class MainActivity
                         .replace(R.id.editorPanelContainer, editorFragment, EditorFragment.TAG);
 
         binding.mainPanelContainer.setVisibility(View.INVISIBLE);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            final Animator showAnimation = getShowWithReveal(binding.editorPanelContainer);
 
-            Flubber.with()
-                    .animation(FABRevealProvider.create(R.drawable.ic_done_white_24dp))
-                    .duration(DURATION_REVEAL)
-                    .autoStart(true)
-                    .createFor(binding.floatingActionButton);
+        final Animator showAnimation = getShowWithReveal(binding.editorPanelContainer);
 
-            showAnimation.start();
-        } else {
-            binding.editorPanelContainer.setVisibility(View.VISIBLE);
-            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-        }
+        Flubber.with()
+                .animation(FABRevealProvider.create(R.drawable.ic_done_white_24dp))
+                .duration(DURATION_REVEAL)
+                .autoStart(true)
+                .createFor(binding.floatingActionButton);
+
+        showAnimation.start();
 
         transaction.commitNow();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private Animator getShowWithReveal(final View toShow) {
         final AnimatorSet animatorSet = new AnimatorSet();
 
@@ -185,33 +178,25 @@ public class MainActivity
         final EditorFragment editorFragment = getFragment(EditorFragment.TAG);
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction().remove(editorFragment);
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.LOLLIPOP) {
-            final AnimatorSet hideAnimation = getHideWithReveal(binding.editorPanelContainer);
+        final AnimatorSet hideAnimation = getHideWithReveal(binding.editorPanelContainer);
 
-            hideAnimation.addListener(new SimpleAnimatorListener() {
-                @Override
-                public void onAnimationEnd(Animator animation) {
-                    transaction.commitNow();
-                    binding.mainPanelContainer.setVisibility(View.VISIBLE);
-                }
-            });
+        hideAnimation.addListener(new SimpleAnimatorListener() {
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                transaction.commitNow();
+                binding.mainPanelContainer.setVisibility(View.VISIBLE);
+            }
+        });
 
-            Flubber.with()
-                    .animation(FABRevealProvider.create(R.drawable.ic_add_white_48dp))
-                    .autoStart(true)
-                    .duration(DURATION_REVEAL)
-                    .createFor(binding.floatingActionButton);
+        Flubber.with()
+                .animation(FABRevealProvider.create(R.drawable.ic_add_white_48dp))
+                .autoStart(true)
+                .duration(DURATION_REVEAL)
+                .createFor(binding.floatingActionButton);
 
-            hideAnimation.start();
-        } else {
-            transaction.setCustomAnimations(android.R.anim.fade_in, android.R.anim.fade_out);
-            binding.editorPanelContainer.setVisibility(View.INVISIBLE);
-            binding.mainPanelContainer.setVisibility(View.VISIBLE);
-            transaction.commitNow();
-        }
+        hideAnimation.start();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private AnimatorSet getHideWithReveal(final View toHide) {
         final AnimatorSet animatorSet = new AnimatorSet();
 
