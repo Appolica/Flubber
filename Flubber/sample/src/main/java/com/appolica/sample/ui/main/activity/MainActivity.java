@@ -33,6 +33,7 @@ public class MainActivity
     public static final int DURATION_REVEAL = 350;
     public static final int DURATION_FADE = 200;
     public static final String EDITOR_VISIBILITY = "EditorVisibility";
+    private static final String MAIN_VISIBILITY = "MainVisibility";
     private static final String TAG = "MainActivity";
     private ActivityMainBinding binding;
 
@@ -53,11 +54,13 @@ public class MainActivity
         binding.setFlubberClickListener(this);
 
         restoreState(savedInstanceState);
+        binding.setEditorOpen(isEditorOpen());
     }
 
     private void restoreState(Bundle savedInstanceState) {
         if (savedInstanceState != null) {
             binding.editorPanelContainer.setVisibility(savedInstanceState.getInt(EDITOR_VISIBILITY));
+            binding.mainPanelContainer.setVisibility(savedInstanceState.getInt(MAIN_VISIBILITY));
             if (isEditorOpen()) {
                 binding.floatingActionButton.setImageResource(R.drawable.ic_done_white_24dp);
             }
@@ -69,6 +72,7 @@ public class MainActivity
         super.onSaveInstanceState(outState);
 
         outState.putInt(EDITOR_VISIBILITY, binding.editorPanelContainer.getVisibility());
+        outState.putInt(MAIN_VISIBILITY, binding.mainPanelContainer.getVisibility());
     }
 
     @Override

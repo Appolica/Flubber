@@ -17,11 +17,19 @@ import java.util.Map;
  */
 public class CustomAnimationBody extends AnimationBody implements Serializable {
 
-    private transient Map<FieldName, PropertyMethodsHolder<Long>> longProperties = new HashMap<>();
-    private transient Map<FieldName, PropertyMethodsHolder<Float>> floatProperties = new HashMap<>();
-    private transient Map<Class<?>, Map<FieldName, ? extends PropertyMethodsHolder<?>>> typesMap = new HashMap<>();
+    private transient Map<FieldName, PropertyMethodsHolder<Long>> longProperties;
+    private transient Map<FieldName, PropertyMethodsHolder<Float>> floatProperties;
+    private transient Map<Class<?>, Map<FieldName, ? extends PropertyMethodsHolder<?>>> typesMap;
 
     public CustomAnimationBody() {
+        init();
+    }
+
+    public void init() {
+        longProperties = new HashMap<>();
+        floatProperties = new HashMap<>();
+        typesMap = new HashMap<>();
+
         longProperties.put(FieldName.DURATION, PropertyMethodsHolder.fields(this::getDuration, this::setDuration));
         longProperties.put(FieldName.DELAY, PropertyMethodsHolder.fields(this::getDelay, this::setDelay));
 

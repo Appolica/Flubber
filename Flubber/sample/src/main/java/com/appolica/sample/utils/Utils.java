@@ -3,7 +3,6 @@ package com.appolica.sample.utils;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 
-import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.ui.animation.CustomAnimationBody;
 import com.appolica.sample.ui.editor.pager.RadioElementModel;
@@ -31,6 +30,7 @@ public class Utils {
         return data;
     }
 
+    @NonNull
     public static<T extends Enum> RadioElementModel convertEnumToModel(T value) {
         final String name = StringUtils.upperUnderScoreToCamel(value.name());
         return createElementFor(name);
@@ -46,7 +46,7 @@ public class Utils {
     }
 
     @NonNull
-    public static Bundle createAnimationBodyBundle(AnimationBody animationBody) {
+    public static Bundle createAnimationBodyBundle(CustomAnimationBody animationBody) {
         final Bundle animationBodyBundle = new Bundle();
         animationBodyBundle.putSerializable(ANIMATION_BODY, animationBody);
 
@@ -63,7 +63,10 @@ public class Utils {
 
     public static CustomAnimationBody restoreAnimationBody(@NonNull Bundle savedInstanceState) {
         final CustomAnimationBody animationBody = (CustomAnimationBody) savedInstanceState.getSerializable(ANIMATION_BODY);
-        animationBody.setAnimation((Flubber.AnimationPreset) savedInstanceState.getSerializable(ANIMATION_PRESET));
+        final Flubber.AnimationPreset animationPreset = (Flubber.AnimationPreset) savedInstanceState.getSerializable(ANIMATION_PRESET);
+
+        animationBody.init();
+        animationBody.setAnimation(animationPreset);
         animationBody.setInterpolator((Flubber.Curve) savedInstanceState.getSerializable(INTERPOLATOR));
 
         return animationBody;

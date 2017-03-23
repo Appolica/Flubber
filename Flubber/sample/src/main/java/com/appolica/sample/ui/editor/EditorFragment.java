@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.annimon.stream.Stream;
-import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.FragmentEditorPanelBinding;
@@ -66,7 +65,7 @@ public class EditorFragment extends Fragment
         adapter.setAnimationBodyProvider(this);
 
         if (savedInstanceState != null) {
-            animationBody = Utils.restoreAnimationBody(savedInstanceState);
+            animationBody = Utils.restoreAnimationBody(savedInstanceState.getBundle(ANIMATION_BODY_BUNDLE));
             propagateRestoredAnimationBody(savedInstanceState);
         }
 
@@ -92,7 +91,6 @@ public class EditorFragment extends Fragment
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        final AnimationBody animationBody = this.animationBody;
 
         final Bundle animationBodyBundle = Utils.createAnimationBodyBundle(animationBody);
 
