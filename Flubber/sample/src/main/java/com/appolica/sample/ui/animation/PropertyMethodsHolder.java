@@ -12,6 +12,10 @@ public class PropertyMethodsHolder<T> {
         this.setter = setter;
     }
 
+    static<T> PropertyMethodsHolder<T> fields(Getter<T> getter, Setter<T> setter) {
+        return new PropertyMethodsHolder<>(getter, setter);
+    }
+
     public Getter<T> getter() {
         return getter;
     }

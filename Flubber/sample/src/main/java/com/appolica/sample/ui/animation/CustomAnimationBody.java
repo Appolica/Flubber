@@ -22,13 +22,13 @@ public class CustomAnimationBody extends AnimationBody implements Serializable {
     private transient Map<Class<?>, Map<FieldName, ? extends PropertyMethodsHolder<?>>> typesMap = new HashMap<>();
 
     public CustomAnimationBody() {
-        longProperties.put(FieldName.DURATION, new PropertyMethodsHolder<>(this::getDuration, this::setDuration));
-        longProperties.put(FieldName.DELAY, new PropertyMethodsHolder<>(this::getDelay, this::setDelay));
+        longProperties.put(FieldName.DURATION, PropertyMethodsHolder.fields(this::getDuration, this::setDuration));
+        longProperties.put(FieldName.DELAY, PropertyMethodsHolder.fields(this::getDelay, this::setDelay));
 
-        floatProperties.put(FieldName.FORCE, new PropertyMethodsHolder<>(this::getForce, this::setForce));
-        floatProperties.put(FieldName.VELOCITY, new PropertyMethodsHolder<>(this::getVelocity, this::setVelocity));
-        floatProperties.put(FieldName.DAMPING, new PropertyMethodsHolder<>(this::getDamping, this::setDamping));
-        floatProperties.put(FieldName.SCALE, new PropertyMethodsHolder<>(
+        floatProperties.put(FieldName.FORCE, PropertyMethodsHolder.fields(this::getForce, this::setForce));
+        floatProperties.put(FieldName.VELOCITY, PropertyMethodsHolder.fields(this::getVelocity, this::setVelocity));
+        floatProperties.put(FieldName.DAMPING, PropertyMethodsHolder.fields(this::getDamping, this::setDamping));
+        floatProperties.put(FieldName.SCALE, PropertyMethodsHolder.fields(
                 this::getEndScaleX,
                 (scale) -> {
                     setEndScaleX(scale);

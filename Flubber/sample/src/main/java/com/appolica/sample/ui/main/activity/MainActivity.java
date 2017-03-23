@@ -199,6 +199,27 @@ public class MainActivity
 
         hideAnimation.start();
         binding.setEditorOpen(false);
+        resetView(binding.animatedView);
+    }
+
+    private void resetView(View view) {
+
+        view.setAlpha(1);
+        view.setScaleX(1);
+        view.setScaleY(1);
+        view.setRotation(0);
+        view.setRotationX(0);
+        view.setRotationY(0);
+        view.setTranslationX(0);
+        view.setTranslationY(0);
+
+        Flubber.with()
+                .duration(100)
+                .animation(Flubber.AnimationPreset.FLASH)
+                .interpolator(Flubber.Curve.BZR_EASE_IN_OUT_QUAD)
+                .autoStart(true)
+                .createFor(view);
+
     }
 
     private AnimatorSet getHideWithReveal(final View toHide) {
