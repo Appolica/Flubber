@@ -39,6 +39,7 @@ import com.appolica.flubber.animation.providers.Wobble;
 import com.appolica.flubber.animation.providers.ZoomIn;
 import com.appolica.flubber.animation.providers.ZoomOut;
 import com.appolica.flubber.interpolator.providers.Spring;
+import com.appolica.flubber.interpolator.providers.bezier.BzrSpring;
 import com.appolica.flubber.interpolator.providers.bezier.EaseIn;
 import com.appolica.flubber.interpolator.providers.bezier.EaseInBack;
 import com.appolica.flubber.interpolator.providers.bezier.EaseInCirc;
@@ -74,10 +75,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Flubber {
-    private static final String TAG = "Flubber";
-
     public static final float[] FRACTIONS = new float[]{0f, 0.2f, 0.4f, 0.6f, 0.8f, 1f};
     public static final String SCALE = "scale";
+    private static final String TAG = "Flubber";
 
     @Contract(" -> !null")
     public static AnimationBody.Builder with() {
@@ -226,7 +226,7 @@ public class Flubber {
             providers.put(BZR_EASE_OUT, new EaseOut());
             providers.put(BZR_EASE_IN_OUT, new EaseInOut());
             providers.put(BZR_LINEAR, new Linear());
-            providers.put(BZR_SPRING, new Spring());
+            providers.put(BZR_SPRING, new BzrSpring());
             providers.put(BZR_EASE_IN_SINE, new EaseInSine());
             providers.put(BZR_EASE_OUT_SINE, new EaseOutSine());
             providers.put(BZR_EASE_IN_OUT_SINE, new EaseInOutSine());

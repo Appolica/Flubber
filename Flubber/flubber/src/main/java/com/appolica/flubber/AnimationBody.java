@@ -40,6 +40,7 @@ public class AnimationBody implements Serializable {
 
     private transient Flubber.AnimationProvider animation;
     private transient Flubber.InterpolatorProvider interpolator;
+    private transient Animator.AnimatorListener animatorListener;
 
     public AnimationBody() {
     }
@@ -52,6 +53,10 @@ public class AnimationBody implements Serializable {
 
         if (autoStart) {
             animation.start();
+        }
+
+        if (animatorListener != null) {
+            animation.addListener(animatorListener);
         }
 
         return animation;
@@ -210,6 +215,14 @@ public class AnimationBody implements Serializable {
         this.endY = endY;
     }
 
+    public void setAnimatorListener(Animator.AnimatorListener animatorListener) {
+        this.animatorListener = animatorListener;
+    }
+
+    public Animator.AnimatorListener getAnimatorListener() {
+        return animatorListener;
+    }
+
     public static final class Builder {
 
         private boolean autoStart;
@@ -238,6 +251,8 @@ public class AnimationBody implements Serializable {
 
         private Flubber.AnimationProvider animation;
         private Flubber.InterpolatorProvider interpolatorProvider;
+
+        private Animator.AnimatorListener animatorListener;
 
         private Builder() {
 
@@ -347,6 +362,11 @@ public class AnimationBody implements Serializable {
             return this;
         }
 
+        public Builder listener(Animator.AnimatorListener animatorListener) {
+            this.animatorListener = animatorListener;
+            return this;
+        }
+
         public Animator createFor(View view) {
             return build().createFor(view);
         }
@@ -381,6 +401,8 @@ public class AnimationBody implements Serializable {
 
             animationBody.setAnimation(animation);
             animationBody.setInterpolator(interpolatorProvider);
+
+            animationBody.setAnimatorListener(animatorListener);
 
             return animationBody;
         }
