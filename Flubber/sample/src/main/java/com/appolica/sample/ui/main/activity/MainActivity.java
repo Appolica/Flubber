@@ -11,12 +11,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.appolica.flubber.Flubber;
+import com.appolica.flubber.listener.SimpleAnimatorListener;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ActivityMainBinding;
 import com.appolica.sample.ui.animation.CustomAnimationBody;
 import com.appolica.sample.ui.animation.FABRevealProvider;
 import com.appolica.sample.ui.animation.RevealProvider;
-import com.appolica.sample.ui.animation.SimpleAnimatorListener;
 import com.appolica.sample.ui.editor.EditorFragment;
 import com.appolica.sample.ui.main.FlubberClickListener;
 import com.appolica.sample.ui.main.fragment.MainPanelFragment;
@@ -242,14 +242,13 @@ public class MainActivity
                         .animation(Flubber.AnimationPreset.FADE_IN)
                         .interpolator(Flubber.Curve.BZR_EASE_OUT)
                         .duration(DURATION_FADE)
+                        .listener(new SimpleAnimatorListener() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                toHide.setVisibility(View.INVISIBLE);
+                            }
+                        })
                         .createFor(binding.revealView);
-
-        fadeOut.addListener(new SimpleAnimatorListener() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                toHide.setVisibility(View.INVISIBLE);
-            }
-        });
 
         animatorSet.play(revealAnimation).after(fadeOut);
 
@@ -271,9 +270,5 @@ public class MainActivity
 
     private boolean isEditorOpen() {
         return binding.editorPanelContainer.getVisibility() == View.VISIBLE;
-    }
-
-    class A {
-
     }
 }

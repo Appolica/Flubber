@@ -8,6 +8,7 @@ import android.view.ViewAnimationUtils;
 
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;
+import com.appolica.flubber.listener.SimpleAnimatorListener;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
 public class RevealProvider implements Flubber.AnimationProvider {
