@@ -1,3 +1,5 @@
+[ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg?version=1.0.0) ](https://bintray.com/appolica-ltd/appolica/Flubber/1.0.0/link)
+
 Flubber
 ===
 
@@ -9,11 +11,51 @@ The library is developed and maintained by Appolica.
 
 Download
 ---
-Explain how to download the library. (Gradle)
+### Gradle
+`compile 'com.appolica:flubber:1.0.0'`
+### Maven
+```
+<dependency>
+  <groupId>com.appolica</groupId>
+  <artifactId>flubber</artifactId>
+  <version>1.0.0</version>
+  <type>pom</type>
+</dependency>
+```
 
-Quick start
+Example
 ---
+1. Add the library to your build file. If you're using gradle it would look like this:
+```
+dependencies {
+	compile 'com.appolica:flubber:1.0.0'
+}
+```
+2. Add a view which you want to be animated: 
+```
+    <TextView
+        android:id="@+id/text"
+        android:layout_centerInParent="true"
+        android:text="Hello World!"
+        android:gravity="center"/>
 
+```
+3. Get the view
+`View view = findViewById(R.id.text);`
+4. Apply the flubber animation where you want it to happen(in this example, when the view is clicked):
+```
+view.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View v) {
+	Flubber.with()
+		.animation(Flubber.AnimationPreset.SLIDE_UP) // Slide up animation
+		.repeatCount(1)                              // Repeat once
+		.duration(1000)                              // Last for 1000 milliseconds(1 second)
+		.createFor(view)                             // Apply it to the view
+		.start();                                    // Start it now
+    }
+});
+```
 
 API
 -----
