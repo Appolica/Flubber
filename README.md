@@ -31,7 +31,7 @@ Flubber.with()
 	   .autoStart(true)
 	   .createFor(viewToBeAnimated);
 ```
-This will create an animation from the [preset animation Morph](#enum-animationpreset) with an interpolator from the [preset interpolator BZR_EASE_IN](#enum-curve). It will have a duration of 100 milliseconds and it will start automatically. The view which will be animated is `viewToBeAnimated`.
+This will create an animation from the [preset animation `MORPH`](#enum-animationpreset) with an interpolator from the [preset interpolator `BZR_EASE_IN`](#enum-curve). It will have a duration of 100 milliseconds and it will start automatically. The view which will be animated is `viewToBeAnimated`.
 More about the properties of the [`AnimationBody`](#class-animationbody).
 
 #### `enum AnimationPreset`
