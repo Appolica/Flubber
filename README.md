@@ -13,13 +13,13 @@ Download
 [ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg) ](https://bintray.com/appolica-ltd/appolica/Flubber/_latestVersion)
 ---
 ### Gradle
-`compile 'com.appolica:flubber:1.0.0'`
+`compile 'com.appolica:flubber:$LATEST_LIB_VERSION'`
 ### Maven
 ```
 <dependency>
   <groupId>com.appolica</groupId>
   <artifactId>flubber</artifactId>
-  <version>1.0.0</version>
+  <version>$LATEST_LIB_VERSION</version>
   <type>pom</type>
 </dependency>
 ```
@@ -29,7 +29,7 @@ Example
 1. Add the library to your build file. If you're using gradle it would look like this:
 ```
 dependencies {
-	compile 'com.appolica:flubber:1.0.0'
+	compile 'com.appolica:flubber:$LATEST_LIB_VERSION'
 }
 ```
 2. Add a view which you want to be animated: 
