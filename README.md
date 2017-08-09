@@ -7,7 +7,7 @@ Flubber is an elegant solution for making animations in Android. The library is 
 
 The library is developed and maintained by Appolica.
 
-![wobble](./gifs/wobble.gif)![morph](./gifs/morph.gif)![zoomin](./gifs/zoomin.gif)
+![wobble](./gifs/wobble.gif)![zoomin](./gifs/zoomin.gif)![morph](./gifs/morph.gif)
 
 Download
 ---
