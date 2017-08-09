@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.appolica.sample.ui.main.AnimationsListItemModel"/>
+
+        <import type="com.appolica.sample.ui.main.fragment.MainRVAdapter.OnItemClickListener"/>
+
+        <variable
+            name="model"
+            type="AnimationsListItemModel"/>
+
+        <variable
+            name="clickListener"
+            type="OnItemClickListener"/>
+
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:onClick="@{() -> clickListener.onItemClicked(model.getAnimationBody())}">
+
+        <TextView
+            android:id="@+id/textViewAnimation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:text="@{model.animationName}"
+            android:textSize="16sp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Animation"/>
+
+        <TextView
+            android:id="@+id/textViewInterpolator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="@{model.interpolatorName}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewAnimation"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="Interpolator"/>
+    </android.support.constraint.ConstraintLayout>
+
+</layout>

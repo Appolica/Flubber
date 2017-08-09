@@ -1,1 +1,1 @@
-include ':sample', ':flubber'
+include ':demo', ':flubber'
