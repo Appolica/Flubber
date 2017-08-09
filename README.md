@@ -3,7 +3,7 @@
 Flubber
 ===
 
-Flubber is an elegant solution for making animations in Android.
+Flubber is an elegant solution for making animations in Android. The library is inspired by the [Spring](https://github.com/MengTo/Spring) library for iOS. It supports all of the animations, curves and properties that are present in Spring.
 
 The library is developed and maintained by Appolica.
 
