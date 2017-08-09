@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#673ab7</color>
+    <color name="colorPrimaryDark">#512da8</color>
+    <color name="colorAccent">#00bcd4</color>
+    <color name="main_animations_background">#F1F8E9</color>
+    <color name="tab_indicator">#00BCD4</color>
+    <color name="colorText">#212121</color>
+    <color name="divider">#E0E0E0</color>
+    <color name="colorSeekBarTrack">#BDBDBD</color>
+    <color name="colorSwipeDismiss">#929292</color>
+</resources>
