@@ -1,15 +1,16 @@
-[ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg?version=1.0.0) ](https://bintray.com/appolica-ltd/appolica/Flubber/1.0.0/link)
+[ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg) ](https://bintray.com/appolica-ltd/appolica/Flubber/_latestVersion)
 
 Flubber
 ===
 
 Flubber is an elegant solution for making animations in Android. The library is inspired by the [Spring](https://github.com/MengTo/Spring) library for iOS. It supports all of the animations, curves and properties that are present in Spring.
 
-The library is developed and maintained by Appolica.
+The library is developed and maintained by [Appolica](http://www.appolica.com/).
 
 ![wobble](./gifs/wobble.gif)![zoomin](./gifs/zoomin.gif)![morph](./gifs/morph.gif)
 
 Download
+[ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg) ](https://bintray.com/appolica-ltd/appolica/Flubber/_latestVersion)
 ---
 ### Gradle
 `compile 'com.appolica:flubber:1.0.0'`
