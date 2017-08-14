@@ -1,7 +1,8 @@
-[ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg) ](https://bintray.com/appolica-ltd/appolica/Flubber/_latestVersion)
 
 Flubber
 ===
+
+<img src="https://github.com/Appolica/Flubber/blob/develop/logo.png?raw=true" data-canonical-src="https://github.com/Appolica/Flubber/blob/develop/logo.png?raw=true" width="350" height="250" alt="FlubberLogo" />
 
 Flubber is an elegant solution for making animations in Android. The library is inspired by the [Spring](https://github.com/MengTo/Spring) library for iOS. It supports all of the animations, curves and properties that are present in Spring. The library provides an interpolator called Spring which is similar to the iOS [CASpringAnimation](https://developer.apple.com/documentation/quartzcore/caspringanimation).
 
@@ -17,7 +18,7 @@ Download
 ### Gradle
 `compile 'com.appolica:flubber:$LATEST_LIB_VERSION'`
 ### Maven
-```
+```xml
 <dependency>
   <groupId>com.appolica</groupId>
   <artifactId>flubber</artifactId>
@@ -29,13 +30,13 @@ Download
 Example
 ---
 1. Add the library to your build file. If you're using gradle it would look like this:
-```
+```groovy
 dependencies {
 	compile 'com.appolica:flubber:$LATEST_LIB_VERSION'
 }
 ```
 2. Add a view which you want to be animated: 
-```
+```xml
     <TextView
         android:id="@+id/text"
         android:layout_centerInParent="true"
@@ -44,9 +45,11 @@ dependencies {
 
 ```
 3. Get the view
-`View view = findViewById(R.id.text);`
-4. Apply the flubber animation where you want it to happen(in this example, when the view is clicked):
+```java
+View view = findViewById(R.id.text);
 ```
+4. Apply the flubber animation where you want it to happen(in this example, when the view is clicked):
+```java
 view.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View v) {
@@ -68,10 +71,10 @@ This is the main class you will use to create your animations.
 <a name=flubber.with>
 ##### `public static AnimationBody.Builder with()` </a>
  Used to get a new `AnimationBody.Builder` instance. With it you can create an `AnimationBody` which holds all the data for an animation. Example:
-```
+```java
 Flubber.with()
 	   .animation(Flubber.AnimationPreset.MORPH)
-       .interpolator(Flubber.Curve.BZR_EASE_IN)
+	   .interpolator(Flubber.Curve.BZR_EASE_IN)
 	   .duration(100)
 	   .autoStart(true)
 	   .createFor(viewToBeAnimated);
@@ -179,7 +182,7 @@ Uses all of the properties to create an animation for the given view. If the `au
 ##### `public Animator createAnimationFor(final AnimationBody animationBody, View view)`
 
 Must create an Animator instance for the given `view` from the `animationBody`. If you want you can use this interface to create new animations but it is recomended to use the [`BaseProvider`](#baseprovider) class because it implements animation repetition and applies the interpolator. Example:
-```
+```java
     public Animator createAnimationFor(AnimationBody animationBody, View view) {
 
         final ObjectAnimator alphaAnimation = ObjectAnimator.ofFloat(view, View.ALPHA, 0f, 1f);
@@ -197,7 +200,7 @@ Should create the animation for the given `view` from the `animationBody` the sa
 ### `interface InterpolatorProvider`
 ##### `public Interpolator createInterpolatorFor(final AnimationBody animationBody)`
 Should provide an anumation interpolator based on the given `animationBody`. Example:
-```
+```java
 public Interpolator createInterpolatorFor(AnimationBody animationBody) {
     final float force = animationBody.getForce();
     return PathInterpolatorCompat.create(0.5f, 1.1f + force / 3, 1f, 1f);
@@ -206,13 +209,21 @@ public Interpolator createInterpolatorFor(AnimationBody animationBody) {
 
 ### `class SimpleAnimatorListener`
 This is a helper class you can use if you don't want to override all of the `AnimatorListener` methods. It provides four methods with callbacks for the for events in an `AnimatorListener`.
-`static Animator.AnimatorListener forStart(final OnAnimationStartListener startListener);`
+```java
+static Animator.AnimatorListener forStart(final OnAnimationStartListener startListener);
+```
 
-`static Animator.AnimatorListener forEnd(final OnAnimationEndListener endListener);`
+```java
+static Animator.AnimatorListener forEnd(final OnAnimationEndListener endListener);
+```
 
-`static Animator.AnimatorListener forCancel(final OnAnimationCancelListener cancelListener);`
+```java
+static Animator.AnimatorListener forCancel(final OnAnimationCancelListener cancelListener);
+```
 
-`static Animator.AnimatorListener forRepeat(final OnAnimationRepeatListener repeatListener);`
+```java
+static Animator.AnimatorListener forRepeat(final OnAnimationRepeatListener repeatListener);
+```
 
 # License
 The library is under the Apache license. Check the [LICENSE](./LICENSE) file for more info.
