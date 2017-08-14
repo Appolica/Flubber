@@ -1,7 +1,8 @@
-[ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg) ](https://bintray.com/appolica-ltd/appolica/Flubber/_latestVersion)
 
 Flubber
 ===
+
+<img src="https://github.com/Appolica/Flubber/blob/develop/Flubber_icon_store.png?raw=true" data-canonical-src="https://github.com/Appolica/Flubber/blob/develop/Flubber_icon_store.png?raw=true" width="350" height="250" alt="Flubber" />
 
 Flubber is an elegant solution for making animations in Android. The library is inspired by the [Spring](https://github.com/MengTo/Spring) library for iOS. It supports all of the animations, curves and properties that are present in Spring. The library provides an interpolator called Spring which is similar to the iOS [CASpringAnimation](https://developer.apple.com/documentation/quartzcore/caspringanimation).
 
