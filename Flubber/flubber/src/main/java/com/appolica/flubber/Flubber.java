@@ -1,9 +1,10 @@
 package com.appolica.flubber;
 
 import android.animation.Animator;
-import android.support.annotation.NonNull;
 import android.view.View;
 import android.view.animation.Interpolator;
+
+import androidx.annotation.NonNull;
 
 import com.appolica.flubber.animation.providers.Alpha;
 import com.appolica.flubber.animation.providers.FadeIn;

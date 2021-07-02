@@ -1,8 +1,9 @@
 package com.appolica.flubber.animation.providers;
 
 import android.animation.ObjectAnimator;
-import android.support.annotation.NonNull;
 import android.view.View;
+
+import androidx.annotation.NonNull;
 
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.utils.DimensionUtils;

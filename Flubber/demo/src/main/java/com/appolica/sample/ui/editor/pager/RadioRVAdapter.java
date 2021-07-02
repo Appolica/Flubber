@@ -1,14 +1,15 @@
 package com.appolica.sample.ui.editor.pager;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
-import android.databinding.Observable;
-import android.databinding.ObservableField;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.android.databinding.library.baseAdapters.BR;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.Observable;
+import androidx.databinding.ObservableField;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.appolica.sample.BR;
 import com.appolica.sample.R;
 import com.appolica.sample.databinding.ListItemRadioBinding;
 

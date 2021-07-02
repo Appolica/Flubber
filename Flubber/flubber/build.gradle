@@ -13,30 +13,27 @@
  */
 
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release' // must be applied after your artifact generating plugin (eg. java / com.android.library)
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
 
+apply from: 'versioning.gradle'
 buildscript {
     repositories {
-        jcenter()
+        mavenCentral()
     }
-
-    dependencies {
-        classpath 'com.novoda:bintray-release:0.4.0'
-    }
-
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        minSdkVersion 15
-        targetSdkVersion 25
+        minSdkVersion 29
+        targetSdkVersion 30
         versionCode 1
-        versionName LIB_VERSION
+        versionName getVersionName()
 
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
 
     }
     buildTypes {
@@ -47,24 +44,39 @@ android {
     }
 }
 
+afterEvaluate {
+    publishing {
+        publications {
+            aar(MavenPublication) {
+                from components.release
+                artifactId = "flubber"
+                groupId = "com.appolica"
+                version = getVersionName()
+            }
+        }
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+//            url = 'https://s01.oss.sonatype.org/content/repositories/releases/'
+            url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
+            credentials {
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+        }
+    }
+}
+
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile 'com.android.support:support-core-ui:25.3.1'
-    testCompile 'junit:junit:4.12'
-    compile 'org.jetbrains:annotations-java5:15.0'
-}
-
-publish {
-    userOrg = 'appolica-ltd'
-    groupId = 'com.appolica'
-    artifactId = 'flubber'
-    publishVersion = LIB_VERSION
-    website = 'https://github.com/Appolica/Flubber'
-    licences = ['Apache-2.0']
-    repoName = 'appolica'
-    uploadName = 'Flubber'
+    implementation 'androidx.legacy:legacy-support-core-ui:1.0.0'
+    testImplementation 'junit:junit:4.13.2'
+    implementation 'org.jetbrains:annotations:16.0.2'
 }

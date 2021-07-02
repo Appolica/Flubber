@@ -16,14 +16,14 @@ Download
 [ ![Download](https://api.bintray.com/packages/appolica-ltd/appolica/Flubber/images/download.svg) ](https://bintray.com/appolica-ltd/appolica/Flubber/_latestVersion)
 ---
 ### Gradle
-`compile 'com.appolica:flubber:$LATEST_LIB_VERSION'`
+`    implementation 'com.appolica:flubber:1.0.0'`
 ### Maven
 ```xml
 <dependency>
   <groupId>com.appolica</groupId>
   <artifactId>flubber</artifactId>
-  <version>$LATEST_LIB_VERSION</version>
-  <type>pom</type>
+  <version>1.0.0</version>
+  <type>aar</type>
 </dependency>
 ```
 

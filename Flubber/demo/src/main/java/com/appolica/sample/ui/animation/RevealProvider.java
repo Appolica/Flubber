@@ -2,9 +2,10 @@ package com.appolica.sample.ui.animation;
 
 import android.animation.Animator;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.view.View;
 import android.view.ViewAnimationUtils;
+
+import androidx.annotation.RequiresApi;
 
 import com.appolica.flubber.AnimationBody;
 import com.appolica.flubber.Flubber;

@@ -1,7 +1,7 @@
 package com.appolica.sample.utils;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
+import androidx.annotation.NonNull;
 
 import com.appolica.flubber.Flubber;
 import com.appolica.sample.ui.animation.CustomAnimationBody;

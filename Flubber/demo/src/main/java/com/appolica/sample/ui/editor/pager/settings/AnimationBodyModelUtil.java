@@ -1,6 +1,6 @@
 package com.appolica.sample.ui.editor.pager.settings;
 
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 
 import com.annimon.stream.Collectors;
 import com.annimon.stream.Stream;
