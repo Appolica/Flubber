@@ -56,8 +56,6 @@ public class MainActivity
 
         restoreState(savedInstanceState);
         binding.setEditorOpen(isEditorOpen());
-
-        binding.button.setOnClickListener(v -> onFlubberClick(binding.button));
     }
 
     private void restoreState(Bundle savedInstanceState) {
@@ -95,20 +93,6 @@ public class MainActivity
                 allAnimationsSet.start();
             }
         }
-
-        Flubber.with()
-                .animation(Flubber.AnimationPreset.SCALE_X)
-                .animation(Flubber.AnimationPreset.SCALE_Y)
-                .scaleX(0, 1)
-                .scaleY(0, 1)
-                .repeatCount(1)
-                .duration(500)
-                .damping(0.5F)
-                .interpolator(Flubber.Curve.SPRING)
-                .velocity(200)
-                .delay(2)
-                .autoStart(true)
-                .createFor(view);
     }
 
     @Override
