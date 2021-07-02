@@ -1,7 +1,7 @@
 package com.appolica.sample.ui.editor.pager.settings;
 
-import android.databinding.ObservableFloat;
-import android.databinding.ObservableInt;
+import androidx.databinding.ObservableFloat;
+import androidx.databinding.ObservableInt;
 
 public class SeekBarModel {
     private ObservableInt name = new ObservableInt();

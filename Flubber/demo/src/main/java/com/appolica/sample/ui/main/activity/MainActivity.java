@@ -2,13 +2,14 @@ package com.appolica.sample.ui.main.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.appolica.flubber.Flubber;
 import com.appolica.flubber.listener.SimpleAnimatorListener;
@@ -55,6 +56,8 @@ public class MainActivity
 
         restoreState(savedInstanceState);
         binding.setEditorOpen(isEditorOpen());
+
+        binding.button.setOnClickListener(v -> onFlubberClick(binding.button));
     }
 
     private void restoreState(Bundle savedInstanceState) {
@@ -92,6 +95,20 @@ public class MainActivity
                 allAnimationsSet.start();
             }
         }
+
+        Flubber.with()
+                .animation(Flubber.AnimationPreset.SCALE_X)
+                .animation(Flubber.AnimationPreset.SCALE_Y)
+                .scaleX(0, 1)
+                .scaleY(0, 1)
+                .repeatCount(1)
+                .duration(500)
+                .damping(0.5F)
+                .interpolator(Flubber.Curve.SPRING)
+                .velocity(200)
+                .delay(2)
+                .autoStart(true)
+                .createFor(view);
     }
 
     @Override

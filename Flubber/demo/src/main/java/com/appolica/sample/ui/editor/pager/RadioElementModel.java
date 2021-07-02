@@ -1,7 +1,7 @@
 package com.appolica.sample.ui.editor.pager;
 
-import android.databinding.ObservableBoolean;
-import android.databinding.ObservableField;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 
 import java.io.Serializable;
 

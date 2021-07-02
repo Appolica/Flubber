@@ -1,6 +1,6 @@
 package com.appolica.sample.ui.editor.pager;
 
-import android.support.v4.app.Fragment;
+import androidx.fragment.app.Fragment;
 
 import com.appolica.sample.R;
 import com.appolica.sample.ui.editor.pager.animations.AnimationsFragment;

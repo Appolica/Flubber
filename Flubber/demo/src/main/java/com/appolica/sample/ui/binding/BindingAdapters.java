@@ -1,10 +1,11 @@
 package com.appolica.sample.ui.binding;
 
-import android.databinding.BindingAdapter;
-import android.databinding.ObservableField;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
+
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.ObservableField;
 
 import com.appolica.sample.ui.editor.pager.settings.NumericTransformer;
 import com.appolica.sample.ui.editor.pager.settings.SeekBarModel;

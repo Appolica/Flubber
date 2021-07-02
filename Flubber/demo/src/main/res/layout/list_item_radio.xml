@@ -4,7 +4,7 @@
 
     <data>
 
-        <import type="android.databinding.ObservableField"/>
+        <import type="androidx.databinding.ObservableField"/>
         <import type="com.appolica.sample.ui.editor.pager.RadioElementModel"/>
 
         <variable
@@ -17,7 +17,7 @@
 
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -48,5 +48,5 @@
             app:layout_constraintBottom_toBottomOf="@+id/textViewName"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/textViewName"/>
-    </android.support.constraint.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

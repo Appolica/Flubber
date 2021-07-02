@@ -3,8 +3,8 @@ package com.appolica.sample.ui.animation;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.design.widget.FloatingActionButton;
+import androidx.annotation.RequiresApi;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.view.View;
 import android.view.ViewAnimationUtils;
 
