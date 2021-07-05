@@ -1,0 +1,8 @@
+def final staticVerName = "1.0.1"
+ext.getVersionName = { ->
+    if (project.hasProperty("buildNumber")) {
+        return "1.0.$buildNumber"
+    } else {
+        return staticVerName
+    }
+}
