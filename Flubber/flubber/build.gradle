@@ -57,19 +57,6 @@ afterEvaluate {
     }
 }
 
-publishing {
-    repositories {
-        maven {
-//            url = 'https://s01.oss.sonatype.org/content/repositories/releases/'
-            url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
-            credentials {
-//                username = ossrhUsername
-//                password = ossrhPassword
-            }
-        }
-    }
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     androidTestImplementation('androidx.test.espresso:espresso-core:3.1.0', {
