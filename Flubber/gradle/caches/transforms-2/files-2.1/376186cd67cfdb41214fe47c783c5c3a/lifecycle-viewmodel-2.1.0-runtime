@@ -1,9 +1,0 @@
-androidx.lifecycle.AndroidViewModel
-androidx.lifecycle.ViewModel
-androidx.lifecycle.ViewModelProvider
-androidx.lifecycle.ViewModelProvider$AndroidViewModelFactory
-androidx.lifecycle.ViewModelProvider$Factory
-androidx.lifecycle.ViewModelProvider$KeyedFactory
-androidx.lifecycle.ViewModelProvider$NewInstanceFactory
-androidx.lifecycle.ViewModelStore
-androidx.lifecycle.ViewModelStoreOwner

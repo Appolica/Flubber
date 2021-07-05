@@ -1,8 +1,0 @@
-androidx.savedstate.Recreator
-androidx.savedstate.Recreator$SavedStateProvider
-androidx.savedstate.SavedStateRegistry
-androidx.savedstate.SavedStateRegistry$1
-androidx.savedstate.SavedStateRegistry$AutoRecreated
-androidx.savedstate.SavedStateRegistry$SavedStateProvider
-androidx.savedstate.SavedStateRegistryController
-androidx.savedstate.SavedStateRegistryOwner
