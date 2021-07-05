@@ -63,8 +63,8 @@ publishing {
 //            url = 'https://s01.oss.sonatype.org/content/repositories/releases/'
             url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/'
             credentials {
-                username = ossrhUsername
-                password = ossrhPassword
+//                username = ossrhUsername
+//                password = ossrhPassword
             }
         }
     }

@@ -1,0 +1,6 @@
+androidx.legacy.app.ActionBarDrawerToggle
+androidx.legacy.app.ActionBarDrawerToggle$Delegate
+androidx.legacy.app.ActionBarDrawerToggle$DelegateProvider
+androidx.legacy.app.ActionBarDrawerToggle$SetIndicatorInfo
+androidx.legacy.app.ActionBarDrawerToggle$SlideDrawable
+androidx.legacy.widget.Space

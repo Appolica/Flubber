@@ -1,0 +1,6 @@
+androidx.lifecycle.LifecycleRegistry
+androidx.lifecycle.LifecycleRegistry$1
+androidx.lifecycle.LifecycleRegistry$ObserverWithState
+androidx.lifecycle.LifecycleRegistryOwner
+androidx.lifecycle.ReportFragment
+androidx.lifecycle.ReportFragment$ActivityInitializationListener

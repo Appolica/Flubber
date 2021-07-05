@@ -1,0 +1,101 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.android.tools",
+    "module": "annotations",
+    "version": "27.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.7.1",
+      "buildId": "emdti2vwsvhgvmvmhmgvla6u5i"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 6,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "annotations-27.2.1.jar",
+          "url": "annotations-27.2.1.jar",
+          "size": 10300,
+          "sha512": "03a89425529aa7492201f5ad3b77604e4ddfe6adeb561e63622192ea10de015a72c7e36dc2c5baf0ff018adcd86803c3047772fdbf020081325d5d1195760770",
+          "sha256": "898149a83a49f20913f47b77aa78fa6a9c42c58673b0cfca377f8b870eee63b0",
+          "sha1": "afac51efb78c3eef296a4ff0dfef56c6d0d6dfb8",
+          "md5": "e0e98c532ad1ca9ec859a469c556f496"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 6,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "annotations-27.2.1.jar",
+          "url": "annotations-27.2.1.jar",
+          "size": 10300,
+          "sha512": "03a89425529aa7492201f5ad3b77604e4ddfe6adeb561e63622192ea10de015a72c7e36dc2c5baf0ff018adcd86803c3047772fdbf020081325d5d1195760770",
+          "sha256": "898149a83a49f20913f47b77aa78fa6a9c42c58673b0cfca377f8b870eee63b0",
+          "sha1": "afac51efb78c3eef296a4ff0dfef56c6d0d6dfb8",
+          "md5": "e0e98c532ad1ca9ec859a469c556f496"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "annotations-27.2.1-javadoc.jar",
+          "url": "annotations-27.2.1-javadoc.jar",
+          "size": 46270,
+          "sha512": "94fc3b0ae119c5ce520e9719b46682fc874927e4972e3dba6d63bc267a78c4346e893ec05682bdb4ef2633230309b8e4934bee8e1a92f44ffb50d6837dc8e7a5",
+          "sha256": "35f09abf4deb7ad1ad17f7bf07b18337cfbd7be54c88f3ccdd608e85267cb2fc",
+          "sha1": "5f77cad2b35fb8d490a20f22f86a74f655c042ff",
+          "md5": "e01a31540643099c0043bcd127de20e2"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "annotations-27.2.1-sources.jar",
+          "url": "annotations-27.2.1-sources.jar",
+          "size": 13987,
+          "sha512": "8b46457fecab8df849e215b018b0ce6db807579e87209ae4fdbda17064d9335e20024a8ef71622e4a24a9b4b1b9165ce82849677e368ba3d7dd076cdf0f442fb",
+          "sha256": "a971d0d1d83ef477b57bd6f6abe64b46a5e1fa749ea820d334cb725ebd7ba812",
+          "sha1": "81c3c6ef6ef9eccb9b2f50a39b5a3f6b74d276d3",
+          "md5": "750033a4536b3b158b36778092dce6f5"
+        }
+      ]
+    }
+  ]
+}

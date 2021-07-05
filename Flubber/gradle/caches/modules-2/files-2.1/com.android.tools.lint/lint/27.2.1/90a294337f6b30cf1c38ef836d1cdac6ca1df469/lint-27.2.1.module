@@ -1,0 +1,249 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.android.tools.lint",
+    "module": "lint",
+    "version": "27.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.7.1",
+      "buildId": "emdti2vwsvhgvmvmhmgvla6u5i"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.tools.lint",
+          "module": "lint-checks",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.google.guava",
+          "module": "guava",
+          "version": {
+            "requires": "28.1-jre"
+          }
+        },
+        {
+          "group": "com.android.tools.external.org-jetbrains",
+          "module": "uast",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.external.com-intellij",
+          "module": "kotlin-compiler",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.build",
+          "module": "manifest-merger",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.analytics-library",
+          "module": "shared",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.analytics-library",
+          "module": "protos",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.analytics-library",
+          "module": "tracker",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-reflect",
+          "version": {
+            "requires": "1.4.31"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.4.31"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "lint-27.2.1.jar",
+          "url": "lint-27.2.1.jar",
+          "size": 283546,
+          "sha512": "425c0036c5e64764187da000a92ce757d90837f9156fb58d9b45e60cb11250be6a35f299e9b7bfc7440813414dbaff9fc2899bbf55c2cb5d3e8f63293e02f365",
+          "sha256": "6d5d2349e38ec23d129e0a81f138317a33059b62a07db68574fb7ee0e23e4106",
+          "sha1": "d1fdf4b26bf9eb2d5556b7db2fffa4b1c7f43e6f",
+          "md5": "e7336c3da7d5c80484a66129ada6ecbb"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.tools.lint",
+          "module": "lint-checks",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.google.guava",
+          "module": "guava",
+          "version": {
+            "requires": "28.1-jre"
+          }
+        },
+        {
+          "group": "com.android.tools.external.org-jetbrains",
+          "module": "uast",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.external.com-intellij",
+          "module": "kotlin-compiler",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.build",
+          "module": "manifest-merger",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.analytics-library",
+          "module": "shared",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.analytics-library",
+          "module": "protos",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "com.android.tools.analytics-library",
+          "module": "tracker",
+          "version": {
+            "requires": "27.2.1"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-reflect",
+          "version": {
+            "requires": "1.4.31"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib-jdk8",
+          "version": {
+            "requires": "1.4.31"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "lint-27.2.1.jar",
+          "url": "lint-27.2.1.jar",
+          "size": 283546,
+          "sha512": "425c0036c5e64764187da000a92ce757d90837f9156fb58d9b45e60cb11250be6a35f299e9b7bfc7440813414dbaff9fc2899bbf55c2cb5d3e8f63293e02f365",
+          "sha256": "6d5d2349e38ec23d129e0a81f138317a33059b62a07db68574fb7ee0e23e4106",
+          "sha1": "d1fdf4b26bf9eb2d5556b7db2fffa4b1c7f43e6f",
+          "md5": "e7336c3da7d5c80484a66129ada6ecbb"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "lint-27.2.1-javadoc.jar",
+          "url": "lint-27.2.1-javadoc.jar",
+          "size": 46674,
+          "sha512": "a4b1c05d06bfae244d185cd0a7c75bb9937e423eed7db4b9870701d3d62d8fec0fb2d6f26df0ecd6235f85f0ffb928b543d7f455d974c0825144e930bf74a6c0",
+          "sha256": "66dc97144f5b4dfabfdbc79a4e204d2c2361f6ef0335044fd395a1f842de78ed",
+          "sha1": "87c24ced6b42aabbc179ae2ea568558b9bca1b66",
+          "md5": "3b190c2d579193a9799f5e9da607b220"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "lint-27.2.1-sources.jar",
+          "url": "lint-27.2.1-sources.jar",
+          "size": 150890,
+          "sha512": "5b94197b4a4be5e3a7beea20fdf195b4018e2983b2c6f13d6721c9975e928801fb0eae5ad3ed6b8a5202f26fde8e4564c3ce81842df61d7062447543f275038c",
+          "sha256": "219d4b5b507debbf9da53c2ea1e11f70b6dc2fb8fc94e9b3d2a75814ef82c999",
+          "sha1": "c583ed5679c7924bd651d34fb0a4b3a6a003fa0a",
+          "md5": "8d23fa6cb747ed1bd8302bf8e35b32a2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+androidx.activity.Cancellable
+androidx.activity.ComponentActivity
+androidx.activity.ComponentActivity$1
+androidx.activity.ComponentActivity$2
+androidx.activity.ComponentActivity$3
+androidx.activity.ComponentActivity$NonConfigurationInstances
+androidx.activity.ImmLeaksCleaner
+androidx.activity.OnBackPressedCallback
+androidx.activity.OnBackPressedDispatcher
+androidx.activity.OnBackPressedDispatcher$LifecycleOnBackPressedCancellable
+androidx.activity.OnBackPressedDispatcher$OnBackPressedCancellable
+androidx.activity.OnBackPressedDispatcherOwner

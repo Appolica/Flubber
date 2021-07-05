@@ -1,0 +1,119 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.android.tools.build",
+    "module": "aapt2-proto",
+    "version": "4.2.1-7147631",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.7.1",
+      "buildId": "emdti2vwsvhgvmvmhmgvla6u5i"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.google.protobuf",
+          "module": "protobuf-java",
+          "version": {
+            "requires": "3.10.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "aapt2-proto-4.2.1-7147631.jar",
+          "url": "aapt2-proto-4.2.1-7147631.jar",
+          "size": 673861,
+          "sha512": "89c2d52b9be94b9b8c3e796b45123a52a3c4aca3806e409c6e7f1d1b257160699b5f84383fb2e2413dcc20e96311beb516f89c0f54d067ad7a6814fe86ad7101",
+          "sha256": "1c315f59f7f9a1f0b479d59682880e6c6968bd7df41ddac4cc30b6c16e31b8b5",
+          "sha1": "5b444efbd34ad1dc57615030de678423d6df7bf7",
+          "md5": "71599b12725f8a7aaed120af50657ea7"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.google.protobuf",
+          "module": "protobuf-java",
+          "version": {
+            "requires": "3.10.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "aapt2-proto-4.2.1-7147631.jar",
+          "url": "aapt2-proto-4.2.1-7147631.jar",
+          "size": 673861,
+          "sha512": "89c2d52b9be94b9b8c3e796b45123a52a3c4aca3806e409c6e7f1d1b257160699b5f84383fb2e2413dcc20e96311beb516f89c0f54d067ad7a6814fe86ad7101",
+          "sha256": "1c315f59f7f9a1f0b479d59682880e6c6968bd7df41ddac4cc30b6c16e31b8b5",
+          "sha1": "5b444efbd34ad1dc57615030de678423d6df7bf7",
+          "md5": "71599b12725f8a7aaed120af50657ea7"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "aapt2-proto-4.2.1-7147631-javadoc.jar",
+          "url": "aapt2-proto-4.2.1-7147631-javadoc.jar",
+          "size": 261,
+          "sha512": "5e7375cfcaf56559e5895ffc95c754ed73e04cda8f97dffcc73b1eae0205027f3a38e557acb0a53f6b23d7945dc137608ba856596cb7a8b9cb4e77b78a1ad156",
+          "sha256": "7185a6643346cebd70c34401e9d2ac42437864fb07fa26ad24ffd342beb7c175",
+          "sha1": "e84b9eb65ec76819cb85786ed2e243c246dd2736",
+          "md5": "e20b02ca6e3aa2e779719b561603b1ee"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "aapt2-proto-4.2.1-7147631-sources.jar",
+          "url": "aapt2-proto-4.2.1-7147631-sources.jar",
+          "size": 181337,
+          "sha512": "577c6485844b9a15004cac7465a0e86a6906651c8a883a837b8ae3f29fe71cbbff95b1cfdc7442856aae4d8d9b8a6107a7d6e10e4c11b7a4a6253275ab2c5065",
+          "sha256": "d26ff2565ccf0088e6b880af0f9f09251dc70d9eadaac17906442a87faa452fb",
+          "sha1": "6e2627990f201ea63e2ece1c191213d5ee9aa9a9",
+          "md5": "e38fa646e294942348a5769f4eac2c61"
+        }
+      ]
+    }
+  ]
+}

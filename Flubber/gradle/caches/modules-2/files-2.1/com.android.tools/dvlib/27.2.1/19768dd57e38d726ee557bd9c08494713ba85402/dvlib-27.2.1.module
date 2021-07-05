@@ -1,0 +1,119 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.android.tools",
+    "module": "dvlib",
+    "version": "27.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.7.1",
+      "buildId": "emdti2vwsvhgvmvmhmgvla6u5i"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.tools",
+          "module": "common",
+          "version": {
+            "requires": "27.2.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "dvlib-27.2.1.jar",
+          "url": "dvlib-27.2.1.jar",
+          "size": 41128,
+          "sha512": "dc727b864e4a5d6e82586188c36a26041fd9056c90be6555510353f1bc34ef9497b8c44e647eac226ef4d330277a58c15da299db3b26b9353a15710feadf00d1",
+          "sha256": "00d012a78bc785327cea1c531332eee99c71e5746257dd006fb5793344caf2cd",
+          "sha1": "f65e54f58c599151d934f5477c89c2ab267a79c5",
+          "md5": "5282a74b447cc81f1f161480e7b9b352"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.android.tools",
+          "module": "common",
+          "version": {
+            "requires": "27.2.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "dvlib-27.2.1.jar",
+          "url": "dvlib-27.2.1.jar",
+          "size": 41128,
+          "sha512": "dc727b864e4a5d6e82586188c36a26041fd9056c90be6555510353f1bc34ef9497b8c44e647eac226ef4d330277a58c15da299db3b26b9353a15710feadf00d1",
+          "sha256": "00d012a78bc785327cea1c531332eee99c71e5746257dd006fb5793344caf2cd",
+          "sha1": "f65e54f58c599151d934f5477c89c2ab267a79c5",
+          "md5": "5282a74b447cc81f1f161480e7b9b352"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "dvlib-27.2.1-javadoc.jar",
+          "url": "dvlib-27.2.1-javadoc.jar",
+          "size": 26410,
+          "sha512": "7b775b578e0ab6c29307bdea3e50aee6ecf14bcad729397b31f8fc9ebee573d7aed95739ea32917b7bb5f8f227a9cb9a7d8cc966887d0d496770cbece6a3a195",
+          "sha256": "e35939df2881aa92ef589fd44101e66efe05d026a0f666eba9b3da962bcfec3f",
+          "sha1": "18b3b913268ad4d89ecab05cedd2cda6732064f7",
+          "md5": "6df4b3f60428c80de8b020d8a7d5aa34"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "dvlib-27.2.1-sources.jar",
+          "url": "dvlib-27.2.1-sources.jar",
+          "size": 38460,
+          "sha512": "f934e214c39ecda99e0b868a6fc7ed5ff7132dda955f88510ed21dd9a82ce0664e6f61ab89121d56999e31cdb2741b9d3d3cc705ce38b6aec5474e175213dc00",
+          "sha256": "e3a33a172ae4bc8f9976159998ba2d76e90c9c0ee4454182da8d38f35d26ae32",
+          "sha1": "c81b52a674911ef7f71a14a9c5c05470cbbd226e",
+          "md5": "4b9433fdb4ed7a83c8b2043f614b3fb8"
+        }
+      ]
+    }
+  ]
+}

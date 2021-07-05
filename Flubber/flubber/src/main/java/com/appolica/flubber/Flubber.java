@@ -13,7 +13,11 @@ import com.appolica.flubber.animation.providers.FadeInLeft;
 import com.appolica.flubber.animation.providers.FadeInRight;
 import com.appolica.flubber.animation.providers.FadeInUp;
 import com.appolica.flubber.animation.providers.FadeOut;
+import com.appolica.flubber.animation.providers.FadeOutDown;
 import com.appolica.flubber.animation.providers.FadeOutIn;
+import com.appolica.flubber.animation.providers.FadeOutLeft;
+import com.appolica.flubber.animation.providers.FadeOutRight;
+import com.appolica.flubber.animation.providers.FadeOutUp;
 import com.appolica.flubber.animation.providers.Fall;
 import com.appolica.flubber.animation.providers.Flash;
 import com.appolica.flubber.animation.providers.FlipX;
@@ -26,6 +30,10 @@ import com.appolica.flubber.animation.providers.ScaleY;
 import com.appolica.flubber.animation.providers.Shake;
 import com.appolica.flubber.animation.providers.SlideDown;
 import com.appolica.flubber.animation.providers.SlideLeft;
+import com.appolica.flubber.animation.providers.SlideOutDown;
+import com.appolica.flubber.animation.providers.SlideOutLeft;
+import com.appolica.flubber.animation.providers.SlideOutRight;
+import com.appolica.flubber.animation.providers.SlideOutUp;
 import com.appolica.flubber.animation.providers.SlideRight;
 import com.appolica.flubber.animation.providers.SlideUp;
 import com.appolica.flubber.animation.providers.Squeeze;
@@ -91,9 +99,13 @@ public class Flubber {
 
     public static enum AnimationPreset implements AnimationProvider {
         SLIDE_LEFT,
+        SLIDE_OUT_LEFT,
         SLIDE_RIGHT,
+        SLIDE_OUT_RIGHT,
         SLIDE_DOWN,
+        SLIDE_OUT_DOWN,
         SLIDE_UP,
+        SLIDE_OUT_UP,
         SQUEEZE_LEFT,
         SQUEEZE_RIGHT,
         SQUEEZE_DOWN,
@@ -102,9 +114,13 @@ public class Flubber {
         FADE_OUT,
         FADE_OUT_IN,
         FADE_IN_LEFT,
+        FADE_OUT_LEFT,
         FADE_IN_RIGHT,
+        FADE_OUT_RIGHT,
         FADE_IN_DOWN,
+        FADE_OUT_DOWN,
         FADE_IN_UP,
+        FADE_OUT_UP,
         ZOOM_IN,
         ZOOM_OUT,
         FALL,
@@ -128,9 +144,13 @@ public class Flubber {
 
         static {
             providers.put(SLIDE_LEFT, new SlideLeft());
+            providers.put(SLIDE_OUT_LEFT, new SlideOutLeft());
             providers.put(SLIDE_RIGHT, new SlideRight());
+            providers.put(SLIDE_OUT_RIGHT, new SlideOutRight());
             providers.put(SLIDE_DOWN, new SlideDown());
+            providers.put(SLIDE_OUT_DOWN, new SlideOutDown());
             providers.put(SLIDE_UP, new SlideUp());
+            providers.put(SLIDE_OUT_UP, new SlideOutUp());
             providers.put(SQUEEZE_LEFT, new SqueezeLeft());
             providers.put(SQUEEZE_RIGHT, new SqueezeRight());
             providers.put(SQUEEZE_DOWN, new SqueezeDown());
@@ -139,9 +159,13 @@ public class Flubber {
             providers.put(FADE_OUT, new FadeOut());
             providers.put(FADE_OUT_IN, new FadeOutIn());
             providers.put(FADE_IN_LEFT, new FadeInLeft());
+            providers.put(FADE_OUT_LEFT, new FadeOutLeft());
             providers.put(FADE_IN_RIGHT, new FadeInRight());
+            providers.put(FADE_OUT_RIGHT, new FadeOutRight());
             providers.put(FADE_IN_DOWN, new FadeInDown());
+            providers.put(FADE_OUT_DOWN, new FadeOutDown());
             providers.put(FADE_IN_UP, new FadeInUp());
+            providers.put(FADE_OUT_UP, new FadeOutUp());
             providers.put(ZOOM_IN, new ZoomIn());
             providers.put(ZOOM_OUT, new ZoomOut());
             providers.put(FALL, new Fall());

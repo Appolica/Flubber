@@ -1,0 +1,174 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "androidx.appcompat",
+    "module": "appcompat",
+    "version": "1.2.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.3",
+      "buildId:": "6715230"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "androidx.core",
+          "module": "core",
+          "version": {
+            "requires": "1.3.0"
+          }
+        },
+        {
+          "group": "androidx.cursoradapter",
+          "module": "cursoradapter",
+          "version": {
+            "requires": "1.0.0"
+          }
+        },
+        {
+          "group": "androidx.fragment",
+          "module": "fragment",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat-resources",
+          "version": {
+            "requires": "1.2.0"
+          }
+        },
+        {
+          "group": "androidx.drawerlayout",
+          "module": "drawerlayout",
+          "version": {
+            "requires": "1.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "appcompat-1.2.0.aar",
+          "url": "appcompat-1.2.0.aar",
+          "size": 1109871,
+          "sha512": "bcabce7760dce5fbcf931616ed250783bbd9895dbbd385807f0eb8c473b47e7d9586addc668dd4da7238129adfc0f0480303ce2b986912b79b408843d36e7e7c",
+          "sha256": "3d2131a55a61a777322e2126e0018011efa6339e53b44153eb651b16020cca70",
+          "sha1": "6487c8711252a8680baaa854247141cc1d2098f4",
+          "md5": "f867895f07fa53e100f5de03da7fa412"
+        }
+      ]
+    },
+    {
+      "name": "releaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.annotation",
+          "module": "annotation",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "androidx.core",
+          "module": "core",
+          "version": {
+            "requires": "1.3.0"
+          }
+        },
+        {
+          "group": "androidx.cursoradapter",
+          "module": "cursoradapter",
+          "version": {
+            "requires": "1.0.0"
+          }
+        },
+        {
+          "group": "androidx.fragment",
+          "module": "fragment",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat-resources",
+          "version": {
+            "requires": "1.2.0"
+          }
+        },
+        {
+          "group": "androidx.drawerlayout",
+          "module": "drawerlayout",
+          "version": {
+            "requires": "1.0.0"
+          }
+        },
+        {
+          "group": "androidx.collection",
+          "module": "collection",
+          "version": {
+            "requires": "1.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "appcompat-1.2.0.aar",
+          "url": "appcompat-1.2.0.aar",
+          "size": 1109871,
+          "sha512": "bcabce7760dce5fbcf931616ed250783bbd9895dbbd385807f0eb8c473b47e7d9586addc668dd4da7238129adfc0f0480303ce2b986912b79b408843d36e7e7c",
+          "sha256": "3d2131a55a61a777322e2126e0018011efa6339e53b44153eb651b16020cca70",
+          "sha1": "6487c8711252a8680baaa854247141cc1d2098f4",
+          "md5": "f867895f07fa53e100f5de03da7fa412"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "appcompat-1.2.0-sources.jar",
+          "url": "appcompat-1.2.0-sources.jar",
+          "size": 453872,
+          "sha512": "27fb683dafae4e2b8dfe8376235bcfe0820f30d8ec71c23ec97627a0358e4f3887e2658305b4e0f290ba3ee66af88ca5e90299ad7d3ccf393b023950681b50e0",
+          "sha256": "5c7408a4894d4d6c713c18bf53e724091d46e44a22ed9ea6275c8bb97f6dc9f3",
+          "sha1": "13e8ff89631c2e101eb6bddd12c2fb4bbd74b15d",
+          "md5": "0976ea19da9c371c0e575d4b1d222392"
+        }
+      ]
+    }
+  ]
+}

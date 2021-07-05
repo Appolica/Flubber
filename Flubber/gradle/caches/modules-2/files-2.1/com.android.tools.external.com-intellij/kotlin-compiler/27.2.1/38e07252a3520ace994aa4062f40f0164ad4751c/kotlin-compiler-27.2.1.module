@@ -1,0 +1,101 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.android.tools.external.com-intellij",
+    "module": "kotlin-compiler",
+    "version": "27.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.7.1",
+      "buildId": "emdti2vwsvhgvmvmhmgvla6u5i"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "files": [
+        {
+          "name": "kotlin-compiler-27.2.1.jar",
+          "url": "kotlin-compiler-27.2.1.jar",
+          "size": 35150935,
+          "sha512": "c530074184a25bca23c19fbe17cfda425b8134bba9d67696e3468d2179b31a1b7b7e2e0d85b7c9bae4de5c693c5e0afc579383056ae9752f2d909e87f8f9cead",
+          "sha256": "a999511f7838e654b9346e311d68c983f70c8677481ec0334fc630ff717e7326",
+          "sha1": "57cc79f4b094ba497077a98bde72de8953b6c947",
+          "md5": "1b026b1f46d1319ad5d551e1e794320d"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "kotlin-compiler-27.2.1.jar",
+          "url": "kotlin-compiler-27.2.1.jar",
+          "size": 35150935,
+          "sha512": "c530074184a25bca23c19fbe17cfda425b8134bba9d67696e3468d2179b31a1b7b7e2e0d85b7c9bae4de5c693c5e0afc579383056ae9752f2d909e87f8f9cead",
+          "sha256": "a999511f7838e654b9346e311d68c983f70c8677481ec0334fc630ff717e7326",
+          "sha1": "57cc79f4b094ba497077a98bde72de8953b6c947",
+          "md5": "1b026b1f46d1319ad5d551e1e794320d"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "kotlin-compiler-27.2.1-javadoc.jar",
+          "url": "kotlin-compiler-27.2.1-javadoc.jar",
+          "size": 19256,
+          "sha512": "d74d1b695f05ccc68966b0a224f4907530e4293eb0c87efd8a9ec54aa56a23e4f21f0382c03a408964cb5de849b29c7a0b2dbbab5d364d5f99eeaba555b97a28",
+          "sha256": "4c1ba9f3b220fa1ddef0b3761d8947605ac31a6d6717b9c7ed714678a1cb3d0a",
+          "sha1": "2a6f2ed9aba47f071f3fbc043b82e55c63393d69",
+          "md5": "1554516ef22e67da055a866194d1000c"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "kotlin-compiler-27.2.1-sources.jar",
+          "url": "kotlin-compiler-27.2.1-sources.jar",
+          "size": 2341659,
+          "sha512": "6569bb2538141499b7eef84f67442c31181b2ea1af50238baa9ea4028caa7747f17e80c3f7fa474eef3abdd65876479c30fcf603f20526e391423cfab88161ab",
+          "sha256": "e4ee031723ac97bd7b8dabe0ffb94d813d62ab6253e4d0c366aaef4a095e5fdd",
+          "sha1": "780a46142f4592b8e9a45a43a83217688a505f77",
+          "md5": "5e0a5ef2e245b00ef793891492167eb4"
+        }
+      ]
+    }
+  ]
+}

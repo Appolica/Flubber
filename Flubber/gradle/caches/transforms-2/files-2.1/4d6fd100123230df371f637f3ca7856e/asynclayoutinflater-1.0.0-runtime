@@ -1,0 +1,6 @@
+androidx.asynclayoutinflater.view.AsyncLayoutInflater
+androidx.asynclayoutinflater.view.AsyncLayoutInflater$1
+androidx.asynclayoutinflater.view.AsyncLayoutInflater$BasicInflater
+androidx.asynclayoutinflater.view.AsyncLayoutInflater$InflateRequest
+androidx.asynclayoutinflater.view.AsyncLayoutInflater$InflateThread
+androidx.asynclayoutinflater.view.AsyncLayoutInflater$OnInflateFinishedListener

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- From: file:/home/adw/android/new_adw/discreteSeekbar/library/src/main/res/values/styles.xml -->
+    <eat-comment/>
+    <color name="dsb_disabled_color">#66939393</color>
+    <color name="dsb_progress_color">#ff009688</color>
+    <color name="dsb_ripple_color_focused">#99999999</color>
+    <color name="dsb_ripple_color_pressed">#77939393</color>
+    <color name="dsb_track_color">#ff939393</color>
+    <declare-styleable name="DiscreteSeekBar"><attr format="integer|dimension" name="dsb_min"/><attr format="integer|dimension" name="dsb_max"/><attr format="integer|dimension" name="dsb_value"/><attr format="boolean" name="dsb_mirrorForRtl"/><attr format="boolean" name="dsb_allowTrackClickToDrag"/><attr format="color|reference" name="dsb_progressColor"/><attr format="color|reference" name="dsb_trackColor"/><attr format="reference" name="dsb_indicatorTextAppearance"/><attr format="color|reference" name="dsb_indicatorColor"/><attr format="dimension" name="dsb_indicatorElevation"/><attr format="string|reference" name="dsb_indicatorFormatter"/><attr format="color|reference" name="dsb_rippleColor"/><attr format="boolean" name="dsb_indicatorPopupEnabled"/><attr format="integer|dimension" name="dsb_trackHeight"/><attr format="integer|dimension" name="dsb_scrubberHeight"/><attr format="integer|dimension" name="dsb_thumbSize"/><attr format="integer|dimension" name="dsb_indicatorSeparation"/></declare-styleable>
+    <declare-styleable name="Theme"><attr format="reference" name="discreteSeekBarStyle"/></declare-styleable>
+    <style name="Widget.DiscreteIndicatorTextAppearance" parent="android:TextAppearance.Small">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:padding">6dp</item>
+    </style>
+    <style name="Widget.DiscreteSeekBar" parent="android:Widget">
+        <item name="dsb_indicatorTextAppearance">@style/Widget.DiscreteIndicatorTextAppearance</item>
+        <item name="dsb_progressColor">@color/dsb_progress_color_list</item>
+        <item name="dsb_trackColor">@color/dsb_track_color_list</item>
+        <item name="dsb_rippleColor">@color/dsb_ripple_color_list</item>
+        <item name="dsb_indicatorColor">@color/dsb_progress_color</item>
+        <item name="dsb_indicatorElevation">4dp</item>
+        <item name="dsb_mirrorForRtl">true</item>
+    </style>
+</resources>

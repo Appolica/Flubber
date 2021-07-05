@@ -1,0 +1,9 @@
+androidx.slidingpanelayout.widget.SlidingPaneLayout
+androidx.slidingpanelayout.widget.SlidingPaneLayout$AccessibilityDelegate
+androidx.slidingpanelayout.widget.SlidingPaneLayout$DisableLayerRunnable
+androidx.slidingpanelayout.widget.SlidingPaneLayout$DragHelperCallback
+androidx.slidingpanelayout.widget.SlidingPaneLayout$LayoutParams
+androidx.slidingpanelayout.widget.SlidingPaneLayout$PanelSlideListener
+androidx.slidingpanelayout.widget.SlidingPaneLayout$SavedState
+androidx.slidingpanelayout.widget.SlidingPaneLayout$SavedState$1
+androidx.slidingpanelayout.widget.SlidingPaneLayout$SimplePanelSlideListener

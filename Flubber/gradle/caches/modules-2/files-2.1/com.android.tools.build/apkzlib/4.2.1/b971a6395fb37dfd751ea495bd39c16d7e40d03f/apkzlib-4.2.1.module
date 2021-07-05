@@ -1,0 +1,175 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.android.tools.build",
+    "module": "apkzlib",
+    "version": "4.2.1",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.7.1",
+      "buildId": "emdti2vwsvhgvmvmhmgvla6u5i"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "com.google.code.findbugs",
+          "module": "jsr305",
+          "version": {
+            "requires": "1.3.9"
+          }
+        },
+        {
+          "group": "com.google.guava",
+          "module": "guava",
+          "version": {
+            "requires": "23.0"
+          }
+        },
+        {
+          "group": "org.bouncycastle",
+          "module": "bcpkix-jdk15on",
+          "version": {
+            "requires": "1.56"
+          }
+        },
+        {
+          "group": "org.bouncycastle",
+          "module": "bcprov-jdk15on",
+          "version": {
+            "requires": "1.56"
+          }
+        },
+        {
+          "group": "com.android.tools.build",
+          "module": "apksig",
+          "version": {
+            "requires": "4.2.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "apkzlib-4.2.1.jar",
+          "url": "apkzlib-4.2.1.jar",
+          "size": 204415,
+          "sha512": "6f05bbbe86e8686725945e842e8aaefbe7f943504ed82cfa1e3fa3730f8fe05584532a682dd9a563b5dee456a931eb055aa17b12fdacc70f1efe88bd3efc29c8",
+          "sha256": "3278f75167831fab7108f181f9aee89b2fde7d4c630d553ddee30f275701a0ba",
+          "sha1": "a19c241e678e42a5bc3ff3a206c76f8438a3f4db",
+          "md5": "1682371408feea87f9db8eb242134351"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "com.google.code.findbugs",
+          "module": "jsr305",
+          "version": {
+            "requires": "1.3.9"
+          }
+        },
+        {
+          "group": "com.google.guava",
+          "module": "guava",
+          "version": {
+            "requires": "23.0"
+          }
+        },
+        {
+          "group": "org.bouncycastle",
+          "module": "bcpkix-jdk15on",
+          "version": {
+            "requires": "1.56"
+          }
+        },
+        {
+          "group": "org.bouncycastle",
+          "module": "bcprov-jdk15on",
+          "version": {
+            "requires": "1.56"
+          }
+        },
+        {
+          "group": "com.android.tools.build",
+          "module": "apksig",
+          "version": {
+            "requires": "4.2.1"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "apkzlib-4.2.1.jar",
+          "url": "apkzlib-4.2.1.jar",
+          "size": 204415,
+          "sha512": "6f05bbbe86e8686725945e842e8aaefbe7f943504ed82cfa1e3fa3730f8fe05584532a682dd9a563b5dee456a931eb055aa17b12fdacc70f1efe88bd3efc29c8",
+          "sha256": "3278f75167831fab7108f181f9aee89b2fde7d4c630d553ddee30f275701a0ba",
+          "sha1": "a19c241e678e42a5bc3ff3a206c76f8438a3f4db",
+          "md5": "1682371408feea87f9db8eb242134351"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "apkzlib-4.2.1-javadoc.jar",
+          "url": "apkzlib-4.2.1-javadoc.jar",
+          "size": 300653,
+          "sha512": "346334fa9f9b29101129964f05c6db546037d0ff31f98b70eae2e3041a14040edfadc3ac82429263ec55c76340f2618b78f748c99b88336656b682d65a14092b",
+          "sha256": "404a9f3ee050e3354d4a12c7527e6375378c8641a449c5e74ca84becd369003f",
+          "sha1": "b66b47ccece0bc04ba6ecabd0cc92a5e3cb10f13",
+          "md5": "22eb005b9ae1759e03978fdcd9653ac4"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "apkzlib-4.2.1-sources.jar",
+          "url": "apkzlib-4.2.1-sources.jar",
+          "size": 175631,
+          "sha512": "88aeb5150b8e82e15b92c564dcbd5ed70d9eeb2ae02180fe2e6940e41e8f1b6413a13f71a07e1af8bfc5e0753d6a783d4f9bc909b4176661fc40f6f9b3bdfd18",
+          "sha256": "888a7383c446a1d1744ee332d8ef421f3582f8d9af2db9cde8b2f5ccafa24218",
+          "sha1": "fc3dbe7fb0a9fb697d47e27a7c80877b8186d78c",
+          "md5": "fcf95cba1d5f67cadf0b9ae16fb1be16"
+        }
+      ]
+    }
+  ]
+}
